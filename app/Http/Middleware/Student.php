@@ -16,9 +16,16 @@ class Student
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->user()->role->user_role_name) {
+        if (auth()->user()->role->user_role_name == "student") {
             return $next($request);
         }
+        else if(auth()->user()->role->user_role_name == "admin"){
+            return redirect('admin/home');
+        }
+        else if(auth()->user()->role->user_role_name == "lecturer"){
+            return redirect('lecturer/home');
+        }else{
         return response()->json('You are not allowed to access');
+        }
     }
 }

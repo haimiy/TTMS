@@ -34,6 +34,9 @@
     <link rel="stylesheet" href="{{ asset('assets/vendor/morris/morris.css') }}" />
 
     <!-- Specific Page Vendor CSS -->
+		<link rel="stylesheet" href="assets/vendor/pnotify/pnotify.custom.css" />
+
+    <!-- Specific Page Vendor CSS -->
     <link rel="stylesheet" href="{{ asset('assets/vendor/select2/select2.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/jquery-datatables-bs3/assets/css/datatables.css') }}" />
 
@@ -67,7 +70,7 @@
         <header class="header">
             <div class="logo-container">
                 <a href="../" class="logo">
-                    <img src="{{ asset('assets/images/logo.jpg') }}" height="35" alt="JSOFT Admin" />
+                    <img src="{{ asset('assets/images/logo2.png') }}" height="35" alt="JSOFT Admin" />
                 </a>
                 <div class="visible-xs toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html"
                     data-fire-event="sidebar-left-opened">
@@ -298,7 +301,7 @@
                                         class="fa fa-user"></i> My Profile</a>
                             </li>
                             <li>
-                                <a role="menuitem" tabindex="-1" href="#" data-lock-screen="true"><i
+                                <a role="menuitem" tabindex="-1" href="/lock" data-lock-screen="false"><i
                                         class="fa fa-lock"></i> Lock Screen</a>
                             </li>
                             <li>
@@ -517,8 +520,13 @@
                                 $('span.'+prefix+'_error').text(val[0]);
                             });
                         }else{
-                            $('#UserForm')[0].reset();
-                            alert(data.msg);
+                            // $('#UserForm')[0].reset();
+                            new PNotify({
+                                title: 'Updated',
+                                text: data.msg,
+                                type: 'success',
+                                addclass: 'icon-nb'
+                            });
                         }
                     }
                 });

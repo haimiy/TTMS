@@ -111,7 +111,7 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="profileCompany">Gender</label>
                                     <div class="col-md-8">
-                                        <input type="text" value="{{ Auth::user()->gender}}" class="form-control" name="gender">
+                                        <input type="text" value="{{ Auth::user()->gender}}" class="form-control" id="gender" name="gender">
                                     </div>
                                 </div>
                                 <span class="text-danger error-text gender_error"></span>

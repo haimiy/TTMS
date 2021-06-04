@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\LockScreen;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,23 +17,40 @@ use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('auth.login');
-});
-Route::get('admin/class', function(){
-    return view('admin.class');
-});
-Route::get('lecturer/home', function(){
-    return view('lecturers.home');
-});
-Route::get('student/home', function(){
-    return view('students.home');
-});
-Route::get('profile', function(){
-    return view('profile');
-});
-Route::get('admin/home',[UserController::class, 'index']);
-Route::post('update_profile',[UserController::class, 'updateProfile'])->name('updateProfileUser');
+})->middleware('guest');
 Auth::routes();
 Auth::routes(['register' => false]);
 
-Route::get('/logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout']);
+Route::middleware(['auth'])->group(function(){
 
+    Route::get('admin/home',[UserController::class, 'index'])->middleware('admin');
+    Route::middleware('auth')->group(function(){
+        Route::get('admin/class', function(){
+            return view('admin.class');
+        });
+    });
+
+    Route::middleware('auth')->group(function(){
+        Route::get('lecturer/home', function(){
+            return view('lecturers.home');
+        })->middleware('lecturer');
+        Route::get('lecturer/master/home', function(){
+            return view('lecturers.master.home');
+        })->middleware('master');
+    });
+
+    Route::middleware('auth')->group(function(){
+        Route::get('student/home', function(){
+            return view('students.home');
+        })->middleware('student');
+
+    });
+
+    Route::get('profile', function(){
+        return view('profile');
+    });
+    Route::get('lock',[LockScreen::class, 'lock_screen']);
+   
+    Route::post('update_profile',[UserController::class, 'updateProfile'])->name('updateProfileUser');
+    Route::get('/logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout']);
+});
