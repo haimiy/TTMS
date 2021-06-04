@@ -21,15 +21,21 @@ Route::get('/', function () {
 Auth::routes();
 Auth::routes(['register' => false]);
 
+// Authenticated User group
 Route::middleware(['auth'])->group(function(){
 
-    Route::get('admin/home',[UserController::class, 'index'])->middleware('admin');
-    Route::middleware('auth')->group(function(){
+    
+    //Admin authorization group
+    Route::middleware('admin')->group(function(){
+
         Route::get('admin/class', function(){
             return view('admin.class');
         });
+        Route::get('admin/home',[UserController::class, 'index']);
     });
+    //Admin authorization group End
 
+    
     Route::middleware('auth')->group(function(){
         Route::get('lecturer/home', function(){
             return view('lecturers.home');
