@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class Lecturer
+class MasterMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,10 +17,9 @@ class Lecturer
     public function handle(Request $request, Closure $next)
     {
         if (auth()->user()->role->user_role_name == "lecturer") {
-            if (auth()->user()->lecturer->lecturer_role->lecturer_role_name == "coordinator")
-                return redirect('lecturer/cordinator/home');
-            if (auth()->user()->lecturer->lecturer_role->lecturer_role_name == "master") 
-                return redirect('lecturer/master/home');
+            if (auth()->user()->lecturer->lecturer_role->lecturer_role_name != "master") {
+                return redirect('lecturer/home');
+            }
             return $next($request);
         }
         else if(auth()->user()->role->user_role_name == "admin"){

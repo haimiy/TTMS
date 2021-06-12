@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('side_bar')
-    @include('admin.layouts.side_bar')
+    @include('lecturers.master.layouts.side_bar')
 @endsection
 @section('content')
 <header class="page-header">
@@ -20,11 +20,8 @@
         <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
     </div>
 </header>
-
-
-<!-- start: page -->
-
-<section class="panel">
+ <!-- start: page -->
+ <section class="panel">
 
     <div class="panel-body">
         <a class="mb-xs mt-xs mr-xs modal-basic btn btn-primary" href="#modalHeaderColorPrimary"><i
@@ -35,47 +32,29 @@
             <thead>
                 <tr style="background-color :#34495e; color:white;">
                     <th>#</th>
-                    <th>Rendering engine</th>
-                    <th>Browser</th>
-                    <th>Platform(s)</th>
-                    <th class="hidden-phone">Engine version</th>
-                    <th class="hidden-phone">CSS grade</th>
+                    <th>Class Name</th>
+                    <th>Class Size</th>
+                    {{-- <th class="hidden-phone">Engine version</th>
+                    <th class="hidden-phone">CSS grade</th> --}}
                     <th>Action</th>
                 </tr>
             </thead>
+
+            @foreach ($classes as $class)      
             <tbody>
-                <tr class="gradeX">
-                    <td>1</td>
-                    <td>Trident</td>
-                    <td>Internet
-                        Explorer 4.0
-                    </td>
-                    <td>Win 95+</td>
-                    <td class="center hidden-phone">4</td>
-                    <td class="center hidden-phone">X</td>
+                <tr>
+                    <td>{{ $class->id }}</td>
+                    <td>{{ $class->class_name }}</td>
+                    <td>{{ $class->class_size }}</td>
                     <td class="actions">
                         <a href=""><i class="fa fa-eye"></i></a>
                         <a href=""><i class="fa fa-pencil"></i></a>
                         <a href="" class="delete-row"><i class="fa fa-trash-o"></i></a>
                     </td>
-                </tr>
-
-                <tr class="gradeA">
-                    <td>2</td>
-                    <td>Gecko</td>
-                    <td>Firefox 3.0</td>
-                    <td>Win 2k+ / OSX.3+</td>
-                    <td class="center hidden-phone">1.9</td>
-                    <td class="center hidden-phone">A</td>
-                    <td class="actions">
-                        <a href=""><i class="fa fa-eye"></i></a>
-                        <a href=""><i class="fa fa-pencil"></i></a>
-                        <a href="" class="delete-row"><i class="fa fa-trash-o"></i></a>
-                    </td>
-                </tr>
-
-
+                 </tr>
             </tbody>
+            @endforeach
+
         </table>
     </div>
 </section>
@@ -183,12 +162,12 @@
 </div>
 @endsection
 @section('script')
-    <!-- Examples -->
-    <script src="{{ asset('assets/javascripts/tables/examples.datatables.default.js') }}"></script>
-    <script src="{{ asset('assets/javascripts/tables/examples.datatables.row.with.details.js') }}"></script>
-    <script src="{{ asset('assets/javascripts/tables/examples.datatables.tabletools.js') }}"></script>
-    <!-- Examples -->
-    <script src="{{ asset('assets/javascripts/ui-elements/examples.modals.js') }}"></script>
-    <!-- Examples -->
-    <script src="{{ asset('assets/javascripts/forms/examples.wizard.js') }}"></script>
+<!-- Examples -->
+<script src="{{ asset('assets/javascripts/tables/examples.datatables.default.js') }}"></script>
+<script src="{{ asset('assets/javascripts/tables/examples.datatables.row.with.details.js') }}"></script>
+<script src="{{ asset('assets/javascripts/tables/examples.datatables.tabletools.js') }}"></script>
+<!-- Examples -->
+<script src="{{ asset('assets/javascripts/ui-elements/examples.modals.js') }}"></script>
+<!-- Examples -->
+<script src="{{ asset('assets/javascripts/forms/examples.wizard.js') }}"></script>
 @endsection

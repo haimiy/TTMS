@@ -3,6 +3,10 @@
 use App\Http\Controllers\LockScreen;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\TimeTableController;
+use App\Http\Controllers\ClassController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +22,8 @@ use App\Http\Controllers\UserController;
 Route::get('/', function () {
     return view('auth.login');
 })->middleware('guest');
+Route::get('timetable',[TimeTableController::class, 'timetable']);
+
 Auth::routes();
 Auth::routes(['register' => false]);
 
@@ -26,35 +32,53 @@ Route::middleware(['auth'])->group(function(){
 
     
     //Admin authorization group
-    Route::middleware('admin')->group(function(){
+    Route::prefix('admin')->middleware('admin')->group(function(){
 
-        Route::get('admin/class', function(){
+        Route::get('class', function(){
             return view('admin.class');
         });
-        Route::get('admin/home',[UserController::class, 'index']);
+        Route::get('home',[UserController::class, 'index']);
+        Route::get('profile', function(){
+            return view('admin.profile');
+        });
     });
     //Admin authorization group End
-
-    
-    Route::middleware('auth')->group(function(){
-        Route::get('lecturer/home', function(){
+  
+    //Lecturers authorization group
+    Route::prefix("lecturer")->middleware('lecturer')->group(function(){
+        Route::get('home', function(){
             return view('lecturers.home');
-        })->middleware('lecturer');
-        Route::get('lecturer/master/home', function(){
-            return view('lecturers.master.home');
-        })->middleware('master');
+        });
+        Route::get('profile', function(){
+            return view('lecturer.profile');
+        });
     });
+      //Lecurers authorization group End
 
-    Route::middleware('auth')->group(function(){
+    Route::prefix('master')->middleware(['master'])->group(function () {
+        Route::get('home', function(){
+            return view('lecturers.master.home');
+        });
+        Route::get('profile', function(){
+            return view('lecturers.master.profile');
+        });
+        Route::get('class',[ClassController::class, 'index']);
+
+    });
+    
+    Route::get('coordinator/home', function(){
+        return view('lecturers.coordinator.home');
+    })->middleware('coordinator');
+
+     //Students authorization group
+    Route::middleware('student')->group(function(){
         Route::get('student/home', function(){
             return view('students.home');
         })->middleware('student');
 
     });
+     //Studnets authorization group END
 
-    Route::get('profile', function(){
-        return view('profile');
-    });
     Route::get('lock',[LockScreen::class, 'lock_screen']);
    
     Route::post('update_profile',[UserController::class, 'updateProfile'])->name('updateProfileUser');

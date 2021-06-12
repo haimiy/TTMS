@@ -1,8 +1,8 @@
-@extends('layouts.app')
-
+@extends('layouts.main')
+@section('side_bar')
+    @include('admin.layouts.side_bar')
+@endsection
 @section('content')
-
-    <section role="main" class="content-body">
         <header class="page-header">
             <h2>Dashboard</h2>
 
@@ -75,11 +75,9 @@
                 </div>
             </div>
  <!-- end: page -->
-
-
 @endsection
-    @section('script')
-        <!-- Examples -->
-        <script src="{{ asset('assets/javascripts/dashboard/examples.dashboard.js') }}"></script>
-        </body>
-    @endsection
+@section('script')
+    <!-- Examples -->
+    <script src="{{ asset('assets/javascripts/dashboard/examples.dashboard.js') }}"></script>
+    </body>
+@endsection

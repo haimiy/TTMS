@@ -26,7 +26,8 @@ class UserSeeder extends Seeder
                 "email" => "khairat@gmail.com",
                 "phone_no" => "0772674900",
                 "dob" => "10/12/1996",
-                "gender" => "Female"
+                "gender" => "Female",
+                "image" => "assets/images/admin1.jpeg"
             ],
             [
                 "first_name" => "gift",
@@ -38,7 +39,8 @@ class UserSeeder extends Seeder
                 "email" => "gisacc@gmail.com",
                 "phone_no" => "065888932",
                 "dob" => "18/06/1996",
-                "gender" => "male"
+                "gender" => "male",
+                "image" => "assets/images/user2.jpeg"
             ],
             [
                 "first_name" => "asha",
@@ -50,7 +52,8 @@ class UserSeeder extends Seeder
                 "email" => "asha@gmail.com",
                 "phone_no" => "0625888932",
                 "dob" => "9/06/1996",
-                "gender" => "female"
+                "gender" => "female",
+                "image" => "assets/images/user4.jpeg"
             ],
             [
                 "first_name" => "ali",
@@ -62,7 +65,8 @@ class UserSeeder extends Seeder
                 "email" => "ali@gmail.com",
                 "phone_no" => "06556932",
                 "dob" => "24/1/1996",
-                "gender" => "male"
+                "gender" => "male",
+                "image" => "assets/images/user1.png"
             ],
             [
                 "first_name" => "rosemary",
@@ -74,7 +78,8 @@ class UserSeeder extends Seeder
                 "email" => "bri@gmail.com",
                 "phone_no" => "0772564900",
                 "dob" => "01/12/1996",
-                "gender" => "Female"
+                "gender" => "Female",
+                "image" => "assets/images/user3.jpeg"
             ]
         ]);
 

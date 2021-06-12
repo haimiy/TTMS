@@ -9,5 +9,6 @@
 <body>
     <h1>I am Lecturer</h1>
     <a href="/logout">Logout</a>
+    {{auth()->user()->lecturer}}
 </body>
 </html>
