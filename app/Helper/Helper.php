@@ -109,7 +109,7 @@ Class Helper{
                     $current_slot = 0;
                     //subject level filters
                     if(self::restrictOneSubjectPerDay($day->id,$subject['id']))
-                        continue;
+                        break;
 
                     if (self::restrictOneSubjectIndexPeriodInOneWeek($subject['id'],$subject['index']))
                         break;
@@ -119,6 +119,58 @@ Class Helper{
 //
                         if (self::restrictOneSubjectPerSlotInOneRoomInOneDay($day->id, $room->id, $slot->id)) {
                             break;
+                        }
+
+                        if ($num>(7-$slot->id)){
+                            break;
+                        }// TODO: fail to set time for complete period
+                        else{
+                            if ($current_slot<$num_slot){
+                                if (!self::restrictOneClassToBeInOneRoomInOneTimeSlots($day->id, $slot->id, $subject['id'])) {
+                                    DB::table('timetables')->insert([
+                                        'day_id' => $day->id,
+                                        'slots_id' => $slot->id,
+                                        'room_id' => $room->id,
+                                        'subject_id' => $subject['id'],
+                                        'semister_id' => 1,
+                                        'index'=>$subject['index'],
+                                    ]);
+                                    $current_slot++;
+                                    $current_slot_count++;
+                                    $num=$num-1;
+                                }
+
+                            }
+                            else{
+                                break;
+                            }
+                        }
+
+
+                    }
+                }
+            }
+        }
+        foreach ($class_subjects_periods as $subject){
+            foreach ($days as $day){
+                $current_slot_count = 0;
+
+
+                foreach ($rooms as $room){
+                    $num_slot = $subject['slot_number'];
+                    $current_slot = 0;
+                    //subject level filters
+                    if(self::restrictOneSubjectPerDay($day->id,$subject['id']))
+                        break;
+
+                    if (self::restrictOneSubjectIndexPeriodInOneWeek($subject['id'],$subject['index']))
+                        break;
+                    //end
+                    $num = $num_slot;
+                    foreach ($slots as $slot){
+//
+                        if (self::restrictOneSubjectPerSlotInOneRoomInOneDay($day->id, $room->id, $slot->id)) {
+                            continue;
                         }
 
                         if ($num>(7-$slot->id)){

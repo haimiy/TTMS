@@ -23,10 +23,10 @@ class RoomSeeder extends Seeder
                 "room_name" => "T1",
                 "room_capacity" => 50
             ],
-//            [
-//                "room_name" => "TT10",
-//                "room_capacity" => 100
-//            ],
+            [
+                "room_name" => "TT10",
+                "room_capacity" => 100
+            ],
 //            [
 //                "room_name" => "C1",
 //                "room_capacity" => 63
