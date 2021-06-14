@@ -21,21 +21,21 @@ class RoomSeeder extends Seeder
             ],
             [
                 "room_name" => "T1",
-                "room_capacity" => 50           
+                "room_capacity" => 50
             ],
-            [
-                "room_name" => "TT10",
-                "room_capacity" => 100            
-            ],
-            [
-                "room_name" => "C1",
-                "room_capacity" => 63            
-            ],
-            [
-                "room_name" => "W9F",
-                "room_capacity" => 25            
-            ]
-            
+//            [
+//                "room_name" => "TT10",
+//                "room_capacity" => 100
+//            ],
+//            [
+//                "room_name" => "C1",
+//                "room_capacity" => 63
+//            ],
+//            [
+//                "room_name" => "W9F",
+//                "room_capacity" => 25
+//            ]
+
         ]);
     }
 }

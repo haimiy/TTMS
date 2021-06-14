@@ -19,7 +19,7 @@ class TimeTableController extends Controller
         $slots = Slot::all();
         $days = Day::all();
 
-        
+
         foreach($days as $day){
             foreach($rooms as $room){
                 foreach($slots as $slot){
@@ -29,5 +29,12 @@ class TimeTableController extends Controller
         }
 
         return "Generated!";
+    }
+
+
+    public function test()
+    {
+        $val =Helper::generateTimetable();
+        return $val;
     }
 }

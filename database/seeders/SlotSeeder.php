@@ -20,29 +20,29 @@ class SlotSeeder extends Seeder
                 "end_time" => "08:50"
             ],
             [   "start_time" => "08:55",
-                "end_time" => "09:45"        
+                "end_time" => "09:45"
             ],
             [
                 "start_time" => "09:50",
-                "end_time" => "10:40"           
+                "end_time" => "10:40"
             ],
             [
                 "start_time" => "10:45",
-                "end_time" => "11:35"          
+                "end_time" => "11:35"
             ],
             [
                 "start_time" => "11:40",
-                "end_time" => "12:30"           
+                "end_time" => "12:30"
             ],
             [
                 "start_time" => "12:35",
-                "end_time" => "13:25"           
+                "end_time" => "13:25"
             ],
             [
                 "start_time" => "13:30",
-                "end_time" => "14:20"           
+                "end_time" => "14:20"
             ]
-            
+
         ]);
     }
 }

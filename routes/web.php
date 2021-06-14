@@ -23,6 +23,7 @@ Route::get('/', function () {
     return view('auth.login');
 })->middleware('guest');
 Route::get('timetable',[TimeTableController::class, 'timetable']);
+Route::get('timetable/test',[TimeTableController::class, 'test']);
 
 Auth::routes();
 Auth::routes(['register' => false]);
@@ -30,7 +31,7 @@ Auth::routes(['register' => false]);
 // Authenticated User group
 Route::middleware(['auth'])->group(function(){
 
-    
+
     //Admin authorization group
     Route::prefix('admin')->middleware('admin')->group(function(){
 
@@ -43,7 +44,7 @@ Route::middleware(['auth'])->group(function(){
         });
     });
     //Admin authorization group End
-  
+
     //Lecturers authorization group
     Route::prefix("lecturer")->middleware('lecturer')->group(function(){
         Route::get('home', function(){
@@ -65,7 +66,7 @@ Route::middleware(['auth'])->group(function(){
         Route::get('class',[ClassController::class, 'index']);
 
     });
-    
+
     Route::get('coordinator/home', function(){
         return view('lecturers.coordinator.home');
     })->middleware('coordinator');
@@ -80,7 +81,7 @@ Route::middleware(['auth'])->group(function(){
      //Studnets authorization group END
 
     Route::get('lock',[LockScreen::class, 'lock_screen']);
-   
+
     Route::post('update_profile',[UserController::class, 'updateProfile'])->name('updateProfileUser');
     Route::get('/logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout']);
 });
