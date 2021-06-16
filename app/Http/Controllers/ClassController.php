@@ -28,6 +28,50 @@ class ClassController extends Controller
         ]);
 
     }
+    public function deleteAjaxClassesInformation($id){
+        $class = Classes::find($id);
+        $class->delete();
+        return back();
+        $query = response()->json([
+            'status' => 0
+          ]);              
+        if(!$query){
+            return response()->json(['status'=>0, 'msg'=>'Something went wrong']);
+        }else{
+            return response()->json(['status'=>1, 'msg'=>'Data Deleted']);
+        }
+    
+    }
+
+
+    public function editAjaxClassesInformation($id){
+        $class = DB::table('classes')
+        ->where('id', $id)
+        ->first();
+        
+        return view('lecturers.master.class');
+        // $validator = Validator::make($req->all(),[
+        //     'class_name'    => 'required',
+        //     'class_size'    => 'required',
+        //     'dept_name'     => 'required'
+        // ]);
+        // if(!$validator->passes()){
+        //     return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
+        // }else{
+        //     $classes = Classes::all();
+        //     $query = Classes::find($classes->id)->update([
+        //         'class_name'    => $req->class_name,
+        //         'class_size'   => $req->class_size,
+        //         'dept_name'     => $req->dept_name,
+
+        //     ]);
+        //     if(!$query){
+        //         return response()->json(['status'=>0, 'msg'=>'Something went wrong']);
+        //     }else{
+        //         return response()->json(['status'=>1, 'msg'=>'Your pfofile info has been update']);
+        //     }
+        // }
+    }
 
     public function addClass(Request $req){
         $validator = Validator::make($req->all(),[
@@ -49,7 +93,7 @@ class ClassController extends Controller
             if(!$query){
                 return response()->json(['status'=>0, 'msg'=>'Something went wrong']);
             }else{
-                return response()->json(['status'=>1, 'msg'=>'Your pfofile info has been update']);
+                return response()->json(['status'=>1, 'msg'=>'You insert data successfull']);
             }
         }
     }

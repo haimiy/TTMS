@@ -51,8 +51,8 @@
                     <td>{{ $class->dept_name }}</td>
                     <td class="actions">
                         <a href=""><i class="fa fa-eye"></i></a>
-                        <a href=""><i class="fa fa-pencil text-primary"></i></a>
-                        <a href="" class="delete-row"><i class="fa fa-trash-o text-danger"></i></a>
+                        <a href="/master/class/edit/{{ $class->id}}"><i class="fa fa-pencil text-primary"></i></a>
+                        <a href="/master/class/delete/{{ $class->id}}" id="deleteClass"  class="delete-row"><i class="fa fa-trash-o text-danger"></i></a>
                     </td>
                  </tr>
                  @endforeach
