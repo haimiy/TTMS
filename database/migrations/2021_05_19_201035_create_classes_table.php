@@ -17,6 +17,7 @@ class CreateClassesTable extends Migration
             $table->id();
             $table->string('class_name');
             $table->integer('class_size');
+            $table->unsignedBigInteger('dept_id');
             $table->timestamps();
         });
     }

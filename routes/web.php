@@ -64,6 +64,9 @@ Route::middleware(['auth'])->group(function(){
             return view('lecturers.master.profile');
         });
         Route::get('class',[ClassController::class, 'index']);
+        Route::post('class/form',[ClassController::class, 'addClass'])->name('add_class');
+        Route::get('ajax/classes',[ClassController::class, 'getAjaxClassesInformation']);
+
 
     });
 

@@ -16,31 +16,41 @@
                 <ul class="nav nav-main">
                     <li class="nav-active">
                         <a href="/master/home">
-                            <i class="fa fa-home" aria-hidden="true"></i>
+                            <i class="fa fa-dashboard" aria-hidden="true"></i>
                             <span>Dashboard</span>
                         </a>
                     </li>
                     <li>
                         <a href="/master/class">
-                            <span class="pull-right label label-primary">182</span>
-                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                            <i class="fa fa-group" aria-hidden="true"></i>
                             <span>Classes</span>
                         </a>
                     </li>
                     <li>
-                        <a href="/master/class">
-                            <span class="pull-right label label-primary">182</span>
-                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                        <a href="/master/subject">
+                            <i class="fa fa-book" aria-hidden="true"></i>
                             <span>Modules</span>
                         </a>
                     </li>
                     <li>
-                        <a href="/master/class">                                       
-                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                        <a href="/master/room">                                       
+                            <i class="fa fa-building" aria-hidden="true"></i>
                             <span>Venues</span>
                         </a>
                     </li>
-                    <li class="nav-parent">
+                    <li>
+                        <a href="/master/slot">                                       
+                            <i class="fa fa-clock-o" aria-hidden="true"></i>
+                            <span>Time slots</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/master/lecturer">
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                            <span>Lecturers</span>
+                        </a>
+                    </li>
+                    {{-- <li class="nav-parent">
                         <a>
                             <i class="fa fa-copy" aria-hidden="true"></i>
                             <span>Periods</span>
@@ -52,13 +62,14 @@
                                 </a>
                             </li>
                         </ul>
-                    </li>
+                    </li> --}}
                     <li>
-                        <a href="/master/class">                                       
-                            <i class="fa fa-envelope" aria-hidden="true"></i>
-                            <span>Calender</span>
+                        <a href="/master/timetable">                                       
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                            <span>Class Timetables</span>
                         </a>
                     </li>
+                    
                 </ul>
             </nav>
         </div>

@@ -60,6 +60,21 @@
             background-color: #34495e !important;
             width: 350px;
         }
+    
+            .addition {
+            background-color: #34495e !important;
+            border-color: #34495e !important;
+        }
+            .panel-heading {
+            background-color: #34495e !important;
+        }
+            .panel-title{
+                color:#ffffff;
+        }
+            #classForm{
+                padding-right: 30px;
+            }
+        
 
     </style>
     <!-- Head Libs -->

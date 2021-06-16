@@ -24,8 +24,10 @@
  <section class="panel">
 
     <div class="panel-body">
-        <a class="mb-xs mt-xs mr-xs modal-basic btn btn-primary" href="#modalHeaderColorPrimary"><i
+        <a class="mb-xs mt-xs mr-xs modal-basic btn btn-primary addition" href="#modalForm"><i
                 class="fa fa-plus"></i> Add</a>
+        <a class="mb-xs mt-xs mr-xs btn btn-primary addition pull-right" href="#"><i
+                    class="fa fa-cloud-upload"></i> Import</a>
 
         <table class="table table-bordered table-striped mb-none" id="datatable-default">
 
@@ -34,140 +36,158 @@
                     <th>#</th>
                     <th>Class Name</th>
                     <th>Class Size</th>
-                    {{-- <th class="hidden-phone">Engine version</th>
-                    <th class="hidden-phone">CSS grade</th> --}}
+                    <th>Department Name</th>
                     <th>Action</th>
                 </tr>
             </thead>
 
-            @foreach ($classes as $class)      
+                 
             <tbody>
+                @foreach ($classes as $class) 
                 <tr>
                     <td>{{ $class->id }}</td>
                     <td>{{ $class->class_name }}</td>
                     <td>{{ $class->class_size }}</td>
+                    <td>{{ $class->dept_name }}</td>
                     <td class="actions">
                         <a href=""><i class="fa fa-eye"></i></a>
-                        <a href=""><i class="fa fa-pencil"></i></a>
-                        <a href="" class="delete-row"><i class="fa fa-trash-o"></i></a>
+                        <a href=""><i class="fa fa-pencil text-primary"></i></a>
+                        <a href="" class="delete-row"><i class="fa fa-trash-o text-danger"></i></a>
                     </td>
                  </tr>
+                 @endforeach
             </tbody>
-            @endforeach
+            
 
         </table>
     </div>
 </section>
 <!-- end: page -->
 
-<div id="modalHeaderColorPrimary" class="modal-block modal-header-color modal-block-primary mfp-hide">
-    <section class="panel form-wizard" id="w1">
+<div id="modalForm" class="modal-block modal-block-primary mfp-hide">
+    <section class="panel">
         <header class="panel-heading">
-          
+            <a href="#" class="fa fa-times modal-dismiss pull-right"></a>
             <h2 class="panel-title">Add data</h2>
         </header>
         <div class="panel-body panel-body-nopadding">
-            <div class="wizard-tabs">
-                <ul class="wizard-steps">
-                    <li class="active">
-                        <a href="#w1-account" data-toggle="tab" class="text-center">
-                            <span class="badge hidden-xs">1</span>
-                            Account
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#w1-profile" data-toggle="tab" class="text-center">
-                            <span class="badge hidden-xs">2</span>
-                            Profile
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#w1-confirm" data-toggle="tab" class="text-center">
-                            <span class="badge hidden-xs">3</span>
-                            Confirm
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <form class="form-horizontal" novalidate="novalidate">
-                <div class="tab-content">
-                    <div id="w1-account" class="tab-pane active">
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label" for="w1-username">Username</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control input-sm" name="username" id="w1-username"
-                                    required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label" for="w1-password">Password</label>
-                            <div class="col-sm-8">
-                                <input type="password" class="form-control input-sm" name="password"
-                                    id="w1-password" minlength="6" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="w1-profile" class="tab-pane">
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label" for="w1-first-name">First Name</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control input-sm" name="first-name"
-                                    id="w1-first-name" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label" for="w1-last-name">Last Name</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control input-sm" name="last-name" id="w1-last-name"
-                                    required>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="w1-confirm" class="tab-pane">
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label" for="w1-email">Email</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control input-sm" name="email" id="w1-email"
-                                    required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-2"></div>
-                            <div class="col-sm-10">
-                                <div class="checkbox-custom">
-                                    <input type="checkbox" name="terms" id="w1-terms" required>
-                                    <label for="w1-terms">I agree to the terms of service</label>
-                                </div>
-                            </div>
-                        </div>
+            <form method="POST" action="{{ route('add_class')}}" id="classForm" class="form-horizontal mb-lg" novalidate="novalidate">
+                @csrf
+
+                <div class="form-group mt-lg">
+                    <label class="col-sm-3 control-label">Class Name</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="class_name" class="form-control" placeholder="Type your name..." required/>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Class Size</label>
+                    <div class="col-sm-9">
+                        <input type="number" name="class_size" class="form-control" placeholder="Type your email..." required/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Department</label>
+                    
+                    <div class="col-sm-9">
+                        <select name="dept_name" class="form-control">
+                            <option value="">--Select---</option>
+                            @foreach ( $depts as $dept )
+                            <option  value="{{ $dept->id }}">{{ $dept->dept_name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <footer class="panel-footer">
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+                            <button  type="submit" class="btn btn-primary">Submit</button>
+                            <button id="close" class="btn btn-default modal-dismiss">Cancel</button>
+                        </div>
+                    </div>
+                </footer>
             </form>
         </div>
-        <div class="panel-footer">
-            <ul class="pager">
-                <li class="previous disabled">
-                    <a><i class="fa fa-angle-left"></i> Previous</a>
-                </li>
-                <li class="finish hidden pull-right modal-confirm"">
-                    <a>Finish</a>
-                </li>
-                <li class="next">
-                    <a>Next <i class="fa fa-angle-right"></i></a>
-                </li>
-            </ul>
-        </div>
-
+ 
     </section>
 </div>
 @endsection
 @section('script')
 <!-- Examples -->
-<script src="{{ asset('assets/javascripts/tables/examples.datatables.default.js') }}"></script>
-<script src="{{ asset('assets/javascripts/tables/examples.datatables.row.with.details.js') }}"></script>
-<script src="{{ asset('assets/javascripts/tables/examples.datatables.tabletools.js') }}"></script>
 <!-- Examples -->
 <script src="{{ asset('assets/javascripts/ui-elements/examples.modals.js') }}"></script>
 <!-- Examples -->
 <script src="{{ asset('assets/javascripts/forms/examples.wizard.js') }}"></script>
+<script>
+    $(document).ready(function(){
+        $('#datatable-default').dataTable();
+        // $('#datatable-default').dataTable({
+        //     ajax:{
+        //         url: 'master/ajax/classes',
+        //         contentType: 'application/json',
+        //         data: function(response){
+        //             return response.classes,
+        //         },
+        //     }
+        //     columns:[
+        //         {
+        //             render:function(data,type,class,meta){
+        //                 return meta.row+1;
+        //             },
+        //             render:function(data,type,class){
+        //                 return class.class_name;
+        //             },
+        //             render:function(data,type,class){
+        //                 return class.class_size;
+        //             },
+        //             render:function(data,type,class){
+        //                 return meta.row+1;
+        //             },
+        //             render:function(data,type,class){
+        //                 return meta.row+1;
+        //             },
+        //         },
+        //     ],
+        // });
+    });
+    $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+             }
+    });
+    $(function(){
+        $('#classForm').on('submit', function(e){
+            e.preventDefault();
+            $.ajax({
+                url:$(this).attr('action'),
+                method:$(this).attr('method'),
+                data:new FormData(this),
+                processData:false,
+                dataType:'json',
+                contentType:false,
+                beforeSend:function(){
+                    $(document).find('span.error-text').text('');
+                },
+                success:function(data){
+                    if(data.status == 0 ){
+                        $.each(data.error, function(prefix, val){
+                            $('span.'+prefix+'_error').text(val[0]);
+                        });
+                    }else{
+                        $("#close").click();
+                        // $('#UserForm')[0].reset();
+                        new PNotify({
+                            title: 'Inserted',
+                            text: data.msg,
+                            type: 'success',
+                            addclass: 'icon-nb'
+                        });
+                    }
+                }
+            });
+        });
+    });
+</script>
 @endsection

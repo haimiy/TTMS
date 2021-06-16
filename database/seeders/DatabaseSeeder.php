@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             SubjectSeeder::class,
             TimetableSeeder::class,
             UserSeeder::class,
+            DepartmentSeeder::class,
         ]);
     }
 }

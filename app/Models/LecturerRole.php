@@ -9,4 +9,8 @@ class LecturerRole extends Model
 {
     use HasFactory;
     protected $table = "lecturers_roles";
+    public function lecturer()
+    {
+        return $this->hasMany(Lecturer::class);
+    }
 }
