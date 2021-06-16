@@ -5,7 +5,7 @@
     <meta name="keywords" content="HTML5 Admin Template" />
     <meta name="description" content="JSOFT Admin - Responsive HTML5 Template">
     <meta name="author" content="JSOFT.net">
-    <meta name="csrf-token" content="{{ csrf_token() }}"> 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- Mobile Metas -->
@@ -60,7 +60,7 @@
             background-color: #34495e !important;
             width: 350px;
         }
-    
+
             .addition {
             background-color: #34495e !important;
             border-color: #34495e !important;
@@ -71,10 +71,10 @@
             .panel-title{
                 color:#ffffff;
         }
-            #classForm{
-                padding-right: 30px;
-            }
-        
+        .classForm{
+            padding-right: 30px;
+        }
+
 
     </style>
     <!-- Head Libs -->

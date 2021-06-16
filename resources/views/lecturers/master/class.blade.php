@@ -41,9 +41,9 @@
                 </tr>
             </thead>
 
-                 
+
             <tbody>
-                @foreach ($classes as $class) 
+                @foreach ($classes as $class)
                 <tr>
                     <td>{{ $class->id }}</td>
                     <td>{{ $class->class_name }}</td>
@@ -51,13 +51,13 @@
                     <td>{{ $class->dept_name }}</td>
                     <td class="actions">
                         <a href=""><i class="fa fa-eye"></i></a>
-                        <a href="/master/class/edit/{{ $class->id}}"><i class="fa fa-pencil text-primary"></i></a>
-                        <a href="/master/class/delete/{{ $class->id}}" id="deleteClass"  class="delete-row"><i class="fa fa-trash-o text-danger"></i></a>
+                        <a href="#edit-modal" onclick="initEditModel({{ $class->id}})"  class="modal-basic"><i class="fa fa-pencil text-primary"></i></a>
+                        <a href="#" onclick="deleteClass({{ $class->id}})"  class="delete-row"><i class="fa fa-trash-o text-danger"></i></a>
                     </td>
                  </tr>
                  @endforeach
             </tbody>
-            
+
 
         </table>
     </div>
@@ -68,10 +68,10 @@
     <section class="panel">
         <header class="panel-heading">
             <a href="#" class="fa fa-times modal-dismiss pull-right"></a>
-            <h2 class="panel-title">Add data</h2>
+            <h2 class="panel-title">Add Class</h2>
         </header>
-        <div class="panel-body panel-body-nopadding">
-            <form method="POST" action="{{ route('add_class')}}" id="classForm" class="form-horizontal mb-lg" novalidate="novalidate">
+        <form method="POST" action="{{ route('add_class')}}" id="classForm" class="form-horizontal mb-lg" novalidate="novalidate">
+        <div class="panel-body panel-body-nopadding classForm">
                 @csrf
 
                 <div class="form-group mt-lg">
@@ -88,7 +88,7 @@
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 control-label">Department</label>
-                    
+
                     <div class="col-sm-9">
                         <select name="dept_name" class="form-control">
                             <option value="">--Select---</option>
@@ -100,17 +100,68 @@
                 </div>
                 <br>
                 <br>
-                <footer class="panel-footer">
-                    <div class="row">
-                        <div class="col-md-12 text-right">
-                            <button  type="submit" class="btn btn-primary">Submit</button>
-                            <button id="close" class="btn btn-default modal-dismiss">Cancel</button>
-                        </div>
-                    </div>
-                </footer>
-            </form>
+
         </div>
- 
+        <footer class="panel-footer">
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <button  type="submit" class="btn btn-primary">Submit</button>
+                    <button id="close" class="btn btn-default modal-dismiss">Cancel</button>
+                </div>
+            </div>
+        </footer>
+        </form>
+
+    </section>
+</div>
+
+<div id="edit-modal" class="modal-block modal-block-primary mfp-hide ">
+    <section class="panel">
+        <header class="panel-heading">
+            <a href="#" class="fa fa-times modal-dismiss pull-right"></a>
+            <h2 class="panel-title">Edit Class</h2>
+        </header>
+        <form method="POST" action="{{ route('edit_class')}}" id="editClassForm" class="form-horizontal mb-lg" novalidate="novalidate">
+        <div class="panel-body panel-body-nopadding classForm">
+
+                @csrf
+
+                <div class="form-group mt-lg">
+                    <label class="col-sm-3 control-label">Class Name</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="class_name" id="edit-class-name" class="form-control" placeholder="Type your name..." required/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Class Size</label>
+                    <div class="col-sm-9">
+                        <input type="number" name="class_size" id="edit-class-size" class="form-control" placeholder="Type your email..." required/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Department</label>
+
+                    <div class="col-sm-9">
+                        <select name="dept_name" id="edit-dept-id" class="form-control">
+                            <option value="">--Select---</option>
+                            @foreach ( $depts as $dept )
+                                <option  value="{{ $dept->id }}">{{ $dept->dept_name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <br>
+                <br>
+        </div>
+        <footer class="panel-footer">
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <button  type="submit" class="btn btn-primary">Edit</button>
+                    <button id="close" class="btn btn-default modal-dismiss">Cancel</button>
+                </div>
+            </div>
+        </footer>
+        </form>
     </section>
 </div>
 @endsection
@@ -123,34 +174,6 @@
 <script>
     $(document).ready(function(){
         $('#datatable-default').dataTable();
-        // $('#datatable-default').dataTable({
-        //     ajax:{
-        //         url: 'master/ajax/classes',
-        //         contentType: 'application/json',
-        //         data: function(response){
-        //             return response.classes,
-        //         },
-        //     }
-        //     columns:[
-        //         {
-        //             render:function(data,type,class,meta){
-        //                 return meta.row+1;
-        //             },
-        //             render:function(data,type,class){
-        //                 return class.class_name;
-        //             },
-        //             render:function(data,type,class){
-        //                 return class.class_size;
-        //             },
-        //             render:function(data,type,class){
-        //                 return meta.row+1;
-        //             },
-        //             render:function(data,type,class){
-        //                 return meta.row+1;
-        //             },
-        //         },
-        //     ],
-        // });
     });
     $.ajaxSetup({
     headers: {
@@ -189,5 +212,39 @@
             });
         });
     });
+
+    function deleteClass(id) {
+        $.ajax({
+            url: '/master/class/delete/'+id,
+            method: 'delete',
+            success:function (response) {
+                if(response.status){
+                    new PNotify({
+                        title: 'Inserted',
+                        text: response.message,
+                        type: 'success',
+                        addclass: 'icon-nb'
+                    });
+                }else {
+                    new PNotify({
+                        title: 'Inserted',
+                        text: response.message,
+                        type: 'error',
+                        addclass: 'icon-nb'
+                    });
+                }
+            },
+
+        });
+    }
+    function initEditModel(id) {
+
+        $.get('/master/ajax/classes/'+id,function (response) {
+            console.log(response);
+            $("#edit-class-name").val(response.class.class_name);
+            $("#edit-class-size").val(response.class.class_size);
+            $("#edit-dept-id").val(response.class.dept_id);
+        });
+    }
 </script>
 @endsection

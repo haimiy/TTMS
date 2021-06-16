@@ -10,7 +10,7 @@
     <meta name="keywords" content="HTML5 Admin Template" />
     <meta name="description" content="JSOFT Admin - Responsive HTML5 Template">
     <meta name="author" content="JSOFT.net">
-    <meta name="csrf-token" content="{{ csrf_token() }}"> 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- Mobile Metas -->
@@ -38,7 +38,7 @@
 
     <!-- Specific Page Vendor CSS -->
     <link rel="stylesheet" href="{{ asset('assets/vendor/select2/select2.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/vendor/jquery-datatables-bs3/assets/css/datatables.css') }}" />
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" />
 
     <!-- Theme CSS -->
     <link rel="stylesheet" href="{{ asset('assets/stylesheets/theme.css') }}" />
@@ -477,10 +477,7 @@
     <script src="{{ asset('assets/vendor/jqvmap/maps/continents/jquery.vmap.south-america.js') }}"></script>
     <!-- Specific Page Vendor -->
     <script src="{{ asset('assets/vendor/select2/select2.js') }}"></script>
-    <script src="{{ asset('assets/vendor/jquery-datatables/media/js/jquery.dataTables.js') }}"></script>
-    <script src="{{ asset('assets/vendor/jquery-datatables/extras/TableTools/js/dataTables.tableTools.min.js') }}">
-    </script>
-    <script src="{{ asset('assets/vendor/jquery-datatables-bs3/assets/js/datatables.js') }}"></script>
+    <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <!-- Specific Page Vendor -->
     <script src="{{ asset('assets/vendor/jquery-validation/jquery.validate.js') }}"></script>
     <script src="{{ asset('assets/vendor/bootstrap-wizard/jquery.bootstrap.wizard.js') }}"></script>

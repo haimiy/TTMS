@@ -11,7 +11,7 @@ use App\Models\Room;
 use App\Models\Classes;
 
 Class Helper{
-    public static function timetableGenerate($day,$room,$slot){
+    public static function timetableGenerate($day,$room,$slot){ //Not used
         $subjects = Subject::all();
 
         foreach($subjects as $subject){
@@ -35,6 +35,7 @@ Class Helper{
 //
         }
     }
+
     private static  function restrictOneSubjectPerSlotInOneRoomInOneDay($day_id,$room_id,$slot_id): bool
     {
         $timetables = DB::select('SELECT * FROM timetables where day_id='.$day_id.' and room_id='.$room_id.' and slots_id = '.$slot_id);

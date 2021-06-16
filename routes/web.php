@@ -66,9 +66,9 @@ Route::middleware(['auth'])->group(function(){
         Route::get('class',[ClassController::class, 'index']);
         Route::post('class/form',[ClassController::class, 'addClass'])->name('add_class');
         Route::get('ajax/classes',[ClassController::class, 'getAjaxClassesInformation']);
-        Route::get('class/delete/{id}',[ClassController::class, 'deleteAjaxClassesInformation']);
-        Route::get('class/edit/{id}',[ClassController::class, 'editAjaxClassesInformation']);
-        Route::post('class/update/',[ClassController::class, 'UpdateAjaxClassesInformation']);
+        Route::get('ajax/classes/{id}',[ClassController::class, 'getAjaxClassInformation']);
+        Route::delete('class/delete/{id}',[ClassController::class, 'deleteAjaxClassesInformation']);
+        Route::get('class/edit',[ClassController::class, 'editAjaxClassesInformation'])->name('edit_class');
 
 
 

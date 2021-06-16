@@ -28,49 +28,27 @@ class ClassController extends Controller
         ]);
 
     }
-    public function deleteAjaxClassesInformation($id){
+    public function getAjaxClassInformation($id){
+        $class = Classes::find($id);
+
+        return response()->json([
+            "status"=>true,
+            "class"=>$class,
+        ]);
+    }
+    public function deleteAjaxClassesInformation($id): \Illuminate\Http\JsonResponse
+    {
         $class = Classes::find($id);
         $class->delete();
-        return back();
-        $query = response()->json([
-            'status' => 0
-          ]);              
-        if(!$query){
-            return response()->json(['status'=>0, 'msg'=>'Something went wrong']);
-        }else{
-            return response()->json(['status'=>1, 'msg'=>'Data Deleted']);
-        }
-    
+        return response()->json(['status'=>true, 'message'=>'Class Deleted Successful!']);
     }
 
 
-    public function editAjaxClassesInformation($id){
-        $class = DB::table('classes')
-        ->where('id', $id)
-        ->first();
-        
+    public function editAjaxClassesInformation(){
+//        $class = DB::table('classes')
+//        ->where('id', $id)
+//        ->first();
         return view('lecturers.master.class');
-        // $validator = Validator::make($req->all(),[
-        //     'class_name'    => 'required',
-        //     'class_size'    => 'required',
-        //     'dept_name'     => 'required'
-        // ]);
-        // if(!$validator->passes()){
-        //     return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
-        // }else{
-        //     $classes = Classes::all();
-        //     $query = Classes::find($classes->id)->update([
-        //         'class_name'    => $req->class_name,
-        //         'class_size'   => $req->class_size,
-        //         'dept_name'     => $req->dept_name,
-
-        //     ]);
-        //     if(!$query){
-        //         return response()->json(['status'=>0, 'msg'=>'Something went wrong']);
-        //     }else{
-        //         return response()->json(['status'=>1, 'msg'=>'Your pfofile info has been update']);
-        //     }
-        // }
     }
 
     public function addClass(Request $req){
@@ -89,7 +67,7 @@ class ClassController extends Controller
                 $class->class_size = $query['class_size'];
                 $class->dept_id = $query['dept_name'];
                 $class->save();
-              
+
             if(!$query){
                 return response()->json(['status'=>0, 'msg'=>'Something went wrong']);
             }else{
