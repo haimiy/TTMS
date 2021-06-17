@@ -50,9 +50,6 @@ Route::middleware(['auth'])->group(function(){
         Route::get('home', function(){
             return view('lecturers.home');
         });
-        Route::get('profile', function(){
-            return view('lecturer.profile');
-        });
     });
       //Lecurers authorization group End
 
@@ -60,15 +57,12 @@ Route::middleware(['auth'])->group(function(){
         Route::get('home', function(){
             return view('lecturers.master.home');
         });
-        Route::get('profile', function(){
-            return view('lecturers.master.profile');
-        });
         Route::get('class',[ClassController::class, 'index']);
         Route::post('class/form',[ClassController::class, 'addClass'])->name('add_class');
         Route::get('ajax/classes',[ClassController::class, 'getAjaxClassesInformation']);
         Route::get('ajax/classes/{id}',[ClassController::class, 'getAjaxClassInformation']);
         Route::delete('class/delete/{id}',[ClassController::class, 'deleteAjaxClassesInformation']);
-        Route::get('class/edit',[ClassController::class, 'editAjaxClassesInformation'])->name('edit_class');
+        Route::post('class/edit',[ClassController::class, 'editAjaxClassesInformation'])->name('editClass');
 
 
 

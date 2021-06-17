@@ -43,12 +43,28 @@ class ClassController extends Controller
         return response()->json(['status'=>true, 'message'=>'Class Deleted Successful!']);
     }
 
-
-    public function editAjaxClassesInformation(){
-//        $class = DB::table('classes')
-//        ->where('id', $id)
-//        ->first();
-        return view('lecturers.master.class');
+    public function editAjaxClassesInformation(Request $req){
+            $validator = Validator::make($req->all(),[
+                'class_name'    => 'required',
+                'class_size'    => 'required',
+                'dept_id'     => 'required'
+            ]);
+            if(!$validator->passes()){
+                return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
+            }else{
+                $class = Classes::all();
+                $query = Classes::find($class->id)->update([
+                    'class_name'    => $req->class_name,
+                    'class_size'   => $req->class_size,
+                    'dept_id'     => $req->dept_name,
+    
+                ]);
+                if(!$query){
+                    return response()->json(['status'=>0, 'msg'=>'Something went wrong']);
+                }else{
+                    return response()->json(['status'=>1, 'msg'=>'Your pfofile info has been update']);
+                }
+            }
     }
 
     public function addClass(Request $req){

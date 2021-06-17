@@ -73,7 +73,6 @@
         <form method="POST" action="{{ route('add_class')}}" id="classForm" class="form-horizontal mb-lg" novalidate="novalidate">
         <div class="panel-body panel-body-nopadding classForm">
                 @csrf
-
                 <div class="form-group mt-lg">
                     <label class="col-sm-3 control-label">Class Name</label>
                     <div class="col-sm-9">
@@ -121,11 +120,9 @@
             <a href="#" class="fa fa-times modal-dismiss pull-right"></a>
             <h2 class="panel-title">Edit Class</h2>
         </header>
-        <form method="POST" action="{{ route('edit_class')}}" id="editClassForm" class="form-horizontal mb-lg" novalidate="novalidate">
+        <form method="POST" action="{{ route('editClass')}}" id="editClassForm" class="form-horizontal mb-lg" novalidate="novalidate">
+        @csrf
         <div class="panel-body panel-body-nopadding classForm">
-
-                @csrf
-
                 <div class="form-group mt-lg">
                     <label class="col-sm-3 control-label">Class Name</label>
                     <div class="col-sm-9">
@@ -156,7 +153,7 @@
         <footer class="panel-footer">
             <div class="row">
                 <div class="col-md-12 text-right">
-                    <button  type="submit" class="btn btn-primary">Edit</button>
+                    <button  type="submit" class="btn btn-primary" onclick="editClass()">Edit</button>
                     <button id="close" class="btn btn-default modal-dismiss">Cancel</button>
                 </div>
             </div>
@@ -220,14 +217,14 @@
             success:function (response) {
                 if(response.status){
                     new PNotify({
-                        title: 'Inserted',
+                        title: 'Deleted!',
                         text: response.message,
                         type: 'success',
                         addclass: 'icon-nb'
                     });
                 }else {
                     new PNotify({
-                        title: 'Inserted',
+                        title: 'Deleted!',
                         text: response.message,
                         type: 'error',
                         addclass: 'icon-nb'
@@ -246,5 +243,39 @@
             $("#edit-dept-id").val(response.class.dept_id);
         });
     }
+    function edi
+    $(function(){
+        $('#editClassForm').on('click', function(e){
+            e.preventDefault();
+            $.ajax({
+                url:$(this).attr('action'),
+                method:$(this).attr('method'),
+                data:new FormData(this),
+                processData:false,
+                dataType:'json',
+                contentType:false,
+                beforeSend:function(){
+                    $(document).find('span.error-text').text('');
+                },
+                success:function(data){
+                    if(data.status == 0 ){
+                        $.each(data.error, function(prefix, val){
+                            $('span.'+prefix+'_error').text(val[0]);
+                        });
+                    }else{
+                        // $('#UserForm')[0].reset();
+                        $("#close").click();
+                        new PNotify({
+                            title: 'Updated',
+                            text: data.msg,
+                            type: 'success',
+                            addclass: 'icon-nb'
+                        });
+                    }
+                }
+            });
+        });
+    });
+
 </script>
 @endsection
