@@ -43,8 +43,8 @@ class ClassController extends Controller
         return response()->json(['status'=>true, 'message'=>'Class Deleted Successful!']);
     }
 
-    public function editAjaxClassesInformation(Request $req){
-            $validator = Validator::make($req->all(),[
+    public function editAjaxClassesInformation(Request $request, $id){
+            $validator = Validator::make($request->all(),[
                 'class_name'    => 'required',
                 'class_size'    => 'required',
                 'dept_id'     => 'required'
@@ -52,17 +52,16 @@ class ClassController extends Controller
             if(!$validator->passes()){
                 return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
             }else{
-                $class = Classes::all();
-                $query = Classes::find($class->id)->update([
-                    'class_name'    => $req->class_name,
-                    'class_size'   => $req->class_size,
-                    'dept_id'     => $req->dept_name,
-    
+                $query = Classes::where('id',$id)->update([
+                    'class_name'    => $request->class_name,
+                    'class_size'   => $request->class_size,
+                    'dept_id'     => $request->dept_id,
+
                 ]);
                 if(!$query){
-                    return response()->json(['status'=>0, 'msg'=>'Something went wrong']);
+                    return response()->json(['status'=>false, 'message'=>'Something went wrong']);
                 }else{
-                    return response()->json(['status'=>1, 'msg'=>'Your pfofile info has been update']);
+                    return response()->json(['status'=>true, 'message'=>'Class info has been update successful']);
                 }
             }
     }

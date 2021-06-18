@@ -120,9 +120,9 @@
             <a href="#" class="fa fa-times modal-dismiss pull-right"></a>
             <h2 class="panel-title">Edit Class</h2>
         </header>
-        <form method="POST" action="{{ route('editClass')}}" id="editClassForm" class="form-horizontal mb-lg" novalidate="novalidate">
-        @csrf
+        <form method="POST"  id="editClassForm" class="form-horizontal mb-lg" novalidate="novalidate">
         <div class="panel-body panel-body-nopadding classForm">
+            @csrf
                 <div class="form-group mt-lg">
                     <label class="col-sm-3 control-label">Class Name</label>
                     <div class="col-sm-9">
@@ -135,11 +135,11 @@
                         <input type="number" name="class_size" id="edit-class-size" class="form-control" placeholder="Type your email..." required/>
                     </div>
                 </div>
+            <input type="text" style="display: none" id="edit-class-id">
                 <div class="form-group">
                     <label class="col-sm-3 control-label">Department</label>
-
                     <div class="col-sm-9">
-                        <select name="dept_name" id="edit-dept-id" class="form-control">
+                        <select name="dept_id" id="edit-dept-id" class="form-control">
                             <option value="">--Select---</option>
                             @foreach ( $depts as $dept )
                                 <option  value="{{ $dept->id }}">{{ $dept->dept_name }}</option>
@@ -150,10 +150,11 @@
                 <br>
                 <br>
         </div>
+
         <footer class="panel-footer">
             <div class="row">
                 <div class="col-md-12 text-right">
-                    <button  type="submit" class="btn btn-primary" onclick="editClass()">Edit</button>
+                    <button  type="submit" class="btn btn-primary" >Edit</button>
                     <button id="close" class="btn btn-default modal-dismiss">Cancel</button>
                 </div>
             </div>
@@ -190,21 +191,81 @@
                 beforeSend:function(){
                     $(document).find('span.error-text').text('');
                 },
-                success:function(data){
-                    if(data.status == 0 ){
-                        $.each(data.error, function(prefix, val){
+                success:function(response){
+                    if(response.status == 0 ){
+                        let message='';
+                        $.each(response.error, function(prefix, val){
                             $('span.'+prefix+'_error').text(val[0]);
+
+                            message += "<b># "+prefix+"</b> "+val+"\n";
+                        });
+                        console.log(message)
+                        new PNotify({
+                            title: 'Error!',
+                            text: message,
+                            type: 'error',
+                            addclass: 'icon-nb'
                         });
                     }else{
                         $("#close").click();
                         // $('#UserForm')[0].reset();
                         new PNotify({
                             title: 'Inserted',
-                            text: data.msg,
+                            text: response.msg,
                             type: 'success',
                             addclass: 'icon-nb'
                         });
                     }
+                }
+            });
+        });
+        $('#editClassForm').on('submit', function(e){
+            e.preventDefault();
+            console.log("edit")
+            let class_id =$("#edit-class-id").val();
+            $.ajax({
+                url:'/master/classes/edit/'+class_id,
+                method:$(this).attr('method'),
+                data:new FormData(this),
+                processData:false,
+                dataType:'json',
+                contentType:false,
+                beforeSend:function(){
+                    $(document).find('span.error-text').text('');
+                },
+                success:function(response){
+                    if(response.status == 0 ){
+                        let message='';
+                        $.each(response.error, function(prefix, val){
+                            $('span.'+prefix+'_error').text(val[0]);
+
+                            message += "<b># "+prefix+"</b> "+val+"\n";
+                        });
+                        console.log(message)
+                        new PNotify({
+                            title: 'Error!',
+                            text: message,
+                            type: 'error',
+                            addclass: 'icon-nb'
+                        });
+                    }else{
+                        $("#close").click();
+                        // $('#UserForm')[0].reset();
+                        new PNotify({
+                            title: 'Updated!',
+                            text: response.message,
+                            type: 'success',
+                            addclass: 'icon-nb'
+                        });
+                    }
+                },
+                error:function (err) {
+                    new PNotify({
+                        title: 'Error!',
+                        text: "Something went wrong",
+                        type: 'error',
+                        addclass: 'icon-nb'
+                    });
                 }
             });
         });
@@ -224,7 +285,7 @@
                     });
                 }else {
                     new PNotify({
-                        title: 'Deleted!',
+                        title: 'Error!',
                         text: response.message,
                         type: 'error',
                         addclass: 'icon-nb'
@@ -241,41 +302,31 @@
             $("#edit-class-name").val(response.class.class_name);
             $("#edit-class-size").val(response.class.class_size);
             $("#edit-dept-id").val(response.class.dept_id);
+            $("#edit-class-id").val(response.class.id);
         });
     }
-    function edi
-    $(function(){
-        $('#editClassForm').on('click', function(e){
-            e.preventDefault();
-            $.ajax({
-                url:$(this).attr('action'),
-                method:$(this).attr('method'),
-                data:new FormData(this),
-                processData:false,
-                dataType:'json',
-                contentType:false,
-                beforeSend:function(){
-                    $(document).find('span.error-text').text('');
-                },
-                success:function(data){
-                    if(data.status == 0 ){
-                        $.each(data.error, function(prefix, val){
-                            $('span.'+prefix+'_error').text(val[0]);
-                        });
-                    }else{
-                        // $('#UserForm')[0].reset();
-                        $("#close").click();
-                        new PNotify({
-                            title: 'Updated',
-                            text: data.msg,
-                            type: 'success',
-                            addclass: 'icon-nb'
-                        });
-                    }
-                }
-            });
-        });
-    });
+    function editClass(){
+        let class_name = $("#edit-class-name").val();
+        let class_size = $("#edit-class-size").val();
+        let dept_id = $("#edit-dept-id").val();
 
+        $.post('/master/classes/edit/'+class_id,{'class_name':class_name,'class_size':class_size,'dept_id':dept_id,"_token": "{{ csrf_token() }}"},function (response) {
+            if(response.status){
+                new PNotify({
+                    title: 'Updated!',
+                    text: response.message,
+                    type: 'success',
+                    addclass: 'icon-nb'
+                });
+            }else {
+                new PNotify({
+                    title: 'Error!',
+                    text: response.message,
+                    type: 'error',
+                    addclass: 'icon-nb'
+                });
+            }
+        });
+    }
 </script>
 @endsection

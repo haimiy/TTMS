@@ -62,7 +62,7 @@ Route::middleware(['auth'])->group(function(){
         Route::get('ajax/classes',[ClassController::class, 'getAjaxClassesInformation']);
         Route::get('ajax/classes/{id}',[ClassController::class, 'getAjaxClassInformation']);
         Route::delete('class/delete/{id}',[ClassController::class, 'deleteAjaxClassesInformation']);
-        Route::post('class/edit',[ClassController::class, 'editAjaxClassesInformation'])->name('editClass');
+        Route::post('classes/edit/{id}',[ClassController::class, 'editAjaxClassesInformation']);
 
 
 
