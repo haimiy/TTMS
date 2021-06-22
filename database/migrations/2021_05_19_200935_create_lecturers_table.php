@@ -16,6 +16,7 @@ class CreateLecturersTable extends Migration
         Schema::create('lecturers', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('dept_id');
             $table->unsignedBigInteger('lecturer_role_id');
             $table->timestamps();
         });

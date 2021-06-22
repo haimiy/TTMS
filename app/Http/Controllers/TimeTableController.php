@@ -14,7 +14,7 @@ use App\Helper\Helper;
 
 class TimeTableController extends Controller
 {
-    public function timetable(){
+    public function test(){
         $rooms = Room::all();
         $slots = Slot::all();
         $days = Day::all();
@@ -32,9 +32,12 @@ class TimeTableController extends Controller
     }
 
 
-    public function test()
+    public function timetable()
     {
         $val =Helper::generateTimetable();
         return $val;
+    }
+    public function index(){
+        return view('lecturers.master.timetable');
     }
 }

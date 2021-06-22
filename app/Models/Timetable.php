@@ -15,4 +15,5 @@ class Timetable extends Model
         'subject_id',
         'semister_id',
     ];
+    
 }

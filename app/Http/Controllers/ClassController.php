@@ -21,13 +21,14 @@ class ClassController extends Controller
     }
 
     public function getAjaxClassesInformation(){
-        $classes = Classes::all();
+        $Classes = Classes::all();
         return response()->json([
             "status"=>true,
-            "classes"=>$classes,
+            "Classes"=>$Classes,
         ]);
 
     }
+
     public function getAjaxClassInformation($id){
         $class = Classes::find($id);
 
@@ -36,6 +37,7 @@ class ClassController extends Controller
             "class"=>$class,
         ]);
     }
+    
     public function deleteAjaxClassesInformation($id): \Illuminate\Http\JsonResponse
     {
         $class = Classes::find($id);

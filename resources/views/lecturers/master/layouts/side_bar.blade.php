@@ -22,32 +22,32 @@
                     </li>
                     <li>
                         <a href="/master/class">
-                            <i class="fa fa-group" aria-hidden="true"></i>
-                            <span>Classes</span>
+                            <i class="fa fa-university" aria-hidden="true"></i>
+                            <span>Manage Classes</span>
                         </a>
                     </li>
                     <li>
                         <a href="/master/subject">
                             <i class="fa fa-book" aria-hidden="true"></i>
-                            <span>Modules</span>
+                            <span>Manage Modules</span>
                         </a>
                     </li>
                     <li>
                         <a href="/master/room">                                       
-                            <i class="fa fa-building" aria-hidden="true"></i>
-                            <span>Venues</span>
+                            <i class="fa fa-home" aria-hidden="true"></i>
+                            <span>Manage Venues</span>
                         </a>
                     </li>
                     <li>
                         <a href="/master/slot">                                       
                             <i class="fa fa-clock-o" aria-hidden="true"></i>
-                            <span>Time slots</span>
+                            <span>Manage Timeslots</span>
                         </a>
                     </li>
                     <li>
                         <a href="/master/lecturer">
-                            <i class="fa fa-user" aria-hidden="true"></i>
-                            <span>Lecturers</span>
+                            <i class="fa fa-group" aria-hidden="true"></i>
+                            <span>Manage Lecturers</span>
                         </a>
                     </li>
                     {{-- <li class="nav-parent">
@@ -66,7 +66,7 @@
                     <li>
                         <a href="/master/timetable">                                       
                             <i class="fa fa-calendar" aria-hidden="true"></i>
-                            <span>Class Timetables</span>
+                            <span>Manage Timetables</span>
                         </a>
                     </li>
                     

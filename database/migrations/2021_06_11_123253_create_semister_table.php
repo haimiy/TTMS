@@ -15,6 +15,7 @@ class CreateSemisterTable extends Migration
     {
         Schema::create('semister', function (Blueprint $table) {
             $table->id();
+            $table->string('semister_name');
             $table->timestamps();
         });
     }

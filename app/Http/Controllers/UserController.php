@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Lecturer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use App\Models\Subject;
+use App\Models\Department;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
-{
+{   
     public function index(){
         $user = User::all();
         return view('admin.home',['users'=> $user]);

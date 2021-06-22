@@ -71,7 +71,7 @@
             .panel-title{
                 color:#ffffff;
         }
-        .classForm{
+        .classForm, .subjectForm, .roomForm, .slotForm{
             padding-right: 30px;
         }
         .mfp-bg {

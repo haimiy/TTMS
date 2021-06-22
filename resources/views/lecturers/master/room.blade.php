@@ -4,16 +4,16 @@
 @endsection
 @section('content')
 <header class="page-header">
-    <h2>Manage Classes</h2>
+    <h2>Manage Venues</h2>
 
     <div class="right-wrapper pull-right">
         <ol class="breadcrumbs">
             <li>
                 <a href="/master/home">
-                    <i class="fa fa-dashboard"></i>
+                    <i class="fa fa-home"></i>
                 </a>
             </li>
-            <li><span>Table Classes</span></li>
+            <li><span>Tables Venues</span></li>
         </ol>
 
         <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
@@ -33,25 +33,23 @@
             <thead>
                 <tr style="background-color :#34495e; color:white;">
                     <th>#</th>
-                    <th>Class Name</th>
-                    <th>Class Size</th>
-                    <th>Department Name</th>
+                    <th>Room Name</th>
+                    <th>Room Size</th>
                     <th>Action</th>
                 </tr>
             </thead>
 
 
             <tbody>
-                @foreach ($classes as $class)
+                @foreach ($rooms as $room)
                 <tr>
-                    <td>{{ $class->id }}</td>
-                    <td>{{ $class->class_name }}</td>
-                    <td>{{ $class->class_size }}</td>
-                    <td>{{ $class->dept_name }}</td>
+                    <td>{{ $room->id }}</td>
+                    <td>{{ $room->room_name }}</td>
+                    <td>{{ $room->room_capacity }}</td>
                     <td class="actions">
                         {{-- <a href=""><i class="fa fa-eye"></i></a> --}}
-                        <a href="#edit-modal" onclick="initEditModel({{ $class->id}})"  class="modal-basic"><i class="fa fa-pencil text-primary"></i></a>
-                        <a href="#" onclick="deleteClass({{ $class->id}})"  class="delete-row"><i class="fa fa-trash-o text-danger"></i></a>
+                        <a href="#edit-modal" onclick="initEditModel({{ $room->id}})"  class="modal-basic"><i class="fa fa-pencil text-primary"></i></a>
+                        <a href="#" onclick="deleteRoom({{ $room->id}})"  class="delete-row"><i class="fa fa-trash-o text-danger"></i></a>
                     </td>
                  </tr>
                  @endforeach
@@ -67,33 +65,21 @@
     <section class="panel">
         <header class="panel-heading">
             <a href="#" class="fa fa-times modal-dismiss pull-right"></a>
-            <h2 class="panel-title">Add Class</h2>
+            <h2 class="panel-title">Add Room</h2>
         </header>
-        <form method="POST" action="{{ route('add_class')}}" id="classForm" class="form-horizontal mb-lg" novalidate="novalidate">
-        <div class="panel-body panel-body-nopadding classForm">
+        <form method="POST" action="{{ route('add_room')}}" id="roomForm" class="form-horizontal mb-lg" novalidate="novalidate">
+        <div class="panel-body panel-body-nopadding roomForm">
                 @csrf
                 <div class="form-group mt-lg">
-                    <label class="col-sm-3 control-label">Class Name</label>
+                    <label class="col-sm-3 control-label">Room Name</label>
                     <div class="col-sm-9">
-                        <input type="text" name="class_name" class="form-control" required/>
+                        <input type="text" name="room_name" class="form-control" placeholder="Type your name..." required/>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">Class Size</label>
+                    <label class="col-sm-3 control-label">Room Size</label>
                     <div class="col-sm-9">
-                        <input type="number" name="class_size" class="form-control" required/>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">Department</label>
-
-                    <div class="col-sm-9">
-                        <select name="dept_name" class="form-control">
-                            <option value="">--Select---</option>
-                            @foreach ( $depts as $dept )
-                            <option  value="{{ $dept->id }}">{{ $dept->dept_name }}</option>
-                            @endforeach
-                        </select>
+                        <input type="number" name="room_capacity" class="form-control" placeholder="Type your email..." required/>
                     </div>
                 </div>
                 <br>
@@ -117,33 +103,22 @@
     <section class="panel">
         <header class="panel-heading">
             <a href="#" class="fa fa-times modal-dismiss pull-right"></a>
-            <h2 class="panel-title">Edit Class</h2>
+            <h2 class="panel-title">Edit Room</h2>
         </header>
-        <form method="POST"  id="editClassForm" class="form-horizontal mb-lg" novalidate="novalidate">
-        <div class="panel-body panel-body-nopadding classForm">
+        <form method="POST"  id="editroomForm" class="form-horizontal mb-lg" novalidate="novalidate">
+        <div class="panel-body panel-body-nopadding roomForm">
             @csrf
+            <input type="text" id="edit-room-id" style="display:none">
                 <div class="form-group mt-lg">
-                    <label class="col-sm-3 control-label">Class Name</label>
+                    <label class="col-sm-3 control-label">Room Name</label>
                     <div class="col-sm-9">
-                        <input type="text" name="class_name" id="edit-class-name" class="form-control" required/>
+                        <input type="text" name="room_name" id="edit-room-name" class="form-control" placeholder="Type your name..." required/>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">Class Size</label>
+                    <label class="col-sm-3 control-label">Room Size</label>
                     <div class="col-sm-9">
-                        <input type="number" name="class_size" id="edit-class-size" class="form-control" required/>
-                    </div>
-                </div>
-            <input type="text" style="display: none" id="edit-class-id">
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">Department</label>
-                    <div class="col-sm-9">
-                        <select name="dept_id" id="edit-dept-id" class="form-control">
-                            <option value="">--Select---</option>
-                            @foreach ( $depts as $dept )
-                                <option  value="{{ $dept->id }}">{{ $dept->dept_name }}</option>
-                            @endforeach
-                        </select>
+                        <input type="number" name="room_capacity" id="edit-room-capacity" class="form-control" placeholder="Type your email..." required/>
                     </div>
                 </div>
                 <br>
@@ -164,6 +139,7 @@
 @endsection
 @section('script')
 <!-- Examples -->
+<!-- Examples -->
 <script src="{{ asset('assets/javascripts/ui-elements/examples.modals.js') }}"></script>
 <!-- Examples -->
 <script src="{{ asset('assets/javascripts/forms/examples.wizard.js') }}"></script>
@@ -177,7 +153,7 @@
              }
     });
     $(function(){
-        $('#classForm').on('submit', function(e){
+        $('#roomForm').on('submit', function(e){
             e.preventDefault();
             $.ajax({
                 url:$(this).attr('action'),
@@ -217,12 +193,12 @@
                 }
             });
         });
-        $('#editClassForm').on('submit', function(e){
+        $('#editroomForm').on('submit', function(e){
             e.preventDefault();
             console.log("edit")
-            let class_id =$("#edit-class-id").val();
+            let room_id =$("#edit-room-id").val();
             $.ajax({
-                url:'/master/classes/edit/'+class_id,
+                url:'/master/room/edit/'+room_id,
                 method:$(this).attr('method'),
                 data:new FormData(this),
                 processData:false,
@@ -269,9 +245,9 @@
         });
     });
 
-    function deleteClass(id) {
+    function deleteRoom(id) {
         $.ajax({
-            url: '/master/class/delete/'+id,
+            url: '/master/room/delete/'+id,
             method: 'delete',
             success:function (response) {
                 if(response.status){
@@ -295,20 +271,18 @@
     }
     function initEditModel(id) {
 
-        $.get('/master/ajax/classes/'+id,function (response) {
+        $.get('/master/ajax/room/'+id,function (response) {
             console.log(response);
-            $("#edit-class-name").val(response.class.class_name);
-            $("#edit-class-size").val(response.class.class_size);
-            $("#edit-dept-id").val(response.class.dept_id);
-            $("#edit-class-id").val(response.class.id);
+            $("#edit-room-name").val(response.room.room_name);
+            $("#edit-room-capacity").val(response.room.room_capacity);
+            $("#edit-room-id").val(response.room.id);
         });
     }
-    function editClass(){
-        let class_name = $("#edit-class-name").val();
-        let class_size = $("#edit-class-size").val();
-        let dept_id = $("#edit-dept-id").val();
+    function editRoom(){
+        let room_name = $("#edit-room-name").val();
+        let room_capacity = $("#edit-room-capacity").val();
 
-        $.post('/master/classes/edit/'+class_id,{'class_name':class_name,'class_size':class_size,'dept_id':dept_id,"_token": "{{ csrf_token() }}"},function (response) {
+        $.post('/master/room/edit/'+room_id,{'room_name':room_name,'room_capacity':room_capacity,"_token": "{{ csrf_token() }}"},function (response) {
             if(response.status){
                 new PNotify({
                     title: 'Updated!',

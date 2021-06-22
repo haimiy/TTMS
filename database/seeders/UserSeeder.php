@@ -91,14 +91,17 @@ class UserSeeder extends Seeder
         DB::table('lecturers')->insert([
             [
                 "user_id" => 2,
+                "dept_id" => 1,
                 "lecturer_role_id" => 1
             ],
             [
                 "user_id" => 3,
+                "dept_id" => 2,
                 "lecturer_role_id" => 2
             ],
             [
                 "user_id" => 4,
+                "dept_id" => 3,
                 "lecturer_role_id" => 3
             ]
 

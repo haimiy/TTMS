@@ -233,7 +233,7 @@
                                     <i class="fa fa-user"></i> My Profile
                                 </a>
                             @elseif(auth()->user()->lecturer->lecturer_role->lecturer_role_name == "master")
-                                <a role="menuitem" tabindex="-1" href="{{ '/master/profile' }}">
+                                <a role="menuitem" tabindex="-1" href="{{ '/master/profile/'.auth()->user()->id }}">
                                     <i class="fa fa-user"></i> My Profile
                                 </a>
                             @else

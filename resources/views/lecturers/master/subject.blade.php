@@ -4,16 +4,16 @@
 @endsection
 @section('content')
 <header class="page-header">
-    <h2>Manage Classes</h2>
+    <h2>Manage Subjects</h2>
 
     <div class="right-wrapper pull-right">
         <ol class="breadcrumbs">
             <li>
                 <a href="/master/home">
-                    <i class="fa fa-dashboard"></i>
+                    <i class="fa fa-home"></i>
                 </a>
             </li>
-            <li><span>Table Classes</span></li>
+            <li><span>Table Subject</span></li>
         </ol>
 
         <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
@@ -33,25 +33,25 @@
             <thead>
                 <tr style="background-color :#34495e; color:white;">
                     <th>#</th>
-                    <th>Class Name</th>
-                    <th>Class Size</th>
-                    <th>Department Name</th>
+                    <th>Subject Name</th>
+                    <th>Subject Code</th>
+                    <th>Credit No</th>
                     <th>Action</th>
                 </tr>
             </thead>
 
 
             <tbody>
-                @foreach ($classes as $class)
+                @foreach ($subjects as $subject)
                 <tr>
-                    <td>{{ $class->id }}</td>
-                    <td>{{ $class->class_name }}</td>
-                    <td>{{ $class->class_size }}</td>
-                    <td>{{ $class->dept_name }}</td>
+                    <td>{{ $subject->id }}</td>
+                    <td>{{ $subject->subject_name }}</td>
+                    <td>{{ $subject->subject_code }}</td>
+                    <td>{{ $subject->credit_no }}</td>
                     <td class="actions">
                         {{-- <a href=""><i class="fa fa-eye"></i></a> --}}
-                        <a href="#edit-modal" onclick="initEditModel({{ $class->id}})"  class="modal-basic"><i class="fa fa-pencil text-primary"></i></a>
-                        <a href="#" onclick="deleteClass({{ $class->id}})"  class="delete-row"><i class="fa fa-trash-o text-danger"></i></a>
+                        <a href="#edit-modal" onclick="initEditModel({{ $subject->id}})"  class="modal-basic"><i class="fa fa-pencil text-primary"></i></a>
+                        <a href="#" onclick="deleteSubject({{ $subject->id}})"  class="delete-row"><i class="fa fa-trash-o text-danger"></i></a>
                     </td>
                  </tr>
                  @endforeach
@@ -67,33 +67,27 @@
     <section class="panel">
         <header class="panel-heading">
             <a href="#" class="fa fa-times modal-dismiss pull-right"></a>
-            <h2 class="panel-title">Add Class</h2>
+            <h2 class="panel-title">Add Subject</h2>
         </header>
-        <form method="POST" action="{{ route('add_class')}}" id="classForm" class="form-horizontal mb-lg" novalidate="novalidate">
-        <div class="panel-body panel-body-nopadding classForm">
+        <form method="POST" action="{{ route('add_subject')}}" id="subjectForm" class="form-horizontal mb-lg" novalidate="novalidate">
+        <div class="panel-body panel-body-nopadding subjectForm">
                 @csrf
                 <div class="form-group mt-lg">
-                    <label class="col-sm-3 control-label">Class Name</label>
+                    <label class="col-sm-3 control-label">Subject Name</label>
                     <div class="col-sm-9">
-                        <input type="text" name="class_name" class="form-control" required/>
+                        <input type="text" name="subject_name" class="form-control" required/>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">Class Size</label>
+                    <label class="col-sm-3 control-label">Subject Code</label>
                     <div class="col-sm-9">
-                        <input type="number" name="class_size" class="form-control" required/>
+                        <input type="text" name="subject_code" class="form-control" required/>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">Department</label>
-
+                    <label class="col-sm-3 control-label">Credit No</label>
                     <div class="col-sm-9">
-                        <select name="dept_name" class="form-control">
-                            <option value="">--Select---</option>
-                            @foreach ( $depts as $dept )
-                            <option  value="{{ $dept->id }}">{{ $dept->dept_name }}</option>
-                            @endforeach
-                        </select>
+                        <input type="number" name="credit_no" class="form-control" required/>
                     </div>
                 </div>
                 <br>
@@ -117,33 +111,28 @@
     <section class="panel">
         <header class="panel-heading">
             <a href="#" class="fa fa-times modal-dismiss pull-right"></a>
-            <h2 class="panel-title">Edit Class</h2>
+            <h2 class="panel-title">Edit Subject</h2>
         </header>
-        <form method="POST"  id="editClassForm" class="form-horizontal mb-lg" novalidate="novalidate">
-        <div class="panel-body panel-body-nopadding classForm">
+        <form method="POST"  id="editSubjectForm" class="form-horizontal mb-lg" novalidate="novalidate">
+        <div class="panel-body panel-body-nopadding subjectForm">
             @csrf
+            <input type="text" id="edit-subject-id" style="display:none;">
                 <div class="form-group mt-lg">
-                    <label class="col-sm-3 control-label">Class Name</label>
+                    <label class="col-sm-3 control-label">Subject Name</label>
                     <div class="col-sm-9">
-                        <input type="text" name="class_name" id="edit-class-name" class="form-control" required/>
+                        <input type="text" name="subject_name" id="edit-subject-name" class="form-control" required/>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">Class Size</label>
+                    <label class="col-sm-3 control-label">Subject Code</label>
                     <div class="col-sm-9">
-                        <input type="number" name="class_size" id="edit-class-size" class="form-control" required/>
+                        <input type="text" name="subject_code" id="edit-subject-code" class="form-control" required/>
                     </div>
                 </div>
-            <input type="text" style="display: none" id="edit-class-id">
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">Department</label>
+                    <label class="col-sm-3 control-label">Credit No</label>
                     <div class="col-sm-9">
-                        <select name="dept_id" id="edit-dept-id" class="form-control">
-                            <option value="">--Select---</option>
-                            @foreach ( $depts as $dept )
-                                <option  value="{{ $dept->id }}">{{ $dept->dept_name }}</option>
-                            @endforeach
-                        </select>
+                        <input type="number" name="credit_no" id="edit-credit-no" class="form-control" required/>
                     </div>
                 </div>
                 <br>
@@ -164,6 +153,7 @@
 @endsection
 @section('script')
 <!-- Examples -->
+<!-- Examples -->
 <script src="{{ asset('assets/javascripts/ui-elements/examples.modals.js') }}"></script>
 <!-- Examples -->
 <script src="{{ asset('assets/javascripts/forms/examples.wizard.js') }}"></script>
@@ -177,7 +167,7 @@
              }
     });
     $(function(){
-        $('#classForm').on('submit', function(e){
+        $('#subjectForm').on('submit', function(e){
             e.preventDefault();
             $.ajax({
                 url:$(this).attr('action'),
@@ -217,12 +207,12 @@
                 }
             });
         });
-        $('#editClassForm').on('submit', function(e){
+        $('#editSubjectForm').on('submit', function(e){
             e.preventDefault();
             console.log("edit")
-            let class_id =$("#edit-class-id").val();
+            let subject_id =$("#edit-subject-id").val();
             $.ajax({
-                url:'/master/classes/edit/'+class_id,
+                url:'/master/subject/edit/'+subject_id,
                 method:$(this).attr('method'),
                 data:new FormData(this),
                 processData:false,
@@ -269,9 +259,9 @@
         });
     });
 
-    function deleteClass(id) {
+    function deleteSubject(id) {
         $.ajax({
-            url: '/master/class/delete/'+id,
+            url: '/master/subject/delete/'+id,
             method: 'delete',
             success:function (response) {
                 if(response.status){
@@ -295,36 +285,14 @@
     }
     function initEditModel(id) {
 
-        $.get('/master/ajax/classes/'+id,function (response) {
+        $.get('/master/ajax/subject/'+id,function (response) {
             console.log(response);
-            $("#edit-class-name").val(response.class.class_name);
-            $("#edit-class-size").val(response.class.class_size);
-            $("#edit-dept-id").val(response.class.dept_id);
-            $("#edit-class-id").val(response.class.id);
+            $("#edit-subject-name").val(response.subject.subject_name);
+            $("#edit-subject-code").val(response.subject.subject_code);
+            $("#edit-credit-no").val(response.subject.credit_no);
+            $("#edit-subject-id").val(response.subject.id);
         });
     }
-    function editClass(){
-        let class_name = $("#edit-class-name").val();
-        let class_size = $("#edit-class-size").val();
-        let dept_id = $("#edit-dept-id").val();
-
-        $.post('/master/classes/edit/'+class_id,{'class_name':class_name,'class_size':class_size,'dept_id':dept_id,"_token": "{{ csrf_token() }}"},function (response) {
-            if(response.status){
-                new PNotify({
-                    title: 'Updated!',
-                    text: response.message,
-                    type: 'success',
-                    addclass: 'icon-nb'
-                });
-            }else {
-                new PNotify({
-                    title: 'Error!',
-                    text: response.message,
-                    type: 'error',
-                    addclass: 'icon-nb'
-                });
-            }
-        });
-    }
+    
 </script>
 @endsection
