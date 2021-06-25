@@ -38,5 +38,17 @@ class DepartmentSeeder extends Seeder
                 "dept_name" => "GENERAL STUDIES",
             ]
         ]);
+
+        DB::table('semister')->insert([
+            [
+                "semister_name" => "Semister one",
+            ],
+            [ 
+                "semister_name" => "Semister two",
+            ],
+            [
+                "semister_name" => "Semister three",
+            ]
+        ]);
     }
 }

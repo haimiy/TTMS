@@ -77,6 +77,7 @@
         .mfp-bg {
             opacity: 0.2;
         }
+        
 
 
     </style>

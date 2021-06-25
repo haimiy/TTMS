@@ -106,6 +106,7 @@ Route::middleware(['auth'])->group(function () {
 
         //Manage Timetable
         Route::get('timetable', [TimeTableController::class, 'index']);
+        Route::get('timetable/class', [TimeTableController::class, 'showClassTimetable']);
 
     });
 

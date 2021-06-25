@@ -21,39 +21,51 @@
         </header>
 
         <!-- start: page -->
-        <div class="col-12 text-center">
-            <input type="submit" onclick="generateTimetable()" id="" value="Generate Timetable"
-                class="mb-xs mt-xs mr-xs btn btn-primary">
-            <br>
-            <br>
+        <div class="row">
+            <div class="col-md-12">
+                    <section class="panel">
+                        <header class="panel-heading">
+                            <h3 class="panel-title">Timetable parameters </h3>
+                        </header>
+                        <form action="/master/timetable/class">
+                            @csrf
+                        <div class="panel-body">
+                            <div class="row">
+                                
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label"><strong>Choose Semister</strong></label>
+                                        <select name="semister_id" class="form-control">
+                                            <option value="">--Select---</option>
+                                            @foreach ( $semisters as $semister )
+                                            <option  value="{{ $semister->id }}">{{ $semister->semister_name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label"><strong>Choose Classes</strong></label>
+                                        <select name="class_id" class="form-control">
+                                            <option value="">--Select---</option>
+                                            @foreach ( $classes as $classes )
+                                            <option  value="{{ $classes->id }}">{{ $classes->class_name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <footer class="panel-footer text-right">
+                            <button class="btn btn-primary" style=" background-color: #34495e !important;">View Class Timetable</button>
+                        </footer>
+                    </form>
+                    </section>
+            </div>
         </div>
-        <!-- TableDiv -->
-        <div id="generateTimetable" style="display:none;">
-        
-            <!-- start: page -->
-            <section class="panel">
-        
-                <div class="panel-body">
-        
-                    <table class="table table-bordered table-striped mb-none" id="datatable-default">
-        
-                        <thead>
-                            <tr style="background-color :#34495e; color:white;">
-                                <th>TIMES</th>
-                                <th>Monday</th>
-                                <th>Tuesday</th>
-                                <th>Wednesday</th>
-                                <th>Thursaday</th>
-                                <th>Friday</th>
-                            </tr>
-                        </thead>
-                        <tbody id="table-body">
-        
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-        </div> <!-- end: page -->
+         <!-- end: page -->
+
+
 @endsection
 @section('script')
 <!-- Examples -->
