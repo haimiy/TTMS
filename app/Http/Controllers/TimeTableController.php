@@ -51,8 +51,9 @@ class TimeTableController extends Controller
         $days = Day::all();
         $time = Slot::all();
 
-        $classTimetable = DB::select('SELECT d.day_name,cl.class_name,s.start_time,s2.subject_name,s2.credit_no ,s.end_time FROM timetables t 
+        $classTimetable = DB::select('SELECT d.day_name, d.id as day_id,se.semister_name ,cl.class_name,s.start_time,s2.subject_name,s2.credit_no, s.id as slot_id,s.end_time FROM timetables t 
         left join days d on t.day_id =d.id  
+        left join semister se on t.semister_id =se.id  
         left join slots s on t.slots_id = s.id 
         left JOIN rooms r on t.room_id = r.id 
         left join subjects s2 on t.subject_id  = s2.id 

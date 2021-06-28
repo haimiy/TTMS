@@ -50,24 +50,23 @@
                             <span>Manage Lecturers</span>
                         </a>
                     </li>
-                    {{-- <li class="nav-parent">
+                    <li class="nav-parent">
                         <a>
-                            <i class="fa fa-copy" aria-hidden="true"></i>
-                            <span>Periods</span>
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                            <span>Manage Timetbale</span>
                         </a>
                         <ul class="nav nav-children">
                             <li>
-                                <a href="pages-signup.html">
-                                    Sign Up
+                                <a href="/master/timetable">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                    <span>View Timetbale</span>
+                                </a>
+                                <a href="/timetable">
+                                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                    <span>Generate Timetbale</span>
                                 </a>
                             </li>
                         </ul>
-                    </li> --}}
-                    <li>
-                        <a href="/master/timetable">                                       
-                            <i class="fa fa-calendar" aria-hidden="true"></i>
-                            <span>Manage Timetables</span>
-                        </a>
                     </li>
                     
                 </ul>

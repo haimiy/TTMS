@@ -20,4 +20,5 @@ class Classes extends Model
     {
         return $this->belongsTo(Department::class,'dept_id');
     }
+    
 }

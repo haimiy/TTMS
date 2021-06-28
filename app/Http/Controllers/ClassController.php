@@ -7,6 +7,9 @@ use App\Models\Department;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\ClassesImport;
+use App\Exports\ClassesExport;
 
 class ClassController extends Controller
 {
@@ -84,12 +87,21 @@ class ClassController extends Controller
                 $class->class_size = $query['class_size'];
                 $class->dept_id = $query['dept_name'];
                 $class->save();
-
             if(!$query){
                 return response()->json(['status'=>0, 'msg'=>'Something went wrong']);
             }else{
                 return response()->json(['status'=>1, 'msg'=>'You insert data successfull']);
             }
         }
+    }
+
+    public function import(Request $request) 
+    {
+        Excel::import(new ClassesImport, $request->file('file')->store('temp'));
+        dd('Data imported Successfull');
+    }
+    public function export() 
+    {
+        return Excel::download(new ClassesExport, 'classes.xlsx');
     }
 }

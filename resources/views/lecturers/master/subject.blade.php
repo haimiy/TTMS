@@ -76,18 +76,24 @@
                     <label class="col-sm-3 control-label">Subject Name</label>
                     <div class="col-sm-9">
                         <input type="text" name="subject_name" class="form-control" required/>
+                        <span class="text-danger error-text subject_name_error"></span>
+
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 control-label">Subject Code</label>
                     <div class="col-sm-9">
                         <input type="text" name="subject_code" class="form-control" required/>
+                        <span class="text-danger error-text subject_code_error"></span>
+
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 control-label">Credit No</label>
                     <div class="col-sm-9">
                         <input type="number" name="credit_no" class="form-control" required/>
+                        <span class="text-danger error-text credit_no_error"></span>
+
                     </div>
                 </div>
                 <br>

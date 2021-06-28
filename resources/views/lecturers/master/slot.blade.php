@@ -73,13 +73,17 @@
                 <div class="form-group mt-lg">
                     <label class="col-sm-3 control-label">Start Time</label>
                     <div class="col-sm-9">
-                        <input type="time" name="start_time" class="form-control" placeholder="Type your name..." required/>
+                        <input type="time" name="start_time" class="form-control" required/>
+                        <span class="text-danger error-text start_time_error"></span>
+
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 control-label">End Time</label>
                     <div class="col-sm-9">
-                        <input type="time" name="end_time" class="form-control" placeholder="Type your email..." required/>
+                        <input type="time" name="end_time" class="form-control" required/>
+                        <span class="text-danger error-text end_time_error"></span>
+
                     </div>
                 </div>
                 <br>
@@ -112,13 +116,13 @@
                 <div class="form-group mt-lg">
                     <label class="col-sm-3 control-label">Start Time</label>
                     <div class="col-sm-9">
-                        <input type="time" name="start_time" id="edit-start-time" class="form-control" placeholder="Type your name..." required/>
+                        <input type="time" name="start_time" id="edit-start-time" class="form-control"required/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 control-label">End Time</label>
                     <div class="col-sm-9">
-                        <input type="time" name="end_time" id="edit-end-time" class="form-control" placeholder="Type your email..." required/>
+                        <input type="time" name="end_time" id="edit-end-time" class="form-control" required/>
                     </div>
                 </div>
                 <br>

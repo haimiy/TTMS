@@ -73,13 +73,15 @@
                 <div class="form-group mt-lg">
                     <label class="col-sm-3 control-label">Room Name</label>
                     <div class="col-sm-9">
-                        <input type="text" name="room_name" class="form-control" placeholder="Type your name..." required/>
+                        <input type="text" name="room_name" class="form-control" required/>
+                        <span class="text-danger error-text room_name_error"></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 control-label">Room Size</label>
                     <div class="col-sm-9">
-                        <input type="number" name="room_capacity" class="form-control" placeholder="Type your email..." required/>
+                        <input type="number" name="room_capacity" class="form-control" required/>
+                        <span class="text-danger error-text room_capacity_error"></span>
                     </div>
                 </div>
                 <br>
@@ -112,13 +114,13 @@
                 <div class="form-group mt-lg">
                     <label class="col-sm-3 control-label">Room Name</label>
                     <div class="col-sm-9">
-                        <input type="text" name="room_name" id="edit-room-name" class="form-control" placeholder="Type your name..." required/>
+                        <input type="text" name="room_name" id="edit-room-name" class="form-control" required/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 control-label">Room Size</label>
                     <div class="col-sm-9">
-                        <input type="number" name="room_capacity" id="edit-room-capacity" class="form-control" placeholder="Type your email..." required/>
+                        <input type="number" name="room_capacity" id="edit-room-capacity" class="form-control" required/>
                     </div>
                 </div>
                 <br>

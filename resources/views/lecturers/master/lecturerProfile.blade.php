@@ -223,26 +223,30 @@
                         </form>
                     </div>
                     <div id="edit" class="tab-pane">
-                        <form class="form-horizontal" method="get">
+                        <form class="form-horizontal" action="/master/change-psw" method="POST" id="changePasswordForm">
+                            @csrf
                             <h4 class="mb-xlg">Change Password</h4>
                             <fieldset class="mb-xl">
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label" for="profileNewPassword">Old Password</label>
+                                    <label class="col-md-3 control-label" for="profileOldPassword">Old Password</label>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" id="profileNewPassword">
+                                        <input type="text" class="form-control" name="oldPassword" id="profileOldPassword">
+                                        <span class="text-danger error-text oldPassword_error"></span>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="profileNewPassword">New Password</label>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" id="profileNewPassword">
+                                        <input type="text" class="form-control" name="newPassword" id="profileNewPassword">
+                                        <span class="text-danger error-text newPassword_error"></span>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="profileNewPasswordRepeat">Repeat New
                                         Password</label>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" id="profileNewPasswordRepeat">
+                                        <input type="text" class="form-control" name="repeatPassword" id="profileNewPasswordRepeat">
+                                        <span class="text-danger error-text repeatPassword_error"></span>                                       
                                     </div>
                                 </div>
                             </fieldset>
@@ -306,6 +310,37 @@
                         }
                     }
                 });
+            });
+        });
+        $('#changePasswordForm').on('submit', function(e){
+            e.preventDefault();
+
+            $.ajax({
+                url: $(this).attr('action'),
+                    method: $(this).attr('method'),
+                    data: new FormData(this),
+                    processData: false,
+                    dataType: 'json',
+                    contentType: false,
+                    beforeSend: function() {
+                        $(document).find('span.error-text').text('');
+                    },
+                    success: function(data) {
+                        if (data.status == 0) {
+                            $.each(data.error, function(prefix, val) {
+                                $('span.' + prefix + '_error').text(val[0]);
+                            });
+                        } else {
+                            // $('#UserForm')[0].reset();
+                            new PNotify({
+                                title: 'Updated',
+                                text: data.msg,
+                                type: 'success',
+                                addclass: 'icon-nb'
+                            });
+                        }
+                    }
+
             });
         });
     </script>

@@ -59,6 +59,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('home', [HomeController::class, 'index']);
         Route::get('profile/{id}',[LecturerController::class, 'showLecturerProfile']);
         //Class
+        Route::post('class/import', [ClassController::class, 'import']);
+        Route::get('class/export', [ClassController::class, 'export']);
         Route::get('class', [ClassController::class, 'index']);
         Route::post('class/create', [ClassController::class, 'addClass'])->name('add_class');
         Route::get('ajax/classes', [ClassController::class, 'getAjaxClassesInformation']);
@@ -102,6 +104,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('ajax/lecturer/{id}', [LecturerController::class, 'getAjaxLecturerInformation']);
         Route::delete('lecturer/delete/{id}', [LecturerController::class, 'deleteAjaxLecturerInformation']);
         Route::post('lecturer/edit/{id}', [LecturerController::class, 'editAjaxLecturerInformation']);
+        Route::post('/change-psw', [LecturerController::class, 'changePassword']);
         //End Manage Lecturer
 
         //Manage Timetable

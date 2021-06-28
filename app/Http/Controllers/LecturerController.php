@@ -9,7 +9,9 @@ use App\Models\User;
 use App\Models\Subject;
 use App\Models\Department;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 
 class LecturerController extends Controller
 {
@@ -67,16 +69,16 @@ class LecturerController extends Controller
         LEFT JOIN users u ON u.id=l.user_id 
         LEFT JOIN lecturer_subjecs ls ON l.id = ls.lecturer_id 
         LEFT JOIN departments d ON d.id=l.dept_id WHERE u.id=' . $id . '');
-        
+
         $classes = DB::select('SELECT c.*,  d.dept_name FROM classes c
         left join lecturer_classes lc ON c.id = lc.class_id
         left join departments d ON d.id = c.dept_id
-        WHERE lc.lecturer_id='.$id);
+        WHERE lc.lecturer_id=' . $id);
 
         $subjects = DB::select('SELECT * FROM subjects s 
         left join lecturer_subjecs ls ON s.id = ls.subject_id 
-        WHERE ls.lecturer_id='.$id);
-        return view('lecturers.master.lecturerProfile', ['lecturer' => $lecturer[0], 'subjects'=>$subjects, 'classes'=>$classes]);
+        WHERE ls.lecturer_id=' . $id);
+        return view('lecturers.master.lecturerProfile', ['lecturer' => $lecturer[0], 'subjects' => $subjects, 'classes' => $classes]);
     }
 
     public function getAjaxLecturersInformation()
@@ -139,6 +141,40 @@ class LecturerController extends Controller
                 return response()->json(['status' => 0, 'msg' => 'Something went wrong']);
             } else {
                 return response()->json(['status' => 1, 'msg' => 'You insert data successfull']);
+            }
+        }
+    }
+
+    public function changePassword(Request $request)
+    {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'oldPassword'    => [
+                    'required', function ($attribute, $value, $fail) {
+                        if (!Hash::check($value, Auth::user()->password)) {
+                            return $fail(_('The current password is incorrect'));
+                        }
+                    }
+                ],
+                'newPassword'    => 'required',
+                'repeatPassword' => 'required|same:newPassword'
+            ],
+            [
+                'oldPassword.required'=>'Enter your current password',
+                'newPassword.required'=> 'Enter new password',
+                'repeatPassword.required'=>'Re enter your new password',
+                'repeatPassword.same'=>'New Password and Confirm new password must match'
+            ]);
+
+        if (!$validator->passes()) {
+            return response()->json(['status' => 0, 'error' => $validator->errors()->toArray()]);
+        } else {
+            $query = User::find(Auth::user()->id)->update(['password'=>Hash::make($request->newPassword)]);
+            if (!$query) {
+                return response()->json(['status' => 0, 'msg' => 'Something went wrong']);
+            } else {
+                return response()->json(['status' => 1, 'msg' => 'Password Updated successfull']);
             }
         }
     }

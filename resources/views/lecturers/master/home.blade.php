@@ -32,7 +32,7 @@
             <div class="icon">
                 <i class="fa fa-book" aria-hidden="true"></i>
             </div>
-            <a href="course.php" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="/master/subject" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
 
@@ -45,7 +45,7 @@
             <div class="icon">
                 <i class="fa fa-group" aria-hidden="true"></i>
             </div>
-            <a href="class_list.php" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="/master/class" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
     
@@ -58,7 +58,7 @@
             <div class="icon">
                 <i class="fa fa-user" aria-hidden="true"></i>
             </div>
-            <a href="lecturers.php" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="/master/lecturer" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
     <div class="col-lg-3 col-sm-6">
@@ -70,7 +70,7 @@
             <div class="icon">
                 <i class="fa fa-home" aria-hidden="true"></i>
             </div>
-            <a href="rooms.php" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="/master/room" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
 </div>

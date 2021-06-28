@@ -27,33 +27,32 @@
 
             <div class="panel-body">
 
-                <table class="table table-bordered table-striped mb-none" id="datatable-default">
+                <table class="table table-bordered table-striped mb-none">
 
                     <thead>
-                        <tr style="background-color :#34495e; color:white;">
-                            <th class="text-center" colspan="5">
+                        <tr>
+                            <th class="text-center" colspan="6">
                                 {{ $class_name }} 
                             </th>
                         </tr>
-                        <tr style="background-color :#34495e; color:white;">   
-                            <th>Day Name</th>
-                            <th>Start Time</th>
-                            <th>End Time</th>
-                            <th>Subject Name</th>
-                            <th>Semister Name</th>
+                        <tr>
+                            <th width="150">Time</th>
+                            @foreach ($weekDays as $day)
+                                <th>{{ $day->day_name }}</th>
+                            @endforeach
                         </tr>
-                    
                     </thead>
                     <tbody>
-                        @foreach ($classTimetable as $timetable)
-                        <tr>
-                            <td>{{ $timetable->day_name }}</td>
-                            <td>{{ $timetable->start_time }}</td>
-                            <td>{{ $timetable->end_time }}</td>
-                            <td>{{ $timetable->subject_name }}</td>
-                            <td>{{ $timetable->semister_name }}</td>
-                        </tr>
-                        @endforeach                        
+                        @foreach ($timeslots as $time)
+                            <tr>
+                                <td>
+                                    {{ Carbon\Carbon::parse($time->start_time)->format('H:i') . ' - ' . Carbon\Carbon::parse($time->end_time)->format('H:i') }}
+                                </td>
+                                <td>
+                                
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -68,10 +67,6 @@
     <script src="{{ asset('assets/javascripts/ui-elements/examples.modals.js') }}"></script>
     <!-- Examples -->
     <script>
-        $(document).ready(function() {
-            $('#datatable-default').dataTable();
-        });
-
         var tableBody = $("#table-body");
         var tableDiv = $("#generateTimetable");
 
