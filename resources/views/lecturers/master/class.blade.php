@@ -23,14 +23,13 @@
     <section class="panel">
 
         <div class="panel-body">
-            <a class="mb-xs mt-xs mr-xs modal-basic btn btn-primary addition" href="#modalForm"><i class="fa fa-plus"></i>
+            <a class="mb-xs mt-xs mr-xs modal-basic btn btn-primary addition" href="#modalForm" ><i class="fa fa-plus"></i>
                 Add</a>
-            <form action="/master/class/import" method="POST" enctype="multipart/form-data">
+            <form action="/master/class/import" method="POST" enctype="multipart/form-data" id="importForm">
                 @csrf
                 <input type="file" id="myFile" name='file' style="display: none;">
-                <button type="submit" id="browse" class="mb-xs mt-xs mr-xs btn btn-primary addition pull-right"><i
+                <button type="button" id="browse" class="mb-xs mt-xs mr-xs btn btn-primary addition pull-right"><i
                         class="fa fa-upload" onclick=""></i> Import</button>
-
                 <a class="mb-xs mt-xs mr-xs btn btn-primary addition pull-right" href="/master/class/export"><i
                         class="fa fa-download"></i> Export</a>
             </form>
@@ -352,6 +351,9 @@
             $('#browse').click(function(){
             $('#myFile').click();
         });
+        $('#myFile').change(function(e) {
+            $("#importForm").submit();
+        })
         });
     </script>
 @endsection

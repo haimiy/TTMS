@@ -4,7 +4,7 @@
 @endsection
 @section('content')
     <header class="page-header">
-        <h2>Dashboard</h2>
+        <h2>User profile</h2>
 
         <div class="right-wrapper pull-right">
             <ol class="breadcrumbs">
@@ -230,14 +230,14 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="profileOldPassword">Old Password</label>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" name="oldPassword" id="profileOldPassword">
+                                        <input type="password" class="form-control" name="oldPassword" id="profileOldPassword">
                                         <span class="text-danger error-text oldPassword_error"></span>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="profileNewPassword">New Password</label>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" name="newPassword" id="profileNewPassword">
+                                        <input type="password" class="form-control" name="newPassword" id="profileNewPassword">
                                         <span class="text-danger error-text newPassword_error"></span>
                                     </div>
                                 </div>
@@ -245,7 +245,7 @@
                                     <label class="col-md-3 control-label" for="profileNewPasswordRepeat">Repeat New
                                         Password</label>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" name="repeatPassword" id="profileNewPasswordRepeat">
+                                        <input type="password" class="form-control" name="repeatPassword" id="profileNewPasswordRepeat">
                                         <span class="text-danger error-text repeatPassword_error"></span>                                       
                                     </div>
                                 </div>

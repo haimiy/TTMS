@@ -98,7 +98,7 @@ class ClassController extends Controller
     public function import(Request $request) 
     {
         Excel::import(new ClassesImport, $request->file('file')->store('temp'));
-        dd('Data imported Successfull');
+        return back();
     }
     public function export() 
     {

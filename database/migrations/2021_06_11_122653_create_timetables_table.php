@@ -19,6 +19,7 @@ class CreateTimetablesTable extends Migration
             $table->unsignedBigInteger('slots_id');
             $table->unsignedBigInteger('room_id');
             $table->unsignedBigInteger('subject_id');
+            $table->unsignedBigInteger('lecturer_id')->nullable();
             $table->unsignedBigInteger('semister_id');
             $table->integer('index');
             $table->timestamps();

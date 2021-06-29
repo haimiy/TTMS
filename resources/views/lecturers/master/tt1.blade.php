@@ -31,28 +31,30 @@
 
                     <thead>
                         <tr>
-                            <th class="text-center" colspan="6">
-                                {{ $class_name }} 
+                            <th class="text-center" colspan="8">
+                                {{ $class_name }}
                             </th>
                         </tr>
                         <tr>
-                            <th width="150">Time</th>
-                            @foreach ($weekDays as $day)
-                                <th>{{ $day->day_name }}</th>
-                            @endforeach
+                            <th width="150">Day</th>
+                            <th width="150">Times</th>
+                            <th width="150">Periods</th>
                         </tr>
+                        
                     </thead>
                     <tbody>
-                        @foreach ($timeslots as $time)
+                                @foreach ($weekDays as $day)
                             <tr>
                                 <td>
-                                    {{ Carbon\Carbon::parse($time->start_time)->format('H:i') . ' - ' . Carbon\Carbon::parse($time->end_time)->format('H:i') }}
-                                </td>
-                                <td>
-                                
+                                    {{ $day->day_name }}
                                 </td>
                             </tr>
-                        @endforeach
+                            @endforeach
+                                @foreach ($timeslots as $time)
+                                <td>
+                                    {{ Carbon\Carbon::parse($time->start_time)->format('H:i') . ' - ' . Carbon\Carbon::parse($time->end_time)->format('H:i') }}
+                                </td> 
+                                @endforeach  
                     </tbody>
                 </table>
             </div>

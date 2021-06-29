@@ -25,9 +25,15 @@
     <div class="panel-body">
         <a class="mb-xs mt-xs mr-xs modal-basic btn btn-primary addition" href="#modalForm"><i
                 class="fa fa-plus"></i> Add</a>
-        <a class="mb-xs mt-xs mr-xs btn btn-primary addition pull-right" href="#"><i
-                    class="fa fa-cloud-upload"></i> Import</a>
-
+                <form action="/master/room/import" method="POST" id="importForm" enctype="multipart/form-data">
+                    @csrf
+                    <input type="file" id="myFile" name='file' style="display: none;">
+                    <button type="button" id="browse" class="mb-xs mt-xs mr-xs btn btn-primary addition pull-right"><i
+                            class="fa fa-upload" onclick=""></i> Import</button>
+                    <a class="mb-xs mt-xs mr-xs btn btn-primary addition pull-right" href="/master/room/export"><i
+                            class="fa fa-download"></i> Export</a>
+                </form>
+                <br>
         <table class="table table-bordered table-striped mb-none" id="datatable-default">
 
             <thead>
@@ -302,5 +308,13 @@
             }
         });
     }
+    $(document).ready(function(){
+            $('#browse').click(function(){
+            $('#myFile').click();
+        });
+        $('#myFile').change(function(e) {
+            $("#importForm").submit();
+        })
+        });
 </script>
 @endsection

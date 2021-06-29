@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Subject;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\SubjectsImport;
+use App\Exports\SubjectsExport;
 
 class SubjectController extends Controller
 {
@@ -77,5 +80,14 @@ class SubjectController extends Controller
                 return response()->json(['status'=>1, 'msg'=>'You insert data successfull']);
             }
         }
+    }
+    public function import(Request $request) 
+    {
+        Excel::import(new SubjectsImport, $request->file('file')->store('temp'));
+        return back();
+    }
+    public function export() 
+    {
+        return Excel::download(new SubjectsExport, 'subjects.xlsx');
     }
 }

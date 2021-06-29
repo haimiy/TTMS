@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Slot;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\SlotsImport;
+use App\Exports\SlotsExport;
 
 class SlotController extends Controller
 {
@@ -74,5 +77,14 @@ class SlotController extends Controller
                 return response()->json(['status'=>1, 'msg'=>'You insert data successfull']);
             }
         }
+    }
+    public function import(Request $request) 
+    {
+        Excel::import(new SlotsImport, $request->file('file')->store('temp'));
+        return back();
+    }
+    public function export() 
+    {
+        return Excel::download(new SlotsExport, 'slots.xlsx');
     }
 }

@@ -70,6 +70,8 @@ Route::middleware(['auth'])->group(function () {
         //End Class
 
         //subject
+        Route::post('subject/import', [SubjectController::class, 'import']);
+        Route::get('subject/export', [SubjectController::class, 'export']);
         Route::get('subject', [SubjectController::class, 'index']);
         Route::post('subject/create', [SubjectController::class, 'addSubject'])->name('add_subject');
         Route::get('ajax/subject', [SubjectController::class, 'getAjaxsubjectsInformation']);
@@ -79,6 +81,8 @@ Route::middleware(['auth'])->group(function () {
         //End subject
 
         //Room
+        Route::post('room/import', [RoomController::class, 'import']);
+        Route::get('room/export', [RoomController::class, 'export']);
         Route::get('room', [RoomController::class, 'index']);
         Route::post('room/create', [RoomController::class, 'addroom'])->name('add_room');
         Route::get('ajax/room', [RoomController::class, 'getAjaxRoomsInformation']);
@@ -88,6 +92,8 @@ Route::middleware(['auth'])->group(function () {
         //End Room
 
         //Slot
+        Route::post('slot/import', [SlotController::class, 'import']);
+        Route::get('slot/export', [SlotController::class, 'export']);
         Route::get('slot', [SlotController::class, 'index']);
         Route::post('slot/create', [SlotController::class, 'addSlot'])->name('add_slot');
         Route::get('ajax/slot', [SlotController::class, 'getAjaxSlotsInformation']);
