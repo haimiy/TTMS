@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('side_bar')
-    @include('students.layouts.side_bar')
+@include('lecturers.normal_lecturer.layouts.side_bar')
 @endsection
 @section('content')
         <header class="page-header">
@@ -30,16 +30,14 @@
             <table class="table table-bordered table-striped mb-none" id="datatable-default">
 
                 <thead>
-                    <tr style="background-color :#34495e; color:white;">
-                        <th class="text-center" colspan="4">
-                            {{ $semister_name}}
-                        </th>
-                    </tr>
+                
                     <tr style="background-color :#34495e; color:white;">   
                         <th>Day Name</th>
                         <th>Start Time</th>
                         <th>End Time</th>
                         <th>Subject Name</th>
+                        <th>Class Name</th>
+                        <th>Venue Name</th>
                     </tr>
                 
                 </thead>
@@ -50,6 +48,8 @@
                     <td>{{ $timetable->start_time}}</td>
                     <td>{{ $timetable->end_time}}</td>
                     <td>{{ $timetable->subject_name}}</td>
+                    <td>{{ $timetable->class_name}}</td>
+                    <td>{{ $timetable->room_name}}</td>
                    </tr>
                    @endforeach
                 </tbody>

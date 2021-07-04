@@ -5,16 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Timetable extends Model
+class Student extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'day_id',
-        'slots_id',
-        'room_id',
-        'lecturer_id',
-        'subject_id',
-        'semister_id',
+        'user_id',
+        'class_id'
     ];
-    
 }

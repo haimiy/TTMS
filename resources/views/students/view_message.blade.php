@@ -4,7 +4,7 @@
 @endsection
 @section('content')
         <header class="page-header">
-            <h2>Dashboard</h2>
+            <h2>Message</h2>
 
             <div class="right-wrapper pull-right">
                 <ol class="breadcrumbs">
@@ -13,7 +13,7 @@
                             <i class="fa fa-home"></i>
                         </a>
                     </li>
-                    <li><span>Dashboard</span></li>
+                    <li><span>message</span></li>
                 </ol>
 
                 <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
@@ -30,26 +30,21 @@
             <table class="table table-bordered table-striped mb-none" id="datatable-default">
 
                 <thead>
-                    <tr style="background-color :#34495e; color:white;">
-                        <th class="text-center" colspan="4">
-                            {{ $semister_name}}
-                        </th>
-                    </tr>
-                    <tr style="background-color :#34495e; color:white;">   
-                        <th>Day Name</th>
-                        <th>Start Time</th>
-                        <th>End Time</th>
-                        <th>Subject Name</th>
+                    <tr style="background-color :#34495e; color:white;"> 
+                        <th>Message No</th>  
+                        <th>Lecturer Name</th>
+                        <th>Message</th>
+                        <th>Date</th>
                     </tr>
                 
                 </thead>
                 <tbody>
-                   @foreach ($timetable as $timetable)
+                   @foreach ($showReadMessage as $showReadMessage)
                    <tr>
-                    <td>{{ $timetable->day_name}}</td>
-                    <td>{{ $timetable->start_time}}</td>
-                    <td>{{ $timetable->end_time}}</td>
-                    <td>{{ $timetable->subject_name}}</td>
+                    <td>{{$loop->iteration}}</td>
+                    <td>{{ $showReadMessage->first_name. ' '.$showReadMessage->middle_name. ' '. $showReadMessage->last_name }}</td>
+                    <td>{{ $showReadMessage->message}}</td>
+                    <td>{{ date('d M Y - H:i', $showReadMessage->created_at) }}</td>
                    </tr>
                    @endforeach
                 </tbody>

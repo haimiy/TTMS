@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('side_bar')
-    @include('lecturers.master.layouts.side_bar')
+    @include('lecturers.coordinator.layouts.side_bar')
 @endsection
 @section('content')
     <header class="page-header">
@@ -9,7 +9,7 @@
         <div class="right-wrapper pull-right">
             <ol class="breadcrumbs">
                 <li>
-                    <a href="/master/home">
+                    <a href="/coordinator/home">
                         <i class="fa fa-dashboard"></i>
                     </a>
                 </li>
@@ -34,7 +34,7 @@
                 <thead>
                     <tr style="background-color :#34495e; color:white;">
                         <th>#</th>
-                        <th>Lecturer Code</th>
+                        <th>Lecturer Name</th>
                         <th>Department Name</th>
                         <th>Action</th>
                     </tr>
@@ -44,11 +44,11 @@
                 <tbody>
                     @foreach ($lecturers as $lecturer)
                         <tr>
-                            <td>{{ $lecturer->id }}</td>
-                            <td>{{ $lecturer->login_id }}</td>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $lecturer->first_name.' '.$lecturer->middle_name.' '.$lecturer->last_name }}</td>
                             <td>{{ $lecturer->dept_name }}</td>
                             <td class="actions">
-                                <a href="/master/profile/{{$lecturer->user_id}}"><i class="fa fa-eye"></i></a>
+                                <a href="/coordinator/profile/{{$lecturer->user_id}}"><i class="fa fa-eye"></i></a>
                                 <a href="#" onclick="deleteLecturer({{ $lecturer->id }})" class="delete-row"><i
                                 class="fa fa-trash-o text-danger"></i></a>
                             </td>
@@ -66,7 +66,7 @@
                 <a href="#" class="fa fa-times modal-dismiss pull-right"></a>
                 <h2 class="panel-title">Add Lecturer</h2>
             </header>
-            <form method="POST" action="/master/lecturer/create" id="lecturerForm">
+            <form method="POST" action="/coordinator/lecturer/create" id="lecturerForm">
                 @csrf
                     <div class="panel-body" style="padding: 35px">
                         <div class="row">  
@@ -249,7 +249,7 @@
                 console.log("edit")
                 let lecturer_id = $("#edit-lecturer-id").val();
                 $.ajax({
-                    url: '/master/lecturer/edit/'+lecturer_id,
+                    url: '/coordinator/lecturer/edit/'+lecturer_id,
                     method: $(this).attr('method'),
                     data: new FormData(this),
                     processData: false,
@@ -297,7 +297,7 @@
 
         function deleteLecturer(id) {
             $.ajax({
-                url: '/master/lecturer/delete/' + id,
+                url: '/coordinator/lecturer/delete/' + id,
                 method: 'delete',
                 success: function(response) {
                     if (response.status) {
@@ -322,7 +322,7 @@
 
         function initEditModel(id) {
 
-            $.get('/master/ajax/lecturer/'+id, function(response) {
+            $.get('/coordinator/ajax/lecturer/'+id, function(response) {
                 console.log(response);
                 $("#edit-login-id").val(response.lecturer.login_id);
                 $("#edit-subject-id").val(response.lecturer.subject_id);
@@ -334,7 +334,7 @@
             let login_id = $("#edit-login-id").val();
             let subject_id = $("#edit-subject-id").val();
 
-            $.post('/master/lecturer/edit/'+lecturer_id, {
+            $.post('/coordinator/lecturer/edit/'+lecturer_id, {
                 'login_id': login_id,
                 'subject_id': subject_id,
                 "_token": "{{ csrf_token() }}"

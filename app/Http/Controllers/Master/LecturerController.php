@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Master;
 
+use App\Http\Controllers\Controller;
+use App\Models\Classes;
 use Illuminate\Http\Request;
 use App\Models\Lecturer;
+use App\Models\LecturerRole;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
-use App\Models\Subject;
 use App\Models\Department;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -51,13 +53,18 @@ class LecturerController extends Controller
     {
         $dept = Department::all();
         $user = User::all();
-        $subject = Subject::all();
+        $lecturerRoles = LecturerRole::all();
         $lecturer =  DB::table('lecturers')
             ->join('departments', 'departments.id', '=', 'lecturers.dept_id')
             ->join('users', 'users.id', '=', 'lecturers.user_id')
             ->select('lecturers.*', 'dept_name', 'login_id')
             ->get();
-        return view('lecturers.master.lecturer', ['lecturers' => $lecturer, 'depts' => $dept, 'users' => $user, 'subjects' => $subject]);
+        return view('lecturers.master.lecturer', [
+            'lecturers' => $lecturer, 
+            'depts' => $dept, 
+            'users' => $user, 
+            'lecturerRoles' => $lecturerRoles
+        ]);
 
         // $lecturer = DB::select('SELECT l.id,u.login_id, s.subject_name FROM lecturers l LEFT JOIN users u ON u.id=l.user_id LEFT JOIN lecturer_subjecs ls ON l.id = ls.lecturer_id LEFT JOIN subjects s ON s.id =ls.subject_id' );
         // return view('lecturers.master.lecturer', ['lecturers'=>$lecturer, 'subjects'=>$subject]);
@@ -130,17 +137,31 @@ class LecturerController extends Controller
     public function addLecturer(Request $req)
     {
         $validator = Validator::make($req->all(), [
-            'login_id'    => 'required',
-            'subject_name'    => 'required'
+            'first_name'    => 'required',
+            'middle_name'   => 'required',
+            'last_name'     => 'required',
+            'email'         => 'required|email',
+            'phone_no'      => 'required',
+            'dob'           => 'required',
+            'gender'        => 'required',
+            'dept_id' => 'required',
+            'lecturer_role_id' => 'required',
         ]);
-        if (!$validator->passes()) {
-            return response()->json(['status' => 0, 'error' => $validator->errors()->toArray()]);
-        } else {
-            $query = Lecturer::create($req->all());
-            if (!$query) {
-                return response()->json(['status' => 0, 'msg' => 'Something went wrong']);
-            } else {
-                return response()->json(['status' => 1, 'msg' => 'You insert data successfull']);
+        if(!$validator->passes()){
+            return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
+        }else{
+            $req['role_id']=2;
+            $req['password'] = Hash::make($req->password);
+
+           $user = User::create($req->all());
+           $req['user_id'] = $user->id;
+           
+            $lecturer = Lecturer::create($req->all());
+              
+            if(!$lecturer){
+                return response()->json(['status'=>0, 'msg'=>'Something went wrong']);
+            }else{
+                return response()->json(['status'=>1, 'msg'=>'You insert data successfull']);
             }
         }
     }

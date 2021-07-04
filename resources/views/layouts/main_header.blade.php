@@ -1,7 +1,7 @@
 <header class="header">
     <div class="logo-container">
         <a href="../" class="logo">
-            <img src="{{ asset('assets/images/logo2.png') }}" height="35" alt="JSOFT Admin" />
+            <img src="{{ asset('assets/images/logo2.png') }}" height="35" alt="logo" />
         </a>
         <div class="visible-xs toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html"
             data-fire-event="sidebar-left-opened">
@@ -11,7 +11,6 @@
 
     <!-- start: search & user box -->
     <div class="header-right">
-
         <form action="pages-search-results.html" class="search nav-form">
             <div class="input-group input-search">
                 <input type="text" class="form-control" name="q" id="q" placeholder="Search...">
@@ -24,187 +23,51 @@
         <span class="separator"></span>
 
         <ul class="notifications">
-            <li>
-                <a href="#" class="dropdown-toggle notification-icon" data-toggle="dropdown">
-                    <i class="fa fa-tasks"></i>
-                    <span class="badge">3</span>
-                </a>
+        @if (auth::user()->role_id == 3)
+        <li>
+            <a href="#" class="dropdown-toggle notification-icon" data-toggle="dropdown">
+                <i class="fa fa-bell"></i>
+                <span class="badge">   
+                    {{ $count_msg }}
+                </span>
+            </a>
 
-                <div class="dropdown-menu notification-menu large">
-                    <div class="notification-title">
-                        <span class="pull-right label label-default">3</span>
-                        Tasks
-                    </div>
-
-                    <div class="content">
-                        <ul>
-                            <li>
-                                <p class="clearfix mb-xs">
-                                    <span class="message pull-left">Generating Sales Report</span>
-                                    <span class="message pull-right text-dark">60%</span>
-                                </p>
-                                <div class="progress progress-xs light">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0"
-                                        aria-valuemax="100" style="width: 60%;"></div>
-                                </div>
-                            </li>
-
-                            <li>
-                                <p class="clearfix mb-xs">
-                                    <span class="message pull-left">Importing Contacts</span>
-                                    <span class="message pull-right text-dark">98%</span>
-                                </p>
-                                <div class="progress progress-xs light">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="98" aria-valuemin="0"
-                                        aria-valuemax="100" style="width: 98%;"></div>
-                                </div>
-                            </li>
-
-                            <li>
-                                <p class="clearfix mb-xs">
-                                    <span class="message pull-left">Uploading something big</span>
-                                    <span class="message pull-right text-dark">33%</span>
-                                </p>
-                                <div class="progress progress-xs light mb-xs">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="33" aria-valuemin="0"
-                                        aria-valuemax="100" style="width: 33%;"></div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+            <div class="dropdown-menu notification-menu">
+                <div class="notification-title">
+                    <span class="pull-right label label-default">{{ $count_msg }}</span>
+                    Messages
                 </div>
-            </li>
-            <li>
-                <a href="#" class="dropdown-toggle notification-icon" data-toggle="dropdown">
-                    <i class="fa fa-envelope"></i>
-                    <span class="badge">4</span>
-                </a>
+                <div class="content">
+                    <ul>
+                        @foreach ($notify as $notify)
+                        <li>
+                            <a href="/student/read_message" class="clearfix">
+                                <div class="image">
+                                    <i class="fa fa-envelope bg-primary"></i>
+                                </div>
+                                <span class="title">{{ $notify->message}}</span>
+                                <span class="message">Just now</span>
+                            </a>
+                        </li>
+                        @endforeach
+                        @if ($count_msg == 0)
+                        <li>
+                            <a href="#" class="clearfix">
+                                <div class="image">
+                                    <i class="fa fa-envelope-open bg-danger"></i>
+                                </div>
+                                <span class="title text-danger">Sorry! No messages</span>
+                            </a>
+                        </li>
+                        @endif
+                    </ul>
 
-                <div class="dropdown-menu notification-menu">
-                    <div class="notification-title">
-                        <span class="pull-right label label-default">230</span>
-                        Messages
-                    </div>
-
-                    <div class="content">
-                        <ul>
-                            <li>
-                                <a href="#" class="clearfix">
-                                    <figure class="image">
-                                        <img src="{{ asset('assets/images/!sample-user.jpg') }}"
-                                            alt="Joseph Doe Junior" class="img-circle" />
-                                    </figure>
-                                    <span class="title">Joseph Doe</span>
-                                    <span class="message">Lorem ipsum dolor sit.</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="clearfix">
-                                    <figure class="image">
-                                        <img src="{{ asset('assets/images/!sample-user.jpg') }}" alt="Joseph Junior"
-                                            class="img-circle" />
-                                    </figure>
-                                    <span class="title">Joseph Junior</span>
-                                    <span class="message truncate">Truncated message. Lorem ipsum dolor sit
-                                        amet, consectetur adipiscing elit. Donec sit amet lacinia orci. Proin
-                                        vestibulum eget risus non luctus. Nunc cursus lacinia lacinia. Nulla
-                                        molestie malesuada est ac tincidunt. Quisque eget convallis diam, nec
-                                        venenatis risus. Vestibulum blandit faucibus est et malesuada. Sed
-                                        interdum cursus dui nec venenatis. Pellentesque non nisi lobortis,
-                                        rutrum eros ut, convallis nisi. Sed tellus turpis, dignissim sit amet
-                                        tristique quis, pretium id est. Sed aliquam diam diam, sit amet faucibus
-                                        tellus ultricies eu. Aliquam lacinia nibh a metus bibendum, eu commodo
-                                        eros commodo. Sed commodo molestie elit, a molestie lacus porttitor id.
-                                        Donec facilisis varius sapien, ac fringilla velit porttitor et. Nam
-                                        tincidunt gravida dui, sed pharetra odio pharetra nec. Duis consectetur
-                                        venenatis pharetra. Vestibulum egestas nisi quis elementum
-                                        elementum.</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="clearfix">
-                                    <figure class="image">
-                                        <img src="{{ asset('assets/images/!sample-user.jpg') }}" alt="Joe Junior"
-                                            class="img-circle" />
-                                    </figure>
-                                    <span class="title">Joe Junior</span>
-                                    <span class="message">Lorem ipsum dolor sit.</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="clearfix">
-                                    <figure class="image">
-                                        <img src="{{ asset('assets/images/!sample-user.jpg') }}" alt="Joseph Junior"
-                                            class="img-circle" />
-                                    </figure>
-                                    <span class="title">Joseph Junior</span>
-                                    <span class="message">Lorem ipsum dolor sit amet, consectetur adipiscing
-                                        elit. Donec sit amet lacinia orci. Proin vestibulum eget risus non
-                                        luctus. Nunc cursus lacinia lacinia. Nulla molestie malesuada est ac
-                                        tincidunt. Quisque eget convallis diam.</span>
-                                </a>
-                            </li>
-                        </ul>
-
-                        <hr />
-
-                        <div class="text-right">
-                            <a href="#" class="view-more">View All</a>
-                        </div>
-                    </div>
+                    <hr />
+ 
                 </div>
-            </li>
-            <li>
-                <a href="#" class="dropdown-toggle notification-icon" data-toggle="dropdown">
-                    <i class="fa fa-bell"></i>
-                    <span class="badge">3</span>
-                </a>
-
-                <div class="dropdown-menu notification-menu">
-                    <div class="notification-title">
-                        <span class="pull-right label label-default">3</span>
-                        Alerts
-                    </div>
-
-                    <div class="content">
-                        <ul>
-                            <li>
-                                <a href="#" class="clearfix">
-                                    <div class="image">
-                                        <i class="fa fa-thumbs-down bg-danger"></i>
-                                    </div>
-                                    <span class="title">Server is Down!</span>
-                                    <span class="message">Just now</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="clearfix">
-                                    <div class="image">
-                                        <i class="fa fa-lock bg-warning"></i>
-                                    </div>
-                                    <span class="title">User Locked</span>
-                                    <span class="message">15 minutes ago</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="clearfix">
-                                    <div class="image">
-                                        <i class="fa fa-signal bg-success"></i>
-                                    </div>
-                                    <span class="title">Connection Restaured</span>
-                                    <span class="message">10/10/2014</span>
-                                </a>
-                            </li>
-                        </ul>
-
-                        <hr />
-
-                        <div class="text-right">
-                            <a href="#" class="view-more">View All</a>
-                        </div>
-                    </div>
-                </div>
-            </li>
+            </div>
+        </li>
+        @endif
         </ul>
 
         <span class="separator"></span>
@@ -229,20 +92,24 @@
                     <li>
                         @if (auth()->user()->role->user_role_name == 'lecturer')
                             @if (auth()->user()->lecturer->lecturer_role->lecturer_role_name == 'coordinator')
-                                <a role="menuitem" tabindex="-1" href="{{ '/coordinator/profile' }}">
-                                    <i class="fa fa-user"></i> My Profile
+                            <a role="menuitem" tabindex="-1" href="{{ '/coordinator/profile/'.auth()->user()->id }}">
+                                <i class="fa fa-user"></i> My Profile
                                 </a>
                             @elseif(auth()->user()->lecturer->lecturer_role->lecturer_role_name == "master")
                                 <a role="menuitem" tabindex="-1" href="{{ '/master/profile/'.auth()->user()->id }}">
                                     <i class="fa fa-user"></i> My Profile
                                 </a>
+                            @elseif(auth()->user()->lecturer->lecturer_role->lecturer_role_name == "normal")
+                                <a role="menuitem" tabindex="-1" href="{{ '/lecturer/profile/'.auth()->user()->id }}">
+                                    <i class="fa fa-user"></i> My Profile
+                                </a>
                             @else
-                                <a role="menuitem" tabindex="-1" href="{{ '/lecturer/profile' }}">
+                            <a role="menuitem" tabindex="-1" href="{{ '/lecturer/profile/'.auth()->user()->id }}">
                                     <i class="fa fa-user"></i> My Profile
                                 </a>
                             @endif
                         @elseif(auth()->user()->role->user_role_name == "student")
-                            <a role="menuitem" tabindex="-1" href="{{ '/student/profile' }}">
+                        <a role="menuitem" tabindex="-1" href="{{ '/student/profile/'.auth()->user()->id }}">
                                 <i class="fa fa-user"></i> My Profile
                             </a>
                         @elseif(auth()->user()->role->user_role_name == "admin")

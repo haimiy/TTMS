@@ -68,6 +68,12 @@
                             </li>
                         </ul>
                     </li>
+                    <li>
+                        <a href="/master/notify">                                       
+                            <i class="fa fa-bell" aria-hidden="true"></i>
+                            <span>Manage Notification</span>
+                        </a>
+                    </li>  
                     
                 </ul>
             </nav>

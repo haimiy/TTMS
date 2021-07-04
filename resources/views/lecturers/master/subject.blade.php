@@ -75,7 +75,7 @@
             <a href="#" class="fa fa-times modal-dismiss pull-right"></a>
             <h2 class="panel-title">Add Subject</h2>
         </header>
-        <form method="POST" action="{{ route('add_subject')}}" id="subjectForm" class="form-horizontal mb-lg" novalidate="novalidate">
+        <form method="POST" action="/master/subject/create" id="subjectForm" class="form-horizontal mb-lg" novalidate="novalidate">
         <div class="panel-body panel-body-nopadding subjectForm">
                 @csrf
                 <div class="form-group mt-lg">

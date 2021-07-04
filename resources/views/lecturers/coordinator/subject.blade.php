@@ -1,19 +1,19 @@
 @extends('layouts.main')
 @section('side_bar')
-    @include('lecturers.master.layouts.side_bar')
+    @include('lecturers.coordinator.layouts.side_bar')
 @endsection
 @section('content')
 <header class="page-header">
-    <h2>Manage Venues</h2>
+    <h2>Manage Subjects</h2>
 
     <div class="right-wrapper pull-right">
         <ol class="breadcrumbs">
             <li>
-                <a href="/master/home">
+                <a href="/coordinator/home">
                     <i class="fa fa-home"></i>
                 </a>
             </li>
-            <li><span>Tables Venues</span></li>
+            <li><span>Table Subject</span></li>
         </ol>
 
         <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
@@ -25,12 +25,12 @@
     <div class="panel-body">
         <a class="mb-xs mt-xs mr-xs modal-basic btn btn-primary addition" href="#modalForm"><i
                 class="fa fa-plus"></i> Add</a>
-                <form action="/master/room/import" method="POST" id="importForm" enctype="multipart/form-data">
+                <form action="/coordinator/subject/import" id="importForm" method="POST" enctype="multipart/form-data">
                     @csrf
                     <input type="file" id="myFile" name='file' style="display: none;">
                     <button type="button" id="browse" class="mb-xs mt-xs mr-xs btn btn-primary addition pull-right"><i
                             class="fa fa-upload" onclick=""></i> Import</button>
-                    <a class="mb-xs mt-xs mr-xs btn btn-primary addition pull-right" href="/master/room/export"><i
+                    <a class="mb-xs mt-xs mr-xs btn btn-primary addition pull-right" href="/coordinator/subject/export"><i
                             class="fa fa-download"></i> Export</a>
                 </form>
                 <br>
@@ -39,23 +39,25 @@
             <thead>
                 <tr style="background-color :#34495e; color:white;">
                     <th>#</th>
-                    <th>Room Name</th>
-                    <th>Room Size</th>
+                    <th>Subject Name</th>
+                    <th>Subject Code</th>
+                    <th>Credit No</th>
                     <th>Action</th>
                 </tr>
             </thead>
 
 
             <tbody>
-                @foreach ($rooms as $room)
+                @foreach ($subjects as $subject)
                 <tr>
-                    <td>{{ $room->id }}</td>
-                    <td>{{ $room->room_name }}</td>
-                    <td>{{ $room->room_capacity }}</td>
+                    <td>{{ $subject->id }}</td>
+                    <td>{{ $subject->subject_name }}</td>
+                    <td>{{ $subject->subject_code }}</td>
+                    <td>{{ $subject->credit_no }}</td>
                     <td class="actions">
                         {{-- <a href=""><i class="fa fa-eye"></i></a> --}}
-                        <a href="#edit-modal" onclick="initEditModel({{ $room->id}})"  class="modal-basic"><i class="fa fa-pencil text-primary"></i></a>
-                        <a href="#" onclick="deleteRoom({{ $room->id}})"  class="delete-row"><i class="fa fa-trash-o text-danger"></i></a>
+                        <a href="#edit-modal" onclick="initEditModel({{ $subject->id}})"  class="modal-basic"><i class="fa fa-pencil text-primary"></i></a>
+                        <a href="#" onclick="deleteSubject({{ $subject->id}})"  class="delete-row"><i class="fa fa-trash-o text-danger"></i></a>
                     </td>
                  </tr>
                  @endforeach
@@ -71,23 +73,33 @@
     <section class="panel">
         <header class="panel-heading">
             <a href="#" class="fa fa-times modal-dismiss pull-right"></a>
-            <h2 class="panel-title">Add Room</h2>
+            <h2 class="panel-title">Add Subject</h2>
         </header>
-        <form method="POST" action="/master/room/create" id="roomForm" class="form-horizontal mb-lg" novalidate="novalidate">
-        <div class="panel-body panel-body-nopadding roomForm">
+        <form method="POST" action="/coordinator/subject/create" id="subjectForm" class="form-horizontal mb-lg" novalidate="novalidate">
+        <div class="panel-body panel-body-nopadding subjectForm">
                 @csrf
                 <div class="form-group mt-lg">
-                    <label class="col-sm-3 control-label">Room Name</label>
+                    <label class="col-sm-3 control-label">Subject Name</label>
                     <div class="col-sm-9">
-                        <input type="text" name="room_name" class="form-control" required/>
-                        <span class="text-danger error-text room_name_error"></span>
+                        <input type="text" name="subject_name" class="form-control" required/>
+                        <span class="text-danger error-text subject_name_error"></span>
+
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">Room Size</label>
+                    <label class="col-sm-3 control-label">Subject Code</label>
                     <div class="col-sm-9">
-                        <input type="number" name="room_capacity" class="form-control" required/>
-                        <span class="text-danger error-text room_capacity_error"></span>
+                        <input type="text" name="subject_code" class="form-control" required/>
+                        <span class="text-danger error-text subject_code_error"></span>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Credit No</label>
+                    <div class="col-sm-9">
+                        <input type="number" name="credit_no" class="form-control" required/>
+                        <span class="text-danger error-text credit_no_error"></span>
+
                     </div>
                 </div>
                 <br>
@@ -111,22 +123,28 @@
     <section class="panel">
         <header class="panel-heading">
             <a href="#" class="fa fa-times modal-dismiss pull-right"></a>
-            <h2 class="panel-title">Edit Room</h2>
+            <h2 class="panel-title">Edit Subject</h2>
         </header>
-        <form method="POST"  id="editroomForm" class="form-horizontal mb-lg" novalidate="novalidate">
-        <div class="panel-body panel-body-nopadding roomForm">
+        <form method="POST"  id="editSubjectForm" class="form-horizontal mb-lg" novalidate="novalidate">
+        <div class="panel-body panel-body-nopadding subjectForm">
             @csrf
-            <input type="text" id="edit-room-id" style="display:none">
+            <input type="text" id="edit-subject-id" style="display:none;">
                 <div class="form-group mt-lg">
-                    <label class="col-sm-3 control-label">Room Name</label>
+                    <label class="col-sm-3 control-label">Subject Name</label>
                     <div class="col-sm-9">
-                        <input type="text" name="room_name" id="edit-room-name" class="form-control" required/>
+                        <input type="text" name="subject_name" id="edit-subject-name" class="form-control" required/>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">Room Size</label>
+                    <label class="col-sm-3 control-label">Subject Code</label>
                     <div class="col-sm-9">
-                        <input type="number" name="room_capacity" id="edit-room-capacity" class="form-control" required/>
+                        <input type="text" name="subject_code" id="edit-subject-code" class="form-control" required/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Credit No</label>
+                    <div class="col-sm-9">
+                        <input type="number" name="credit_no" id="edit-credit-no" class="form-control" required/>
                     </div>
                 </div>
                 <br>
@@ -161,7 +179,7 @@
              }
     });
     $(function(){
-        $('#roomForm').on('submit', function(e){
+        $('#subjectForm').on('submit', function(e){
             e.preventDefault();
             $.ajax({
                 url:$(this).attr('action'),
@@ -201,12 +219,12 @@
                 }
             });
         });
-        $('#editroomForm').on('submit', function(e){
+        $('#editSubjectForm').on('submit', function(e){
             e.preventDefault();
             console.log("edit")
-            let room_id =$("#edit-room-id").val();
+            let subject_id =$("#edit-subject-id").val();
             $.ajax({
-                url:'/master/room/edit/'+room_id,
+                url:'/coordinator/subject/edit/'+subject_id,
                 method:$(this).attr('method'),
                 data:new FormData(this),
                 processData:false,
@@ -253,9 +271,9 @@
         });
     });
 
-    function deleteRoom(id) {
+    function deleteSubject(id) {
         $.ajax({
-            url: '/master/room/delete/'+id,
+            url: '/coordinator/subject/delete/'+id,
             method: 'delete',
             success:function (response) {
                 if(response.status){
@@ -279,33 +297,12 @@
     }
     function initEditModel(id) {
 
-        $.get('/master/ajax/room/'+id,function (response) {
+        $.get('/coordinator/ajax/subject/'+id,function (response) {
             console.log(response);
-            $("#edit-room-name").val(response.room.room_name);
-            $("#edit-room-capacity").val(response.room.room_capacity);
-            $("#edit-room-id").val(response.room.id);
-        });
-    }
-    function editRoom(){
-        let room_name = $("#edit-room-name").val();
-        let room_capacity = $("#edit-room-capacity").val();
-
-        $.post('/master/room/edit/'+room_id,{'room_name':room_name,'room_capacity':room_capacity,"_token": "{{ csrf_token() }}"},function (response) {
-            if(response.status){
-                new PNotify({
-                    title: 'Updated!',
-                    text: response.message,
-                    type: 'success',
-                    addclass: 'icon-nb'
-                });
-            }else {
-                new PNotify({
-                    title: 'Error!',
-                    text: response.message,
-                    type: 'error',
-                    addclass: 'icon-nb'
-                });
-            }
+            $("#edit-subject-name").val(response.subject.subject_name);
+            $("#edit-subject-code").val(response.subject.subject_code);
+            $("#edit-credit-no").val(response.subject.credit_no);
+            $("#edit-subject-id").val(response.subject.id);
         });
     }
     $(document).ready(function(){
@@ -316,5 +313,6 @@
             $("#importForm").submit();
         })
         });
+    
 </script>
 @endsection

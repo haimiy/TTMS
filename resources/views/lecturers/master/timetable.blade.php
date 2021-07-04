@@ -30,8 +30,7 @@
                         <form action="/master/timetable/class">
                             @csrf
                         <div class="panel-body">
-                            <div class="row">
-                                
+                            <div class="row">  
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label class="control-label"><strong>Choose Semister</strong></label>

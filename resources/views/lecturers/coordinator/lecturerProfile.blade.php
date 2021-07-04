@@ -1,45 +1,40 @@
 @extends('layouts.main')
 @section('side_bar')
-    @include('students.layouts.side_bar')
+    @include('lecturers.coordinator.layouts.side_bar')
 @endsection
 @section('content')
     <header class="page-header">
-        <h2>User Profile</h2>
-    
+        <h2>User profile</h2>
+
         <div class="right-wrapper pull-right">
             <ol class="breadcrumbs">
                 <li>
-                    <a href="index.html">
+                    <a href="/coordinator/home">
                         <i class="fa fa-home"></i>
                     </a>
                 </li>
-                <li><span>Pages</span></li>
-                <li><span>User Profile</span></li>
+                <li><span>Show Lecturer</span></li>
             </ol>
-    
+
             <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
         </div>
     </header>
 
     <!-- start: page -->
-
     <div class="row">
         <div class="col-md-4 col-lg-3">
 
             <section class="panel">
                 <div class="panel-body">
                     <div class="thumb-info mb-md">
-                        <img src="{{ asset($stud->image) }}" class="rounded img-responsive" alt="John Doe">
+                        <img src="{{ asset($lecturer->image) }}" class="rounded img-responsive" alt="John Doe">
                         <div class="thumb-info-title">
                             <span
-                                class="thumb-info-inner">{{ $stud->first_name . ' ' . $stud->middle_name . ' ' . $stud->last_name }}</span>
-                            <span class="thumb-info-type">{{ $stud->login_id }}</span>
-                        </div>   
+                                class="thumb-info-inner">{{ $lecturer->first_name . ' ' . $lecturer->middle_name . ' ' . $lecturer->last_name }}</span>
+                            <span class="thumb-info-type">{{ $lecturer->login_id }}</span>
+                        </div>
                     </div>
-                    <div class="col text-center">
-                        <button type="submit" class="btn btn-primary">Change Picture</button>
-                    </div>
-                    <hr>
+
                     <div class="widget-toggle-expand mb-md">
                         <div class="widget-header">
                             <h6>Personal Information</h6>
@@ -54,13 +49,13 @@
                         </div>
                         <div class="widget-content-expanded">
                             <ul class="simple-todo-list">
-                                <li><strong>Email : </strong>{{ $stud->email }}</li>
+                                <li><strong>Email : </strong>{{ $lecturer->email }}</li>
                                 <hr>
-                                <li><strong>Phone no : </strong>{{ $stud->phone_no }}</li>
+                                <li><strong>Phone no : </strong>{{ $lecturer->phone_no }}</li>
                                 <hr>
-                                <li><strong>Gender : </strong>{{ $stud->gender }}</li>
+                                <li><strong>Gender : </strong>{{ $lecturer->gender }}</li>
                                 <hr>
-                                <li><strong>Date of birth : </strong>{{ $stud->dob }}</li>
+                                <li><strong>Date of birth : </strong>{{ $lecturer->dob }}</li>
                             </ul>
                         </div>
                     </div>
@@ -74,23 +69,63 @@
             <div class="tabs">
                 <ul class="nav nav-tabs tabs-primary">
                     <li class="active">
+                        <a href="#module" data-toggle="tab">Lecturer's Modules </a>
+                    </li>
+                    @if ($lecturer->user_id == auth::user()->id)
+                    <li>
                         <a href="#overview" data-toggle="tab">Personal Information</a>
                     </li>
                     <li>
                         <a href="#edit" data-toggle="tab">Change Password</a>
                     </li>
+                    @endif
+                   
                 </ul>
                 <div class="tab-content">
-                    <div id="overview" class="tab-pane active">
-                        
-                        <form class="form-horizontal" method="POST" action="{{ route('updateProfileUser')}}" id="UserForm">
+                  
+                    <div id="module" class="tab-pane active">
+                        <h4 class="mb-xlg"><strong>Lecturer's Module </strong></h4>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="panel-body">
+                                    <a class="mb-xs mt-xs mr-xs modal-basic btn btn-primary addition" href="#modalModule"><i class="fa fa-plus"></i>
+                                        Add</a>
+                                    <table class="table table-bordered table-striped mb-none" id="modules-table">
+                                        <thead>
+                                            <tr style="background-color :#34495e; color:white;">
+                                                <th>Subject Code</th>
+                                                <th>Subject Name</th>
+                                                <th>Subject Credit</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($subjects as $subject)
+                                                <tr>
+                                                    <td>{{ $subject->subject_code }}</td>
+                                                    <td>{{ $subject->subject_name }}</td>
+                                                    <td>{{ $subject->credit_no }}</td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @if ($lecturer->user_id == auth::user()->id)
+                    <div id="overview" class="tab-pane ">
+
+                        <form class="form-horizontal" method="POST"
+                            action="/coordinator/profile/update/{{ $lecturer->user_id }}" id="UserForm">
                             @csrf
                             <h4 class="mb-xlg">Personal Information</h4>
                             <fieldset>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="profileFirstName">First Name</label>
                                     <div class="col-md-8">
-                                        <input type="text" value="{{ Auth::user()->first_name}}" class="form-control" name="first_name">
+                                        <input type="text" value="{{ $lecturer->first_name }}" class="form-control"
+                                            name="first_name">
                                     </div>
                                 </div>
                                 <span class="text-danger error-text first_name_error"></span>
@@ -98,7 +133,8 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="profileFirstName">Middle Name</label>
                                     <div class="col-md-8">
-                                        <input type="text" value="{{ Auth::user()->middle_name}}" class="form-control" name="middle_name">
+                                        <input type="text" value="{{ $lecturer->middle_name }}" class="form-control"
+                                            name="middle_name">
                                     </div>
                                 </div>
                                 <span class="text-danger error-text middle_name_error"></span>
@@ -106,7 +142,8 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="profileLastName">Last Name</label>
                                     <div class="col-md-8">
-                                        <input type="text" value="{{ Auth::user()->last_name}}" class="form-control" name="last_name">
+                                        <input type="text" value="{{ $lecturer->last_name }}" class="form-control"
+                                            name="last_name">
                                     </div>
                                 </div>
                                 <span class="text-danger error-text last_name_error"></span>
@@ -114,7 +151,8 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="profileAddress">Email</label>
                                     <div class="col-md-8">
-                                        <input type="email" value="{{ Auth::user()->email}}" class="form-control" name="email">
+                                        <input type="email" value="{{ $lecturer->email }}" class="form-control"
+                                            name="email">
                                     </div>
                                 </div>
                                 <span class="text-danger error-text email_error"></span>
@@ -122,7 +160,8 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="profileCompany">Phone Number</label>
                                     <div class="col-md-8">
-                                        <input type="text" value="{{ Auth::user()->phone_no}}" class="form-control" name="phone_no">
+                                        <input type="text" value="{{ $lecturer->phone_no }}" class="form-control"
+                                            name="phone_no">
                                     </div>
                                 </div>
                                 <span class="text-danger error-text phone_no_error"></span>
@@ -130,7 +169,7 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="profileCompany">Date of birth</label>
                                     <div class="col-md-8">
-                                        <input type="text" value="{{ Auth::user()->dob}}" class="form-control" name="dob">
+                                        <input type="text" value="{{ $lecturer->dob }}" class="form-control" name="dob">
                                     </div>
                                 </div>
                                 <span class="text-danger error-text dob_error"></span>
@@ -138,7 +177,8 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="profileCompany">Gender</label>
                                     <div class="col-md-8">
-                                        <input type="text" value="{{ Auth::user()->gender}}" class="form-control" id="gender" name="gender">
+                                        <input type="text" value="{{ $lecturer->gender }}" class="form-control"
+                                            id="gender" name="gender">
                                     </div>
                                 </div>
                                 <span class="text-danger error-text gender_error"></span>
@@ -156,7 +196,7 @@
                         </form>
                     </div>
                     <div id="edit" class="tab-pane">
-                        <form class="form-horizontal" action="/student/change-psw" method="POST" id="changePasswordForm">
+                        <form class="form-horizontal" action="/coordinator/change-psw" method="POST" id="changePasswordForm">
                             @csrf
                             <h4 class="mb-xlg">Change Password</h4>
                             <fieldset class="mb-xl">
@@ -193,15 +233,66 @@
 
                         </form>
                     </div>
+                    @endif
+                    
                 </div>
             </div>
         </div>
 
     </div>
     <!-- end: page -->
+    <div id="modalModule" class="modal-block modal-block-sm mfp-hide">
+        <section class="panel">
+            <header class="panel-heading">
+                <a href="#" class="fa fa-times modal-dismiss pull-right"></a>
+                <h2 class="panel-title">Add Lecturer's Module</h2>
+            </header>
+            <form method="POST" action="/coordinator/addSubject" id="lecturerForm">
+                @csrf
+                    <div class="panel-body" style="padding: 35px">
+
+                        <div class="row">  
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="control-label"><strong>Module Name</strong></label>
+                                    <select name="subject_id" class="form-control">
+                                        <option value="">--Select---</option>
+                                        @foreach ($listSubjects as $listSubjects)
+                                            <option value="{{ $listSubjects->id }}">{{ $listSubjects->subject_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <span class="text-danger error-text class_id_error"></span>
+                            </div>
+                            
+                        </div>
+                    </div>
+                <footer class="panel-footer">
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button id="close" class="btn btn-default modal-dismiss">Cancel</button>
+                        </div>
+                    </div>
+                </footer>
+            </form>
+
+        </section>
+    </div>
 @endsection
 @section('script')
+ <!-- Examples -->
+ <script src="{{ asset('assets/javascripts/ui-elements/examples.modals.js') }}"></script>
+ <!-- Examples -->
+ <script src="{{ asset('assets/javascripts/forms/examples.wizard.js') }}"></script>
+
     <script>
+        $(document).ready(function() {
+            $('#modules-table').dataTable();
+        });
+        $(document).ready(function() {
+            $('#classes-table').dataTable();
+        });
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

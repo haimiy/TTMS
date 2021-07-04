@@ -7,7 +7,6 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
 class LoginController extends Controller
 {
     /*
@@ -30,7 +29,8 @@ class LoginController extends Controller
         } elseif ($user->role_id == 2) {
             return redirect('lecturer/home');
         } else {
-            return redirect('student/home');
+            
+            return redirect('student/home/');
         }
     }
 

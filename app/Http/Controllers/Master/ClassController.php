@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Master;
 
+use App\Http\Controllers\Controller;
 use App\Models\Classes;
 use App\Models\Department;
 use Illuminate\Support\Facades\DB;
@@ -52,7 +53,7 @@ class ClassController extends Controller
             $validator = Validator::make($request->all(),[
                 'class_name'    => 'required',
                 'class_size'    => 'required',
-                'dept_id'     => 'required'
+                'dept_id'       => 'required'
             ]);
             if(!$validator->passes()){
                 return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
@@ -75,19 +76,13 @@ class ClassController extends Controller
         $validator = Validator::make($req->all(),[
             'class_name'    => 'required',
             'class_size'    => 'required',
-            'dept_name'     => 'required'
+            'dept_id'     => 'required'
         ]);
         if(!$validator->passes()){
             return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
         }else{
-            $query = $req->input();
-                $class = new Classes;
-                $dept = new Department;
-                $class->class_name = $query['class_name'];
-                $class->class_size = $query['class_size'];
-                $class->dept_id = $query['dept_name'];
-                $class->save();
-            if(!$query){
+            $classes = Classes::create($req->all());
+            if(!$classes){
                 return response()->json(['status'=>0, 'msg'=>'Something went wrong']);
             }else{
                 return response()->json(['status'=>1, 'msg'=>'You insert data successfull']);
