@@ -17,7 +17,7 @@ class CreateLecturersTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('dept_id');
-            $table->unsignedBigInteger('lecturer_role_id')->default('normal');
+            $table->unsignedBigInteger('lecturer_role_id')->default(3);
             $table->timestamps();
         });
     }

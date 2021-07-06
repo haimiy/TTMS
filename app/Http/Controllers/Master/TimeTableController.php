@@ -35,8 +35,8 @@ class TimeTableController extends Controller
 
     public function timetable()
     {
-        $val = Helper::generateTimetable();
-        return $val;
+        Helper::generateTimetable();
+        return back();
     }
 
     public function index(){
@@ -62,7 +62,7 @@ class TimeTableController extends Controller
         left JOIN classes cl on cs.class_id=cl.id WHERE cl.id='.$request->class_id);
         
         
-        return view('lecturers.master.tt1', [
+        return view('lecturers.master.tt', [
             'classTimetable'=>$classTimetable,
             'weekDays'=>$days,
             'timeslots'=>$time,
