@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             TimetableSeeder::class,
             UserSeeder::class,
             DepartmentSeeder::class,
+            AcademicIssue::class,
         ]);
     }
 }

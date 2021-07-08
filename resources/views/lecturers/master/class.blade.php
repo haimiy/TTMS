@@ -64,8 +64,6 @@
                         </tr>
                     @endforeach
                 </tbody>
-
-
             </table>
         </div>
     </section>
@@ -81,13 +79,33 @@
                 novalidate="novalidate">
                 <div class="panel-body panel-body-nopadding classForm">
                     @csrf
-                    <div class="form-group mt-lg">
-                        <label class="col-sm-3 control-label">Class Name</label>
+                    <br>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Academic Year</label>
                         <div class="col-sm-9">
-                            <input type="text" name="class_name" class="form-control" required />
-                            <span class="text-danger error-text class_name_error"></span>
+                            <select name="academic_year_id" class="form-control">
+                                <option value="">--Select---</option>
+                                @foreach ($academic_year as $academic_year)
+                                    <option value="{{ $academic_year->id }}">{{ $academic_year->year_name }}</option>
+                                @endforeach
+                            </select>
+                            <span class="text-danger error-text dept_name_error"></span>
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Academic Level</label>
+                        <div class="col-sm-9">
+                            <select name="academic_level_id" class="form-control">
+                                <option value="">--Select---</option>
+                                @foreach ($academic_level as $academic_level)
+                                    <option value="{{ $academic_level->id }}">{{ $academic_level->academic_level_name }}</option>
+                                @endforeach
+                            </select>
+                            <span class="text-danger error-text dept_name_error"></span>
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <label class="col-sm-3 control-label">Class Size</label>
                         <div class="col-sm-9">
@@ -107,6 +125,13 @@
                                 @endforeach
                             </select>
                             <span class="text-danger error-text dept_name_error"></span>
+                        </div>
+                    </div>
+                    <div class="form-group mt-lg">
+                        <label class="col-sm-3 control-label">Class Name</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="class_name" class="form-control" disabled />
+                            <span class="text-danger error-text class_name_error"></span>
                         </div>
                     </div>
                     <br>

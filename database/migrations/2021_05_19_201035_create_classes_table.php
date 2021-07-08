@@ -17,6 +17,8 @@ class CreateClassesTable extends Migration
             $table->id();
             $table->string('class_name')->unique();
             $table->integer('class_size');
+            $table->unsignedBigInteger('academic_year_id');
+            $table->unsignedBigInteger('academic_level_id');
             $table->unsignedBigInteger('dept_id');
             $table->timestamps();
         });

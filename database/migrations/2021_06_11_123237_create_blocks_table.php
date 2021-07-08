@@ -16,6 +16,8 @@ class CreateBlocksTable extends Migration
         Schema::create('blocks', function (Blueprint $table) {
             $table->id();
             $table->string('block_name')->unique();
+            $table->integer('t_floor')->nullable();
+            $table->integer('room_count');
             $table->timestamps();
         });
     }

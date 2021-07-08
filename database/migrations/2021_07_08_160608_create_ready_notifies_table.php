@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLecturersubjecsTable extends Migration
+class CreateReadyNotifiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateLecturersubjecsTable extends Migration
      */
     public function up()
     {
-        Schema::create('lecturer_subjecs', function (Blueprint $table) {
+        Schema::create('ready_notifies', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('lecturer_id');
-            $table->unsignedBigInteger('subject_id');
+            $table->unsignedBigInteger('notify_id');
+            $table->unsignedBigInteger('student_id');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateLecturersubjecsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lecturer_subjecs');
+        Schema::dropIfExists('ready_notifies');
     }
 }

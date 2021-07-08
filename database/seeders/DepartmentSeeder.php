@@ -18,24 +18,38 @@ class DepartmentSeeder extends Seeder
         DB::table('departments')->insert([
             [
                 "dept_name" => "CIVIL ENGINEERING",
+                "dept_faculty"=>"DIT",
+                "dept_code"=>"CE",
             ],
             [ 
                 "dept_name" => "COMPUTER STUDIES",
+                "dept_faculty"=>"DIT",
+                "dept_code"=>"COE",
             ],
             [
                 "dept_name" => "ELECTRICAL ENGINEERING",
+                "dept_faculty"=>"DIT",
+                "dept_code"=>"EE",
             ],
             [
                 "dept_name" => "ELECTRONICS AND TELECOMMUNICATION ENGINEERING",
+                "dept_faculty"=>"DIT",
+                "dept_code"=>"ETE",
             ],
             [
                 "dept_name" => "MECHANICAL ENGINEERING",
+                "dept_faculty"=>"DIT",
+                "dept_code"=>"ME",
             ],
             [
                 "dept_name" => "SCIENCE AND LABORATORY TECHNOLOGY",
+                "dept_faculty"=>"DIT",
+                "dept_code"=>"LS",
             ],
             [
                 "dept_name" => "GENERAL STUDIES",
+                "dept_faculty"=>"DIT",
+                "dept_code"=>"GS",
             ]
         ]);
 
@@ -45,9 +59,6 @@ class DepartmentSeeder extends Seeder
             ],
             [ 
                 "semister_name" => "Semister two",
-            ],
-            [
-                "semister_name" => "Semister three",
             ]
         ]);
     }

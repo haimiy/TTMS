@@ -16,6 +16,8 @@ class CreateDepartmentsTable extends Migration
         Schema::create('departments', function (Blueprint $table) {
             $table->id();
             $table->string('dept_name')->unique();
+            $table->string('dept_faculty');
+            $table->string('dept_code');
             $table->timestamps();
         });
     }

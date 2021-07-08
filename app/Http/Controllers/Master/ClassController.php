@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Master;
 use App\Http\Controllers\Controller;
 use App\Models\Classes;
 use App\Models\Department;
+use App\Models\AcademicYear;
+use App\Models\AcademicLevel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -15,12 +17,19 @@ use App\Exports\ClassesExport;
 class ClassController extends Controller
 {
     public function index(){
+        $academic_level = AcademicLevel::all();
+        $academic_year = AcademicYear::all();
         $depts = Department::all();
         $classes =  DB::table('classes')
         ->join ('departments', 'departments.id', '=', 'classes.dept_id' )
         ->select('classes.*', 'dept_name')
         ->get();
-        return view('lecturers.master.class', ['classes'=>$classes,'depts'=>$depts]);
+        return view('lecturers.master.class', [
+            'classes'=>$classes,
+            'depts'=>$depts,
+            'academic_level'=>$academic_level,
+            'academic_year'=>$academic_year
+        ]);
 
     }
 
@@ -53,7 +62,9 @@ class ClassController extends Controller
             $validator = Validator::make($request->all(),[
                 'class_name'    => 'required',
                 'class_size'    => 'required',
-                'dept_id'       => 'required'
+                'dept_id'       => 'required',
+                'academic_level_id' => 'required',
+                'academic_year_id' => 'required'
             ]);
             if(!$validator->passes()){
                 return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
@@ -62,6 +73,8 @@ class ClassController extends Controller
                     'class_name'    => $request->class_name,
                     'class_size'   => $request->class_size,
                     'dept_id'     => $request->dept_id,
+                    'academic_level_id' => $request->academic_level_id,
+                    'academic_year_id' => $request->academic_year_id
 
                 ]);
                 if(!$query){
@@ -76,7 +89,9 @@ class ClassController extends Controller
         $validator = Validator::make($req->all(),[
             'class_name'    => 'required',
             'class_size'    => 'required',
-            'dept_id'     => 'required'
+            'dept_id'     => 'required',
+            'academic_level_id' => 'required',
+            'academic_year_id' => 'required'
         ]);
         if(!$validator->passes()){
             return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
