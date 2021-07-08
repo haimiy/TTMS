@@ -27,8 +27,8 @@ class ClassController extends Controller
         return view('lecturers.master.class', [
             'classes'=>$classes,
             'depts'=>$depts,
-            'academic_level'=>$academic_level,
-            'academic_year'=>$academic_year
+            'academic_levels'=>$academic_level,
+            'academic_years'=>$academic_year
         ]);
 
     }
@@ -50,7 +50,7 @@ class ClassController extends Controller
             "class"=>$class,
         ]);
     }
-    
+
     public function deleteAjaxClassesInformation($id): \Illuminate\Http\JsonResponse
     {
         $class = Classes::find($id);
@@ -105,12 +105,12 @@ class ClassController extends Controller
         }
     }
 
-    public function import(Request $request) 
+    public function import(Request $request)
     {
         Excel::import(new ClassesImport, $request->file('file')->store('temp'));
         return back();
     }
-    public function export() 
+    public function export()
     {
         return Excel::download(new ClassesExport, 'classes.xlsx');
     }

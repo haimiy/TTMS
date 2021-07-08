@@ -83,9 +83,9 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label">Academic Year</label>
                         <div class="col-sm-9">
-                            <select name="academic_year_id" class="form-control">
+                            <select id="academic_year_id" name="academic_year_id" class="form-control" onchange="generateClassName()">
                                 <option value="">--Select---</option>
-                                @foreach ($academic_year as $academic_year)
+                                @foreach ($academic_years as $academic_year)
                                     <option value="{{ $academic_year->id }}">{{ $academic_year->year_name }}</option>
                                 @endforeach
                             </select>
@@ -96,10 +96,10 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label">Academic Level</label>
                         <div class="col-sm-9">
-                            <select name="academic_level_id" class="form-control">
+                            <select id="academic_level_id" name="academic_level_id" class="form-control" onchange="generateClassName()">
                                 <option value="">--Select---</option>
-                                @foreach ($academic_level as $academic_level)
-                                    <option value="{{ $academic_level->id }}">{{ $academic_level->academic_level_name }}</option>
+                                @foreach ($academic_levels as $academic_level)
+                                    <option value="{{ $academic_level->id }}">{{ $academic_level->academic_level_name }} ({{ $academic_level->academic_level_code }})</option>
                                 @endforeach
                             </select>
                             <span class="text-danger error-text dept_name_error"></span>
@@ -109,7 +109,7 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label">Class Size</label>
                         <div class="col-sm-9">
-                            <input type="number" name="class_size" class="form-control" required />
+                            <input type="number" id="class_size" name="class_size" class="form-control" required onkeyup="generateClassName()"/>
                             <span class="text-danger error-text class_size_error"></span>
 
                         </div>
@@ -118,10 +118,10 @@
                         <label class="col-sm-3 control-label">Department</label>
 
                         <div class="col-sm-9">
-                            <select name="dept_id" class="form-control">
+                            <select id="dept_id" name="dept_id" class="form-control" onchange="generateClassName()">
                                 <option value="">--Select---</option>
                                 @foreach ($depts as $dept)
-                                    <option value="{{ $dept->id }}">{{ $dept->dept_name }}</option>
+                                    <option value="{{ $dept->id }}">{{ $dept->dept_name }} ({{ $dept->dept_code }})</option>
                                 @endforeach
                             </select>
                             <span class="text-danger error-text dept_name_error"></span>
@@ -130,7 +130,7 @@
                     <div class="form-group mt-lg">
                         <label class="col-sm-3 control-label">Class Name</label>
                         <div class="col-sm-9">
-                            <input type="text" name="class_name" class="form-control" disabled />
+                            <input type="text" id="class_name" name="class_name" class="form-control" disabled />
                             <span class="text-danger error-text class_name_error"></span>
                         </div>
                     </div>
@@ -350,5 +350,37 @@
             $("#importForm").submit();
         })
         });
+        function generateClassName() {
+            let year = $("#academic_year_id").val().trim();
+            let level = $("#academic_level_id").val().trim();
+            let dept_id = $("#dept_id").val().trim();
+            let class_size = $("#class_size").val().trim();
+            let class_name="";
+            $("#class_name").val(class_name);
+            if (year.length>0 && level.length>0 && dept_id.length>0 && class_size.length>0){
+                 year = $("#academic_year_id option:selected").text().trim();
+                level = $("#academic_level_id option:selected").text().trim();
+                let dept_name = $("#dept_id option:selected").text().trim();
+
+                let class_level = level.split("(")[1].replace(")","");
+                let class_year = year.split("/")[0].substr(2, 3);
+                let class_dept = dept_name.split("(")[1].replace(")","");
+
+                class_name = class_level+class_year+"-"+class_dept;
+                let val = Math.ceil((class_size/40));
+                if (val>1){
+                    let cl="";
+                    for (let i=1;val>=i;i++){
+                        if (i==1)
+                            cl = class_name+"-"+i;
+                        else
+                            cl+=","+class_name+"-"+i;
+                    }
+                    $("#class_name").val(cl);
+                }else {
+                    $("#class_name").val(class_name);
+                }
+            }
+        }
     </script>
 @endsection
