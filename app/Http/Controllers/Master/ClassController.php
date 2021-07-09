@@ -27,16 +27,12 @@ class ClassController extends Controller
         ->select('classes.*', 'dept_name')
         ->get();
 
-        $programme = DB::select("SELECT programmes.*, departments.* FROM programmes
-        LEFT JOIN departments ON departments.id = programmes.dept_id
-        WHERE programmes.dept_id = departments.id");
-
         return view('lecturers.master.class', [
             'classes'=>$classes,
             'depts'=>$depts,
             'academic_levels'=>$academic_level,
             'academic_years'=>$academic_year,
-            'programmes'=>$programme
+         
         ]);
 
     }

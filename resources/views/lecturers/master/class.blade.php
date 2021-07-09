@@ -133,11 +133,7 @@
                         <div class="col-sm-9">
                             <select id="programme_id" name="programme_id" class="form-control" onchange="generateClassName()">
                                 <option value="">--Select---</option>
-                                @foreach ($programmes as $programme)
                                
-                                    <option value="{{ $programme->id }}">{{ $programme->programme_name }} ({{ $programme->programme_code }})</option>
-                              
-                                @endforeach
                             </select>
                             <span class="text-danger error-text dept_name_error"></span>
                         </div>

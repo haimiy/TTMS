@@ -15,8 +15,10 @@ use App\Http\Controllers\Lecturer\LecturerController as LecturerLecturer;
 use App\Http\Controllers\Coordinator\ClassController as CoordinatorClass;
 use App\Http\Controllers\Master\RoomController;
 use App\Http\Controllers\Master\SlotController;
+use App\Http\Controllers\Master\ProgrammeController;
 use App\Http\Controllers\Master\LecturerController;
 use App\Http\Controllers\Student\StudentProfileController;
+use PhpOffice\PhpSpreadsheet\Shared\OLE\PPS\Root;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,8 +71,12 @@ Route::middleware(['auth'])->group(function () {
         Route::get('ajax/classes/{id}', [ClassController::class, 'getAjaxClassInformation']);
         Route::delete('class/delete/{id}', [ClassController::class, 'deleteAjaxClassesInformation']);
         Route::post('classes/edit/{id}', [ClassController::class, 'editAjaxClassesInformation']);
-        
-        //End Class
+        //End Clas
+
+        //Programme
+        Route::get('programme/select/{id}', [ProgrammeController::class, 'selectProgramme']);
+        //End Programme
+
         //subject
         Route::post('subject/import', [SubjectController::class, 'import']);
         Route::get('subject/export', [SubjectController::class, 'export']);
