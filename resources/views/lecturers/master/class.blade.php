@@ -135,7 +135,7 @@
                                 <option value="">--Select---</option>
                                
                             </select>
-                            <span class="text-danger error-text dept_name_error"></span>
+                            <span class="text-danger error-text programme_id_error"></span>
                         </div>
                     </div>
                     <div class="form-group mt-lg">
