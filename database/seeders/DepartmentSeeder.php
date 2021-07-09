@@ -19,7 +19,7 @@ class DepartmentSeeder extends Seeder
             [
                 "dept_name" => "CIVIL ENGINEERING",
                 "dept_faculty"=>"DIT",
-                "dept_code"=>"CE",
+                "dept_code"=>"CET",
             ],
             [ 
                 "dept_name" => "COMPUTER STUDIES",
@@ -49,7 +49,7 @@ class DepartmentSeeder extends Seeder
             [
                 "dept_name" => "GENERAL STUDIES",
                 "dept_faculty"=>"DIT",
-                "dept_code"=>"GS",
+                "dept_code"=>"GST",
             ]
         ]);
 

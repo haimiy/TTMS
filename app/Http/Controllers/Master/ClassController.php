@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\ClassesImport;
 use App\Exports\ClassesExport;
+use App\Models\Programme;
 
 class ClassController extends Controller
 {
@@ -20,15 +21,22 @@ class ClassController extends Controller
         $academic_level = AcademicLevel::all();
         $academic_year = AcademicYear::all();
         $depts = Department::all();
+        // $programme = Programme::all();
         $classes =  DB::table('classes')
         ->join ('departments', 'departments.id', '=', 'classes.dept_id' )
         ->select('classes.*', 'dept_name')
         ->get();
+
+        $programme = DB::select("SELECT programmes.*, departments.* FROM programmes
+        LEFT JOIN departments ON departments.id = programmes.dept_id
+        WHERE programmes.dept_id = departments.id");
+
         return view('lecturers.master.class', [
             'classes'=>$classes,
             'depts'=>$depts,
             'academic_levels'=>$academic_level,
-            'academic_years'=>$academic_year
+            'academic_years'=>$academic_year,
+            'programmes'=>$programme
         ]);
 
     }

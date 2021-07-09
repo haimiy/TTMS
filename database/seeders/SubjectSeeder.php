@@ -14,11 +14,59 @@ class SubjectSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('programmes')->insert([
+            [
+                'programme_name'=>"BASIC TECHNICIAN CERTIFICATE IN CIVIL ENGINEERING",
+                'programme_code'=>"BTC",
+                'dept_id'=>1
+            ],
+            [
+                'programme_name'=>"ORDINARY DIPLOMA IN CIVIL ENGINEERING",
+                'programme_code'=>"OD",
+                'dept_id'=>1
+            ],
+            [
+                'programme_name'=>"BASIC TECHNICIAN CERTIFICATE IN MINING",
+                'programme_code'=>"BTC",
+                'dept_id'=>1
+            ],
+            [
+                'programme_name'=>"BACHELOR DEGREE IN OIL AND GAS",
+                'programme_code'=>"OG",
+                'dept_id'=>1
+            ],
+            [
+                'programme_name'=>"BACHELOR DEGREE IN CIVIL ENGINEERING",
+                'programme_code'=>"CE",
+                'dept_id'=>1
+            ],
+            [
+                'programme_name'=>"ORDINARY DIPLOMA IN COMPUTER ENGINEERING",
+                'programme_code'=>"OD",
+                'dept_id'=>2
+            ],
+            [
+                'programme_name'=>"BACHELOR OF COMPUTER ENGINNERING",
+                'programme_code'=>"COE",
+                'dept_id'=>2
+            ],
+            [
+                'programme_name'=>"BACHELOR DEGREE IN ELECTRICAL ENGINEERING",
+                'programme_code'=>"EE",
+                'dept_id'=>3
+            ],
+            [
+                'programme_name'=>"BACHELOR DEGREE IN TELECOMMUNICATION ENGINEERING",
+                'programme_code'=>"ETE",
+                'dept_id'=>3
+            ]
+        ]);
+
         DB::table('subjects')->insert([
             [
                 "subject_name" => "Entrepreneurship for Engineers",
                 "subject_code" => "GSU 08201",
-                "credit_no" => 3
+                "credit_no" => 3,
             ],
             [   "subject_name" => "Project Realization",
                 "subject_code" => "COU 082014",
@@ -99,6 +147,29 @@ class SubjectSeeder extends Seeder
                 "subject_code" => "CMU 0999",
                 "credit_no" => 12           
             ]    
+        ]);
+
+        DB::table('programmes_modules')->insert([
+            [
+                'subject_id'=>1,
+                'programme_id'=>4
+            ],
+            [
+                'subject_id'=>1,
+                'programme_id'=>5
+            ],
+            [
+                'subject_id'=>1,
+                'programme_id'=>7
+            ],
+            [
+                'subject_id'=>1,
+                'programme_id'=>8
+            ],
+            [
+                'subject_id'=>1,
+                'programme_id'=>9
+            ],
         ]);
 
         DB::table('class_subjects')->insert([
