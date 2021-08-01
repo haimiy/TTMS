@@ -1,7 +1,7 @@
 <header class="header">
     <div class="logo-container">
         <a href="../" class="logo">
-            <img src="{{ asset('assets/images/logo2.png') }}" height="35" alt="logo" />
+            <img src="{{ asset('assets/images/logo1.jpg') }}" height="35" alt="logo" />
         </a>
         <div class="visible-xs toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html"
             data-fire-event="sidebar-left-opened">

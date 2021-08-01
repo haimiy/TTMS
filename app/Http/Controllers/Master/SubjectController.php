@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Subject;
 use Illuminate\Support\Facades\DB;
+use App\Models\AcademicLevel;
+use App\Models\Department;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\SubjectsImport;
@@ -15,7 +17,13 @@ class SubjectController extends Controller
 {
     public function index(){
         $subject = Subject::all();
-        return view('lecturers.master.subject', ['subjects'=>$subject]);
+        $depts = Department::all();
+        $academic_level = AcademicLevel::all();
+        return view('lecturers.master.subject', [
+            'subjects'=>$subject,
+            'academic_levels'=>$academic_level,
+            'depts'=>$depts,
+        ]);
 
     }
     public function getAjaxSubjectsInformation(){
@@ -46,7 +54,9 @@ class SubjectController extends Controller
             $validator = Validator::make($request->all(),[
                 'subject_name'    => 'required',
                 'subject_code'    => 'required',
-                'credit_no'     => 'required'
+                'credit_no'     => 'required',
+                'dept_id'       => 'required',
+                'academic_level_id' => 'required',
             ]);
             if(!$validator->passes()){
                 return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
@@ -55,6 +65,8 @@ class SubjectController extends Controller
                     'subject_name'    => $request->subject_name,
                     'subject_code'   => $request->subject_code,
                     'credit_no'     => $request->credit_no,
+                    'dept_id'     => $request->dept_id,
+                    'academic_level_id' => $request->academic_level_id,
 
                 ]);
                 if(!$query){
@@ -69,7 +81,9 @@ class SubjectController extends Controller
         $validator = Validator::make($req->all(),[
             'subject_name'    => 'required',
             'subject_code'    => 'required',
-            'credit_no'     => 'required'
+            'credit_no'     => 'required',
+            'dept_id'       => 'required',
+            'academic_level_id' => 'required',
         ]);
         if(!$validator->passes()){
             return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);

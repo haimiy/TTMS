@@ -71,11 +71,14 @@
             .panel-title{
                 color:#ffffff;
         }
-        .classForm, .subjectForm, .roomForm, .slotForm{
+        .classForm, .subjectForm, .roomForm, .slotForm, .blockForm{
             padding-right: 30px;
         }
         .mfp-bg {
             opacity: 0.2;
+        }
+        ol > li::marker{
+            font-weight: bold;
         }
         
 

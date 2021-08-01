@@ -15,6 +15,7 @@ use App\Http\Controllers\Lecturer\LecturerController as LecturerLecturer;
 use App\Http\Controllers\Coordinator\ClassController as CoordinatorClass;
 use App\Http\Controllers\Master\RoomController;
 use App\Http\Controllers\Master\SlotController;
+use App\Http\Controllers\Master\BlockController;
 use App\Http\Controllers\Master\ProgrammeController;
 use App\Http\Controllers\Master\LecturerController;
 use App\Http\Controllers\Student\StudentProfileController;
@@ -64,6 +65,8 @@ Route::middleware(['auth'])->group(function () {
         //End Notify
         //Class
         Route::post('class/import', [ClassController::class, 'import']);
+        Route::post('class/add_module', [ClassController::class, 'addModules']);
+        Route::post('class/delete_module', [ClassController::class, 'deleteModules']);
         Route::get('class/export', [ClassController::class, 'export']);
         Route::get('class', [ClassController::class, 'index']);
         Route::post('class/create', [ClassController::class, 'addClass']);
@@ -71,6 +74,12 @@ Route::middleware(['auth'])->group(function () {
         Route::get('ajax/classes/{id}', [ClassController::class, 'getAjaxClassInformation']);
         Route::delete('class/delete/{id}', [ClassController::class, 'deleteAjaxClassesInformation']);
         Route::post('classes/edit/{id}', [ClassController::class, 'editAjaxClassesInformation']);
+        Route::get('classes/classSubject/{id}', [ClassController::class, 'selectClassesSubject']);
+
+        //get module based on specific departments
+        Route::get('subject/select/{id}', [ClassController::class, 'selectDepartmentSubject']);
+        Route::get('level/select/{id}', [ClassController::class, 'selectLevel']);
+
         //End Clas
 
         //Programme
@@ -91,12 +100,25 @@ Route::middleware(['auth'])->group(function () {
         Route::post('room/import', [RoomController::class, 'import']);
         Route::get('room/export', [RoomController::class, 'export']);
         Route::get('room', [RoomController::class, 'index']);
-        Route::post('room/create', [RoomController::class, 'addroom']);
+        Route::post('room/create', [RoomController::class, 'addRoom']);
         Route::get('ajax/room', [RoomController::class, 'getAjaxRoomsInformation']);
         Route::get('ajax/room/{id}', [RoomController::class, 'getAjaxRoomInformation']);
         Route::delete('room/delete/{id}', [RoomController::class, 'deleteAjaxRoomInformation']);
         Route::post('room/edit/{id}', [RoomController::class, 'editAjaxRoomInformation']);
         //End Room
+
+        //Block
+        Route::get('block', [BlockController::class, 'index']);
+        Route::post('block/import', [BlockController::class, 'import']);
+        Route::get('block/export', [BlockController::class, 'export']);
+        Route::get('block', [BlockController::class, 'index']);
+        Route::post('block/create', [BlockController::class, 'addBlock']);
+        Route::get('ajax/block', [BlockController::class, 'getAjaxBlocksInformation']);
+        Route::get('ajax/block/{id}', [BlockController::class, 'getAjaxBlockInformation']);
+        Route::delete('block/delete/{id}', [BlockController::class, 'deleteAjaxBlockInformation']);
+        Route::post('block/edit/{id}', [BlockController::class, 'editAjaxBlockInformation']);
+        //End Block
+
         //Slot
         Route::post('slot/import', [SlotController::class, 'import']);
         Route::get('slot/export', [SlotController::class, 'export']);
@@ -108,7 +130,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('slot/edit/{id}', [SlotController::class, 'editAjaxSlotInformation']);
         //End Slot
         //Manage Lecturer
-        Route::get('profile/{id}',[LecturerController::class, 'showLecturerProfile']);
+        Route::get('profile/{id}', [LecturerController::class, 'showLecturerProfile']);
         Route::post('profile/update/{id}', [LecturerController::class, 'updateUserProfile']);
         Route::get('lecturer', [LecturerController::class, 'create']);
         Route::post('lecturer/create', [LecturerController::class, 'addLecturer']);
@@ -126,7 +148,7 @@ Route::middleware(['auth'])->group(function () {
     //COORDINTATOR
     Route::prefix('coordinator')->as('.coordinator')->middleware(['coordinator'])->group(function () {
         Route::get('home', [CoordinatorHome::class, 'index']);
-           //Notify
+        //Notify
         Route::get('notify', [CoordinatorHome::class, 'notify']);
         Route::post('notify/send/message', [CoordinatorHome::class, 'sendMessage']);
         //End Notify
@@ -152,7 +174,7 @@ Route::middleware(['auth'])->group(function () {
         //End Class
         //Manage Lecturer
         Route::post('addSubject', [CoordinatorLecturer::class, 'addSubjectToLecturer']);
-        Route::get('profile/{id}',[CoordinatorLecturer::class, 'showLecturerProfile']);
+        Route::get('profile/{id}', [CoordinatorLecturer::class, 'showLecturerProfile']);
         Route::post('profile/update/{id}', [CoordinatorLecturer::class, 'updateUserProfile']);
         Route::get('lecturer', [CoordinatorLecturer::class, 'create']);
         Route::post('lecturer/create', [CoordinatorLecturer::class, 'addLecturer'])->name('add_lecturer');
@@ -167,7 +189,7 @@ Route::middleware(['auth'])->group(function () {
     //Students authorization group
     Route::prefix('student')->middleware('student')->group(function () {
         Route::get('home', [StudentHome::class, 'index']);
-        Route::get('profile/{id}',[StudentProfileController::class, 'showStudentProfile']);
+        Route::get('profile/{id}', [StudentProfileController::class, 'showStudentProfile']);
         Route::post('profile/update/{id}', [StudentProfileController::class, 'updateUserProfile']);
         Route::post('/change-psw', [CoordinatorLecturer::class, 'changePassword']);
         Route::get('read_message', [StudentHome::class, 'readMessage']);
@@ -179,11 +201,11 @@ Route::middleware(['auth'])->group(function () {
         Route::get('home', [LecturerHome::class, 'index']);
         Route::get('notify', [LecturerHome::class, 'notify']);
         Route::post('notify/send/message', [LecturerHome::class, 'sendMessage']);
-        Route::get('profile/{id}',[LecturerLecturer::class, 'showLecturerProfile']);
+        Route::get('profile/{id}', [LecturerLecturer::class, 'showLecturerProfile']);
         Route::post('profile/update/{id}', [LecturerLecturer::class, 'updateUserProfile']);
         Route::post('/change-psw', [LecturerLecturer::class, 'changePassword']);
     });
-    
+
     //Lecurers authorization group End
 
     Route::post('update_profile', [UserController::class, 'updateProfile'])->name('updateProfileUser');

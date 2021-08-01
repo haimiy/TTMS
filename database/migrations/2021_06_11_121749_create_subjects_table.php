@@ -18,6 +18,8 @@ class CreateSubjectsTable extends Migration
             $table->string('subject_name')->unique();
             $table->string('subject_code');
             $table->integer('credit_no');
+            $table->unsignedBigInteger('dept_id');
+            $table->unsignedBigInteger('academic_level_id');
             $table->timestamps();
         });
     }

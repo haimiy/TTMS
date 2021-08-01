@@ -10,12 +10,17 @@ use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\RoomsImport;
 use App\Exports\RoomsExport;
+use App\Models\Block;
 
 class RoomController extends Controller
 {
     public function index(){
-        $room = Room::all();
-        return view('lecturers.master.room', ['rooms'=>$room]);
+        $block = Block::all();
+        $room = DB::select('SELECT rooms.*, blocks.block_name from rooms LEFT JOIN blocks ON blocks.id = rooms.block_id');
+        return view('lecturers.master.room', [
+            'rooms'=>$room,
+            'blocks'=>$block,
+        ]);
 
     }
 
@@ -47,18 +52,22 @@ class RoomController extends Controller
             $validator = Validator::make($request->all(),[
                 'room_name'    => 'required',
                 'room_capacity'    => 'required',
+                'room_no'    => 'required',
+                'block_id'    => 'required',
             ]);
             if(!$validator->passes()){
                 return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
             }else{
-                $query = room::where('id',$id)->update([
+                $query = Room::where('id',$id)->update([
                     'room_name'    => $request->room_name,
                     'room_capacity'   => $request->room_capacity,
+                    'room_no'   => $request->room_no,
+                    'block_id'   => $request->block_id
                 ]);
                 if(!$query){
                     return response()->json(['status'=>false, 'message'=>'Something went wrong']);
                 }else{
-                    return response()->json(['status'=>true, 'message'=>'subject info has been update successful']);
+                    return response()->json(['status'=>true, 'message'=>'Room info has been update successful']);
                 }
             }
     }
@@ -67,6 +76,8 @@ class RoomController extends Controller
         $validator = Validator::make($req->all(),[
             'room_name'    => 'required',
             'room_capacity'    => 'required',
+            'room_no'    => 'required',
+            'block_id'    => 'required',
         ]);
         if(!$validator->passes()){
             return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);

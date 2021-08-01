@@ -4,7 +4,7 @@
 @endsection
 @section('content')
 <header class="page-header">
-    <h2>Manage Subjects</h2>
+    <h2>Manage Blocks</h2>
 
     <div class="right-wrapper pull-right">
         <ol class="breadcrumbs">
@@ -13,7 +13,7 @@
                     <i class="fa fa-home"></i>
                 </a>
             </li>
-            <li><span>Table Subject</span></li>
+            <li><span>Tables Blocks</span></li>
         </ol>
 
         <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
@@ -25,39 +25,31 @@
     <div class="panel-body">
         <a class="mb-xs mt-xs mr-xs modal-basic btn btn-primary addition" href="#modalForm"><i
                 class="fa fa-plus"></i> Add</a>
-                <form action="/master/subject/import" id="importForm" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <input type="file" id="myFile" name='file' style="display: none;">
-                    <button type="button" id="browse" class="mb-xs mt-xs mr-xs btn btn-primary addition pull-right"><i
-                            class="fa fa-upload" onclick=""></i> Import</button>
-                    <a class="mb-xs mt-xs mr-xs btn btn-primary addition pull-right" href="/master/subject/export"><i
-                            class="fa fa-download"></i> Export</a>
-                </form>
                 <br>
         <table class="table table-bordered table-striped mb-none" id="datatable-default">
 
             <thead>
                 <tr style="background-color :#34495e; color:white;">
                     <th>#</th>
-                    <th>Subject Name</th>
-                    <th>Subject Code</th>
-                    <th>Credit No</th>
+                    <th>Block Name</th>
+                    <th>Floor Count</th>
+                    <th>Room Count</th>
                     <th>Action</th>
                 </tr>
             </thead>
 
 
             <tbody>
-                @foreach ($subjects as $subject)
+                @foreach ($blocks as $block)
                 <tr>
-                    <td>{{ $subject->id }}</td>
-                    <td>{{ $subject->subject_name }}</td>
-                    <td>{{ $subject->subject_code }}</td>
-                    <td>{{ $subject->credit_no }}</td>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $block->block_name }}</td>
+                    <td>{{ $block->t_floor }}</td>
+                    <td>{{ $block->room_count }}</td>
                     <td class="actions">
                         {{-- <a href=""><i class="fa fa-eye"></i></a> --}}
-                        <a href="#edit-modal" onclick="initEditModel({{ $subject->id}})"  class="modal-basic"><i class="fa fa-pencil text-primary"></i></a>
-                        <a href="#" onclick="deleteSubject({{ $subject->id}})"  class="delete-row"><i class="fa fa-trash-o text-danger"></i></a>
+                        <a href="#edit-modal" onclick="initEditModel({{ $block->id}})"  class="modal-basic"><i class="fa fa-pencil text-primary"></i></a>
+                        <a href="#" onclick="deleteBlock({{ $block->id}})"  class="delete-row"><i class="fa fa-trash-o text-danger"></i></a>
                     </td>
                  </tr>
                  @endforeach
@@ -73,61 +65,32 @@
     <section class="panel">
         <header class="panel-heading">
             <a href="#" class="fa fa-times modal-dismiss pull-right"></a>
-            <h2 class="panel-title">Add Subject</h2>
+            <h2 class="panel-title">Add block</h2>
         </header>
-        <form method="POST" action="/master/subject/create" id="subjectForm" class="form-horizontal mb-lg" novalidate="novalidate">
-        <div class="panel-body panel-body-nopadding subjectForm">
+        <form method="POST" action="/master/block/create" id="blockForm" class="form-horizontal mb-lg" novalidate="novalidate">
+        <div class="panel-body panel-body-nopadding blockForm">
                 @csrf
                 <div class="form-group mt-lg">
-                    <label class="col-sm-3 control-label">Subject Name</label>
+                    <label class="col-sm-3 control-label">Block Name</label>
                     <div class="col-sm-9">
-                        <input type="text" name="subject_name" class="form-control" required/>
-                        <span class="text-danger error-text subject_name_error"></span>
-
+                        <input type="text" name="block_name" class="form-control" required/>
+                        <span class="text-danger error-text block_name_error"></span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">Subject Code</label>
+                    <label class="col-sm-3 control-label">Floor Count</label>
                     <div class="col-sm-9">
-                        <input type="text" name="subject_code" class="form-control" required/>
-                        <span class="text-danger error-text subject_code_error"></span>
-
+                        <input type="number" name="t_floor" class="form-control" required/>
+                        <span class="text-danger error-text t_floor_error"></span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">Credit No</label>
+                    <label class="col-sm-3 control-label">Room Count</label>
                     <div class="col-sm-9">
-                        <input type="number" name="credit_no" class="form-control" required/>
-                        <span class="text-danger error-text credit_no_error"></span>
+                        <input type="number" name="room_count" class="form-control" required/>
+                        <span class="text-danger error-text room_count_error"></span>
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">Department</label>
-                    <div class="col-sm-9">
-                        <select id="dept_id" name="dept_id" class="form-control">
-                            <option value="">--Select---</option>
-                            @foreach ($depts as $dept)
-                                <option value="{{ $dept->id }}">{{ $dept->dept_name }} ({{ $dept->dept_code }})</option>
-                            @endforeach
-                        </select>
-                        <span class="text-danger error-text dept_name_error"></span>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">Academic Level</label>
-                    <div class="col-sm-9">
-                        <select id="academic_level_id" name="academic_level_id" class="form-control">
-                            <option value="">--Select---</option>
-                            @foreach ($academic_levels as $academic_level)
-                                <option value="{{ $academic_level->id }}">{{ $academic_level->academic_level_name }} ({{ $academic_level->academic_level_code }})</option>
-                            @endforeach
-                        </select>
-                        <span class="text-danger error-text dept_name_error"></span>
-                    </div>
-                </div>
-
                 <br>
                 <br>
 
@@ -149,60 +112,30 @@
     <section class="panel">
         <header class="panel-heading">
             <a href="#" class="fa fa-times modal-dismiss pull-right"></a>
-            <h2 class="panel-title">Edit Subject</h2>
+            <h2 class="panel-title">Edit Block</h2>
         </header>
-        <form method="POST"  id="editSubjectForm" class="form-horizontal mb-lg" novalidate="novalidate">
-        <div class="panel-body panel-body-nopadding subjectForm">
+        <form method="POST"  id="editBlockForm" class="form-horizontal mb-lg" novalidate="novalidate">
+        <div class="panel-body panel-body-nopadding blockForm">
             @csrf
-            <input type="text" id="edit-subject-id" style="display:none;">
+            <input type="text" id="edit-block-id" style="display:none">
                 <div class="form-group mt-lg">
-                    <label class="col-sm-3 control-label">Subject Name</label>
+                    <label class="col-sm-3 control-label">Block Name</label>
                     <div class="col-sm-9">
-                        <input type="text" name="subject_name" id="edit-subject-name" class="form-control" required/>
+                        <input type="text" name="block_name" id="edit-block-name" class="form-control" required/>
                     </div>
-                    <span class="text-danger error-text subject_name_error"></span>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">Subject Code</label>
+                    <label class="col-sm-3 control-label">Floor Count</label>
                     <div class="col-sm-9">
-                        <input type="text" name="subject_code" id="edit-subject-code" class="form-control" required/>
+                        <input type="number" name="t_floor" id="edit-t-floor" class="form-control" required/>
                     </div>
-                    <span class="text-danger error-text subject_code_error"></span>
-                    
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">Credit No</label>
+                    <label class="col-sm-3 control-label">Room Count</label>
                     <div class="col-sm-9">
-                        <input type="number" name="credit_no" id="edit-credit-no" class="form-control" required/>
-                    </div>
-                    <span class="text-danger error-text credit_no_error"></span>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">Department</label>
-                    <div class="col-sm-9">
-                        <select id="edit-dept-id" name="dept_id" class="form-control">
-                            <option value="">--Select---</option>
-                            @foreach ($depts as $dept)
-                                <option value="{{ $dept->id }}">{{ $dept->dept_name }} ({{ $dept->dept_code }})</option>
-                            @endforeach
-                        </select>
-                        <span class="text-danger error-text dept_name_error"></span>
+                        <input type="number" name="room_count" id="edit-room-count" class="form-control" required/>
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">Academic Level</label>
-                    <div class="col-sm-9">
-                        <select id="edit-academic-level-id" name="academic_level_id" class="form-control">
-                            <option value="">--Select---</option>
-                            @foreach ($academic_levels as $academic_level)
-                                <option value="{{ $academic_level->id }}">{{ $academic_level->academic_level_name }} ({{ $academic_level->academic_level_code }})</option>
-                            @endforeach
-                        </select>
-                        <span class="text-danger error-text dept_name_error"></span>
-                    </div>
-                </div>
-
                 <br>
                 <br>
         </div>
@@ -235,7 +168,7 @@
              }
     });
     $(function(){
-        $('#subjectForm').on('submit', function(e){
+        $('#blockForm').on('submit', function(e){
             e.preventDefault();
             $.ajax({
                 url:$(this).attr('action'),
@@ -275,12 +208,12 @@
                 }
             });
         });
-        $('#editSubjectForm').on('submit', function(e){
+        $('#editBlockForm').on('submit', function(e){
             e.preventDefault();
             console.log("edit")
-            let subject_id =$("#edit-subject-id").val();
+            let block_id =$("#edit-block-id").val();
             $.ajax({
-                url:'/master/subject/edit/'+subject_id,
+                url:'/master/block/edit/'+block_id,
                 method:$(this).attr('method'),
                 data:new FormData(this),
                 processData:false,
@@ -327,9 +260,9 @@
         });
     });
 
-    function deleteSubject(id) {
+    function deleteBlock(id) {
         $.ajax({
-            url: '/master/subject/delete/'+id,
+            url: '/master/block/delete/'+id,
             method: 'delete',
             success:function (response) {
                 if(response.status){
@@ -352,15 +285,36 @@
         });
     }
     function initEditModel(id) {
-
-        $.get('/master/ajax/subject/'+id,function (response) {
+        
+        $.get('/master/ajax/block/'+id,function (response) {
             console.log(response);
-            $("#edit-subject-name").val(response.subject.subject_name);
-            $("#edit-subject-code").val(response.subject.subject_code);
-            $("#edit-credit-no").val(response.subject.credit_no);
-            $("#edit-subject-id").val(response.subject.id);
-            $("#edit-dept-id").val(response.subject.dept_id);
-            $("#edit-academic-level-id").val(response.subject.academic_level_id);
+            $("#edit-block-name").val(response.block.block_name);
+            $("#edit-t-floor").val(response.block.t_floor);
+            $("#edit-room-count").val(response.block.room_count);
+            $("#edit-block-id").val(response.block.id);
+        });
+    }
+    function editBlock(){
+        let block_name = $("#edit-block-name").val();
+        let t_floor = $("#edit-t-floor").val();
+        let room_count = $("#edit-room-count").val();
+
+        $.post('/master/block/edit/'+block_id,{'block_name':block_name,'t_floor':t_floor,'room_count':room_count,"_token": "{{ csrf_token() }}"},function (response) {
+            if(response.status){
+                new PNotify({
+                    title: 'Updated!',
+                    text: response.message,
+                    type: 'success',
+                    addclass: 'icon-nb'
+                });
+            }else {
+                new PNotify({
+                    title: 'Error!',
+                    text: response.message,
+                    type: 'error',
+                    addclass: 'icon-nb'
+                });
+            }
         });
     }
     $(document).ready(function(){
@@ -371,6 +325,5 @@
             $("#importForm").submit();
         })
         });
-    
 </script>
 @endsection

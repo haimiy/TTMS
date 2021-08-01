@@ -18,6 +18,8 @@ class ClassesImport implements ToModel
             'class_name' => $row[1],
             'class_size' => $row[2],
             'dept_id' => $row[3],
+            'academic_level_id' =>$row[4],
+            'academic_year_id'=>$row[5],
         ]);
     }
 }

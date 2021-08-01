@@ -12,8 +12,12 @@ class Classes extends Model
 
     protected $fillable = [
         'class_name',
+        'class_code',
         'class_size',
-        'dept_id'
+        'dept_id',
+        'academic_level_id',
+        'academic_year_id',
+        'programme_id',
     ];
 
     public function department()

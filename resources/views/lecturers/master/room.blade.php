@@ -41,6 +41,7 @@
                     <th>#</th>
                     <th>Room Name</th>
                     <th>Room Size</th>
+                    <th>Block Name</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -49,9 +50,10 @@
             <tbody>
                 @foreach ($rooms as $room)
                 <tr>
-                    <td>{{ $room->id }}</td>
+                    <td>{{ $loop->iteration }}</td>
                     <td>{{ $room->room_name }}</td>
                     <td>{{ $room->room_capacity }}</td>
+                    <td>{{ $room->block_name }}</td>
                     <td class="actions">
                         {{-- <a href=""><i class="fa fa-eye"></i></a> --}}
                         <a href="#edit-modal" onclick="initEditModel({{ $room->id}})"  class="modal-basic"><i class="fa fa-pencil text-primary"></i></a>
@@ -90,6 +92,26 @@
                         <span class="text-danger error-text room_capacity_error"></span>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Block Name</label>
+                    <div class="col-sm-9">
+                        <select name="block_id" id="" class="form-control">
+                            <option value="">--Select--</option>
+                            @foreach ($blocks as $block)
+                            <option value="{{ $block->id }}">{{ $block->block_name }}</option>
+                            @endforeach
+                        </select>
+                        <span class="text-danger error-text block_id_error"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Room No</label>
+                    <div class="col-sm-9">
+                        <input type="number" name="room_no" class="form-control" required/>
+                        <span class="text-danger error-text room_no_error"></span>
+                    </div>
+                    
+                </div>
                 <br>
                 <br>
 
@@ -113,7 +135,7 @@
             <a href="#" class="fa fa-times modal-dismiss pull-right"></a>
             <h2 class="panel-title">Edit Room</h2>
         </header>
-        <form method="POST"  id="editroomForm" class="form-horizontal mb-lg" novalidate="novalidate">
+        <form method="POST"  id="editRoomForm" class="form-horizontal mb-lg" novalidate="novalidate">
         <div class="panel-body panel-body-nopadding roomForm">
             @csrf
             <input type="text" id="edit-room-id" style="display:none">
@@ -127,6 +149,24 @@
                     <label class="col-sm-3 control-label">Room Size</label>
                     <div class="col-sm-9">
                         <input type="number" name="room_capacity" id="edit-room-capacity" class="form-control" required/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Block Name</label>
+                    <div class="col-sm-9">
+                        <select name="block_id" id="edit-block-id" class="form-control">
+                            <option value="">--Select--</option>
+                            @foreach ($blocks as $block)
+                                <option value="{{ $block->id }}">{{ $block->block_name }}</option>
+                            @endforeach
+                        </select>
+                        <span class="text-danger error-text block_id_error"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Room No</label>
+                    <div class="col-sm-9">
+                        <input type="number" name="room_no" id="edit-room-no" class="form-control" required/>
                     </div>
                 </div>
                 <br>
@@ -201,7 +241,7 @@
                 }
             });
         });
-        $('#editroomForm').on('submit', function(e){
+        $('#editRoomForm').on('submit', function(e){
             e.preventDefault();
             console.log("edit")
             let room_id =$("#edit-room-id").val();
@@ -254,6 +294,7 @@
     });
 
     function deleteRoom(id) {
+        console.log(id);
         $.ajax({
             url: '/master/room/delete/'+id,
             method: 'delete',
@@ -283,14 +324,18 @@
             console.log(response);
             $("#edit-room-name").val(response.room.room_name);
             $("#edit-room-capacity").val(response.room.room_capacity);
+            $("#edit-room-no").val(response.room.room_no);
+            $("#edit-block-id").val(response.room.block_id);
             $("#edit-room-id").val(response.room.id);
         });
     }
     function editRoom(){
         let room_name = $("#edit-room-name").val();
         let room_capacity = $("#edit-room-capacity").val();
+        let room_no = $("#edit-room-no").val();
+        let block_id = $("#edit-block-id").val();
 
-        $.post('/master/room/edit/'+room_id,{'room_name':room_name,'room_capacity':room_capacity,"_token": "{{ csrf_token() }}"},function (response) {
+        $.post('/master/room/edit/'+room_id,{'room_name':room_name,'room_capacity':room_capacity,'room_no':room_no,'block_id':block_id,"_token": "{{ csrf_token() }}"},function (response) {
             if(response.status){
                 new PNotify({
                     title: 'Updated!',

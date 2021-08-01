@@ -18,7 +18,8 @@ class SubjectSeeder extends Seeder
             [
                 'programme_name'=>"BASIC TECHNICIAN CERTIFICATE IN CIVIL ENGINEERING",
                 'programme_code'=>"BTC",
-                'dept_id'=>1
+                'dept_id'=>1,
+                
             ],
             [
                 'programme_name'=>"ORDINARY DIPLOMA IN CIVIL ENGINEERING",
@@ -67,85 +68,119 @@ class SubjectSeeder extends Seeder
                 "subject_name" => "Entrepreneurship for Engineers",
                 "subject_code" => "GSU 08201",
                 "credit_no" => 3,
+                "dept_id"=>7,
+                "academic_level_id"=>1
             ],
             [   "subject_name" => "Project Realization",
                 "subject_code" => "COU 082014",
-                "credit_no" => 18        
+                "credit_no" => 18,
+                "dept_id"=>2,
+                "academic_level_id"=>1     
             ],
             [
                 "subject_name" => "Wireless Networks",
                 "subject_code" => "CSEU 08205",
-                "credit_no" => 12
+                "credit_no" => 12,
+                "dept_id"=>2,
+                "academic_level_id"=>1
             ],
             [
                 "subject_name" => "Embedded System Design",
                 "subject_code" => "CSEU 08201",
-                "credit_no" => 9
+                "credit_no" => 9,
+                "dept_id"=>2,
+                "academic_level_id"=>1
             ],
             [
                 "subject_name" => "High Performance Computing",
                 "subject_code" => "CSEU 08202",
-                "credit_no" => 9
+                "credit_no" => 9,
+                "dept_id"=>2,
+                "academic_level_id"=>1
             ],
             [
                 "subject_name" => "Industrial Robotics",
                 "subject_code" => "CSEU 08203",
-                "credit_no" => 12
+                "credit_no" => 12,
+                "dept_id"=>2,
+                "academic_level_id"=>1
             ],
             [
                 "subject_name" => "Algebra",
                 "subject_code" => "GST 04101",
-                "credit_no" => 6
+                "credit_no" => 6,
+                "dept_id"=>7,
+                "academic_level_id"=>2
             ],
             [
                 "subject_name" => "Communication Skills",
                 "subject_code" => "GST 04205",
-                "credit_no" => 4
+                "credit_no" => 4,
+                "dept_id"=>7,
+                "academic_level_id"=>2
             ],
             [
                 "subject_name" => "Engineering Study Skills",
                 "subject_code" => "GST 06101",
-                "credit_no" => 6          
+                "credit_no" => 6,
+                "dept_id"=>7,
+                "academic_level_id"=>2        
             ],
             [
                 "subject_name" => "Bridge Design and Construction",
                 "subject_code" => "CEU 08101",
-                "credit_no" => 9          
+                "credit_no" => 9,
+                "dept_id"=>1,
+                "academic_level_id"=>2         
             ],
             [
                 "subject_name" => "Construction Technology Services",
                 "subject_code" => "CEU 08102",
-                "credit_no" => 12           
+                "credit_no" => 12,
+                "dept_id"=>1,
+                "academic_level_id"=>2           
             ],
             [
                 "subject_name" => "Calculus",
                 "subject_code" => "GSU 07101",
-                "credit_no" => 6           
+                "credit_no" => 6,
+                "dept_id"=>7,
+                "academic_level_id"=>2          
             ],
             [
                 "subject_name" => "Oil and Gas Drilling",
                 "subject_code" => "CMU 07103",
-                "credit_no" => 9           
+                "credit_no" => 9,
+                "dept_id"=>1,
+                "academic_level_id"=>1          
             ],
             [
                 "subject_name" => "Petroleum Geosciences",
                 "subject_code" => "CMU 07103",
-                "credit_no" => 9          
+                "credit_no" => 9,
+                "dept_id"=>1,
+                "academic_level_id"=>1        
             ],
             [
                 "subject_name" => "Petrophysics",
                 "subject_code" => "CMU 07106",
-                "credit_no" => 7           
+                "credit_no" => 7,
+                "dept_id"=>1,
+                "academic_level_id"=>1           
             ],
             [
                 "subject_name" => "Fluid Mechanics",
                 "subject_code" => "CEU 07211",
-                "credit_no" => 6          
+                "credit_no" => 6,
+                "dept_id"=>1,
+                "academic_level_id"=>1         
             ],
             [
                 "subject_name" => "Matrial Handilng and Supply",
                 "subject_code" => "CMU 0999",
-                "credit_no" => 12           
+                "credit_no" => 12,
+                "dept_id"=>1,
+                "academic_level_id"=>1           
             ]    
         ]);
 

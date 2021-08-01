@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ClassSubject extends Model
+class Block extends Model
 {
     use HasFactory;
-    protected $table = "class_subjects";
+    protected $table = 'blocks';
     protected $fillable = [
-        'class_id',
-        'subject_id'
+        'block_name',
+        't_floor',
+        'room_count'
     ];
 }
