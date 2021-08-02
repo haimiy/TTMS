@@ -30,6 +30,32 @@ class UserSeeder extends Seeder
                 "image" => "assets/images/admin1.jpeg"
             ],
             [
+                "first_name" => "hussna",
+                "middle_name" => "ali",
+                "last_name" => "Issa",
+                "login_id" => "hu10",
+                "password" => Hash::make("1234"),
+                "role_id" => 2,
+                "email" => "hu@gmail.com",
+                "phone_no" => "0772675900",
+                "dob" => "10/12/1996",
+                "gender" => "Female",
+                "image" => "assets/images/admin1.jpeg"
+            ],
+            [
+                "first_name" => "bri",
+                "middle_name" => "john",
+                "last_name" => "steven",
+                "login_id" => "bri10",
+                "password" => Hash::make("1234"),
+                "role_id" => 2,
+                "email" => "i@gmail.com",
+                "phone_no" => "0742674900",
+                "dob" => "10/12/1996",
+                "gender" => "Female",
+                "image" => "assets/images/admin1.jpeg"
+            ],
+            [
                 "first_name" => "gift",
                 "middle_name" => "Isack",
                 "last_name" => "Msigwa",
@@ -38,6 +64,19 @@ class UserSeeder extends Seeder
                 "role_id" => 2,
                 "email" => "gisacc@gmail.com",
                 "phone_no" => "065888932",
+                "dob" => "18/06/1996",
+                "gender" => "male",
+                "image" => "assets/images/user2.jpeg"
+            ],
+            [
+                "first_name" => "salum",
+                "middle_name" => "chuwa",
+                "last_name" => "nona",
+                "login_id" => "sa10",
+                "password" => Hash::make("1234"),
+                "role_id" => 2,
+                "email" => "sal@gmail.com",
+                "phone_no" => "0888932",
                 "dob" => "18/06/1996",
                 "gender" => "male",
                 "image" => "assets/images/user2.jpeg"
@@ -75,8 +114,47 @@ class UserSeeder extends Seeder
                 "login_id" => "student",
                 "password" => Hash::make("1234"),
                 "role_id" => 3,
-                "email" => "bri@gmail.com",
+                "email" => "bi@gmail.com",
                 "phone_no" => "0772564900",
+                "dob" => "01/12/1996",
+                "gender" => "Female",
+                "image" => "assets/images/user3.jpeg"
+            ],
+            [
+                "first_name" => "rosemary",
+                "middle_name" => "Mshanga",
+                "last_name" => "bri",
+                "login_id" => "r10",
+                "password" => Hash::make("1234"),
+                "role_id" => 2,
+                "email" => "r@gmail.com",
+                "phone_no" => "074900",
+                "dob" => "01/12/1996",
+                "gender" => "Female",
+                "image" => "assets/images/user3.jpeg"
+            ],
+            [
+                "first_name" => "tunu",
+                "middle_name" => "jembe",
+                "last_name" => "isaka",
+                "login_id" => "tu10",
+                "password" => Hash::make("1234"),
+                "role_id" => 2,
+                "email" => "tu@gmail.com",
+                "phone_no" => "044900",
+                "dob" => "01/12/1996",
+                "gender" => "Female",
+                "image" => "assets/images/user3.jpeg"
+            ],
+            [
+                "first_name" => "Asshsh",
+                "middle_name" => "jembe",
+                "last_name" => "isaka",
+                "login_id" => "a10",
+                "password" => Hash::make("1234"),
+                "role_id" => 2,
+                "email" => "a@gmail.com",
+                "phone_no" => "044aaa900",
                 "dob" => "01/12/1996",
                 "gender" => "Female",
                 "image" => "assets/images/user3.jpeg"
@@ -96,6 +174,31 @@ class UserSeeder extends Seeder
             ],
             [
                 "user_id" => 3,
+                "dept_id" => 2,
+                "lecturer_role_id" => 2
+            ],
+            [
+                "user_id" => 5,
+                "dept_id" => 3,
+                "lecturer_role_id" => 2
+            ],
+            [
+                "user_id" => 3,
+                "dept_id" => 4,
+                "lecturer_role_id" => 3
+            ],
+            [
+                "user_id" => 6,
+                "dept_id" => 5,
+                "lecturer_role_id" => 3
+            ],
+            [
+                "user_id" => 7,
+                "dept_id" => 6,
+                "lecturer_role_id" => 3
+            ],
+            [
+                "user_id" => 9,
                 "dept_id" => 2,
                 "lecturer_role_id" => 2
             ],

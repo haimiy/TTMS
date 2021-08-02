@@ -16,10 +16,12 @@ class ClassesImport implements ToModel
     {
         return new Classes([
             'class_name' => $row[1],
-            'class_size' => $row[2],
-            'dept_id' => $row[3],
-            'academic_level_id' =>$row[4],
-            'academic_year_id'=>$row[5],
+            'class_code' => $row[2],
+            'class_size' => $row[3], 
+            'academic_year_id'=>$row[4], 
+            'academic_level_id' =>$row[5],
+            'programme_id' =>$row[6],
+            'dept_id' => $row[7],
         ]);
     }
 }

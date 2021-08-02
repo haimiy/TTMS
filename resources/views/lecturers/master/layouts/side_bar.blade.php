@@ -116,6 +116,12 @@
                             <span>Manage Notification</span>
                         </a>
                     </li>  
+                    <li>
+                        <a href="/master/report">                                       
+                            <i class="fa fa-file-text" aria-hidden="true"></i>
+                            <span>Report</span>
+                        </a>
+                    </li> 
                     
                 </ul>
             </nav>

@@ -16,6 +16,7 @@ use App\Http\Controllers\Coordinator\ClassController as CoordinatorClass;
 use App\Http\Controllers\Master\RoomController;
 use App\Http\Controllers\Master\SlotController;
 use App\Http\Controllers\Master\BlockController;
+use App\Http\Controllers\Master\ReportController;
 use App\Http\Controllers\Master\ProgrammeController;
 use App\Http\Controllers\Master\LecturerController;
 use App\Http\Controllers\Student\StudentProfileController;
@@ -59,6 +60,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::prefix('master')->as('.master')->middleware(['master'])->group(function () {
         Route::get('home', [HomeController::class, 'index']);
+        Route::get('report', [ReportController::class, 'index']);
         //Notify
         Route::get('notify', [HomeController::class, 'notify']);
         Route::post('notify/send/message', [HomeController::class, 'sendMessage']);

@@ -35,26 +35,10 @@
                                 {{ $class_name }}
                             </th>
                         </tr>
-                        <tr>
-                            <th width="150">Day</th>
-                            <th width="150">Times</th>
-                            <th width="150">Periods</th>
-                        </tr>
                         
                     </thead>
                     <tbody>
-                                @foreach ($weekDays as $day)
-                            <tr>
-                                <td>
-                                    {{ $day->day_name }}
-                                </td>
-                            </tr>
-                            @endforeach
-                                @foreach ($timeslots as $time)
-                                <td>
-                                    {{ Carbon\Carbon::parse($time->start_time)->format('H:i') . ' - ' . Carbon\Carbon::parse($time->end_time)->format('H:i') }}
-                                </td> 
-                                @endforeach  
+                
                     </tbody>
                 </table>
             </div>
