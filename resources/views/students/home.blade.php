@@ -26,34 +26,54 @@
     <section class="panel">
 
         <div class="panel-body">
+        <table class="table table-bordered table-striped mb-none" >
 
-            <table class="table table-bordered table-striped mb-none" id="datatable-default">
+<thead>
+    <tr style="background-color :#34495e; color:white;">
+        <th rowspan="2" style="width: 150px;">
 
-                <thead>
-                    <tr style="background-color :#34495e; color:white;">
-                        <th class="text-center" colspan="4">
-                            {{ $semister_name}}
-                        </th>
-                    </tr>
-                    <tr style="background-color :#34495e; color:white;">   
-                        <th>Day Name</th>
-                        <th>Start Time</th>
-                        <th>End Time</th>
-                        <th>Subject Name</th>
-                    </tr>
-                
-                </thead>
-                <tbody>
-                   @foreach ($timetable as $timetable)
-                   <tr>
-                    <td>{{ $timetable->day_name}}</td>
-                    <td>{{ $timetable->start_time}}</td>
-                    <td>{{ $timetable->end_time}}</td>
-                    <td>{{ $timetable->subject_name}}</td>
-                   </tr>
-                   @endforeach
-                </tbody>
-            </table>
+        </th>
+        <th class="text-center" colspan="6">
+            {{ $semister_name }}
+        </th>
+    </tr>
+    <tr style="background-color :#34495e; color:white;">
+        @foreach($weekDays as $weekDay)
+            <th>{{ $weekDay->day_name }}</th>
+        @endforeach
+    </tr>
+
+</thead>
+<tbody>
+@foreach($timeslots as $timeslot)
+    <tr>
+        <td>
+            {{ $timeslot->start_time." - ".$timeslot->end_time }}
+        </td>
+        @foreach($weekDays as $weekDay)
+            <?php $isNotEmpty = 0?>
+
+                @foreach ($classTimetable as $timetable)
+                    @if($timetable->day_id==$weekDay->id && $timetable->slot_id == $timeslot->id)
+                        @if($timetable->subject_start)
+
+                        <td style="vertical-align: middle;" class="center" rowspan="{{ $timetable->subject_total }}">
+                            {{ $timetable->class_name }}<br>{{ $timetable->subject_name }} <br> {{ $timetable->lecturer_name }} <br> {{ $timetable->room_name }}
+
+                        </td>
+                        @endif
+        <?php $isNotEmpty = 1?>
+                    @endif
+                @endforeach
+            @if($isNotEmpty == 0)
+            <td style="vertical-align: middle;" class="center">---</td>
+            @endif
+
+        @endforeach
+    </tr>
+@endforeach
+</tbody>
+</table>
         </div>
     </section>
 </div>

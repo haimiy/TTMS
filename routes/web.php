@@ -37,6 +37,7 @@ Route::get('/', function () {
     return view('auth.login');
 })->middleware('guest');
 Route::get('timetable', [TimeTableController::class, 'timetable']);
+Route::get('timetable/ui', [TimeTableController::class, 'timetableUi']);
 Route::get('timetable/download', [TimeTableController::class, 'downloadTimetable']);
 
 Auth::routes();
@@ -149,7 +150,7 @@ Route::middleware(['auth'])->group(function () {
         //End Manage Lecturer
         //Manage Timetable
         Route::get('timetable', [TimeTableController::class, 'index']);
-        Route::get('timetable', [TimeTableController::class, 'index']);
+        // Route::get('timetable', [TimeTableController::class, 'index']);
         Route::get('timetable/class', [TimeTableController::class, 'showClassTimetable']);
     });
 

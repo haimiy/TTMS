@@ -56,10 +56,8 @@ class DepartmentSeeder extends Seeder
         DB::table('semister')->insert([
             [
                 "semister_name" => "Semister one",
-            ],
-            [ 
-                "semister_name" => "Semister two",
             ]
+          
         ]);
     }
 }

@@ -95,7 +95,7 @@
                     <li class="nav-parent">
                         <a>
                             <i class="fa fa-calendar" aria-hidden="true"></i>
-                            <span>Manage Timetbale</span>
+                            <span>Manage Timetable</span>
                         </a>
                         <ul class="nav nav-children">
                             <li>
@@ -103,7 +103,7 @@
                                     <i class="fa fa-eye" aria-hidden="true"></i>
                                     <span>View Timetbale</span>
                                 </a>
-                                <a href="/timetable">
+                                <a href="/timetable/ui">
                                     <i class="fa fa-plus-circle" aria-hidden="true"></i>
                                     <span>Generate Timetbale</span>
                                 </a>

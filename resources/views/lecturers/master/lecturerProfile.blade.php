@@ -84,7 +84,6 @@
                 </ul>
                 <div class="tab-content">
                     <div id="module" class="tab-pane active">
-                        <h4 class="mb-xlg"><strong>Lecturer's Subjects </strong></h4>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="panel-body">

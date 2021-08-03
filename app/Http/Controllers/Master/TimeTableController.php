@@ -117,4 +117,7 @@ class TimeTableController extends Controller
             'timeslots'=>$time,
         ]);
     }
+    public function timetableUi(){
+        return view('lecturers.master.generate');
+    }
 }

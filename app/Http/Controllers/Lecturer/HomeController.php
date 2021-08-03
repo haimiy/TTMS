@@ -15,6 +15,7 @@ class HomeController extends Controller
 {
     public function index(){
         $lecturer = Lecturer::where("user_id",auth()->user()->id)->get();
+        
         $timetable = DB::select('SELECT d.day_name, se.semister_name,cl.class_name,s.start_time,s2.subject_name, r.room_name,s.end_time FROM timetables t 
         left join days d on t.day_id = d.id  
         left join semister se on t.semister_id =se.id  
