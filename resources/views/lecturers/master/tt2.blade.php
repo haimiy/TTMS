@@ -38,48 +38,44 @@
 
                     <thead>
                         <tr style="background-color :#34495e; color:white;">
-                            <th rowspan="2" style="width: 150px;">
-
-                            </th>
                             <th class="text-center" colspan="6">
                                 {{ $class_name }}
                             </th>
                         </tr>
                         <tr style="background-color :#34495e; color:white;">
-                            @foreach($weekDays as $weekDay)
-                                <th>{{ $weekDay->day_name }}</th>
-                            @endforeach
+                            <th>#</th>
+                            <th>Time</th>
+                            <th>Day Name</th>
+                            <th>Period Info</th>
                         </tr>
 
                     </thead>
                     <tbody>
-                    @foreach($timeslots as $timeslot)
+                    <?php
+                    $prevDay="";
+                    $day="";
+
+                    $prevSub='';
+                    $sub='';
+                    ?>
+                        @foreach ($classTimetable as $timetable)
                         <tr>
-                            <td>
-                                {{ $timeslot->start_time." - ".$timeslot->end_time }}
-                            </td>
-                            @foreach($weekDays as $weekDay)
-                                <?php $isNotEmpty = 0?>
-
-                                    @foreach ($classTimetable as $timetable)
-                                        @if($timetable->day_id==$weekDay->id && $timetable->slot_id == $timeslot->id)
-                                            @if($timetable->subject_start)
-
-                                            <td style="vertical-align: middle;" class="center" rowspan="{{ $timetable->subject_total }}">
-                                                {{ $timetable->class_name }}<br>{{ $timetable->subject_name }} <br> {{ $timetable->lecturer_name }} <br> {{ $timetable->room_name }}
-
-                                            </td>
-                                            @endif
-                            <?php $isNotEmpty = 1?>
-                                        @endif
-                                    @endforeach
-                                @if($isNotEmpty == 0)
-                                <td style="vertical-align: middle;" class="center">---</td>
-                                @endif
-
-                            @endforeach
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $timetable->start_time." - ".$timetable->end_time }}</td>
+                            @if($timetable->day_name != $prevDay)
+                                <td rowspan="{{ $timetable->day_total }}" class="center" style="vertical-align: center!important; margin: 80px;">{{ $timetable->day_name }}  </td>
+                                @php
+                                    $prevDay= $timetable->day_name;
+                                @endphp
+                            @endif
+                            @if($timetable->subject_name != $prevSub)
+                                <td rowspan="{{ $timetable->subject_total }}" style="vertical-align: center!important; margin: 80px;">Subject: <b>{{ $timetable->subject_name }}</b> <br> Lecture: <b>{{ $timetable->lecturer_name }}</b> <br> Room: <b>{{ $timetable->room_name }}</b></td>
+                                @php
+                                    $prevSub= $timetable->subject_name;
+                                @endphp
+                            @endif
                         </tr>
-                    @endforeach
+                        @endforeach
                     </tbody>
                 </table>
             </div>

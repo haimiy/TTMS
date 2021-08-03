@@ -46,6 +46,9 @@ class Tt
         left JOIN classes cl on cs.class_id=cl.id WHERE cl.id=? and d.day_name = ? and s2.subject_name= ?",[$class_id,$day,$sub]);
                 $prevSub = $sub;
                 $sub_count=$result[0]->total;
+                $class_timetable->subject_start=true;
+            }else{
+                $class_timetable->subject_start=false;
             }
             $class_timetable->day_total =$day_count;
             $class_timetable->subject_total =$sub_count;

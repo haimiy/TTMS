@@ -60,9 +60,9 @@ class LecturerController extends Controller
             ->select('lecturers.*', 'dept_name', 'login_id')
             ->get();
         return view('lecturers.master.lecturer', [
-            'lecturers' => $lecturer, 
-            'depts' => $dept, 
-            'users' => $user, 
+            'lecturers' => $lecturer,
+            'depts' => $dept,
+            'users' => $user,
             'lecturerRoles' => $lecturerRoles
         ]);
 
@@ -72,19 +72,21 @@ class LecturerController extends Controller
 
     public function showLecturerProfile($id)
     {
-        $lecturer = DB::select('SELECT l.id,l.user_id,u.*,d.* FROM lecturers l 
-        LEFT JOIN users u ON u.id=l.user_id 
-        LEFT JOIN lecturer_subjecs ls ON l.id = ls.lecturer_id 
-        LEFT JOIN departments d ON d.id=l.dept_id WHERE u.id=' . $id . '');
+        $lecturer = DB::select('SELECT l.id,l.user_id,u.*,d.* FROM lecturers l
+        LEFT JOIN users u ON u.id=l.user_id
+        LEFT JOIN lecturer_subjecs ls ON l.id = ls.lecturer_id
+        LEFT JOIN departments d ON d.id=l.dept_id WHERE u.id=' . $id);
 
         $classes = DB::select('SELECT c.*,  d.dept_name FROM classes c
         left join lecturer_classes lc ON c.id = lc.class_id
         left join departments d ON d.id = c.dept_id
         WHERE lc.lecturer_id=' . $id);
 
-        $subjects = DB::select('SELECT * FROM subjects s 
-        left join lecturer_subjecs ls ON s.id = ls.subject_id 
-        WHERE ls.lecturer_id=' . $id);
+        $subjects = DB::select('SELECT * FROM subjects s
+        left join lecturer_subjecs ls ON s.id = ls.subject_id
+        left join lecturers l on ls.lecturer_id  =  l.id
+        left JOIN users u on l.user_id =u.id
+        WHERE u.id=' . $id);
         return view('lecturers.master.lecturerProfile', ['lecturer' => $lecturer[0], 'subjects' => $subjects, 'classes' => $classes]);
     }
 
@@ -155,9 +157,9 @@ class LecturerController extends Controller
 
            $user = User::create($req->all());
            $req['user_id'] = $user->id;
-           
+
             $lecturer = Lecturer::create($req->all());
-              
+
             if(!$lecturer){
                 return response()->json(['status'=>0, 'msg'=>'Something went wrong']);
             }else{
