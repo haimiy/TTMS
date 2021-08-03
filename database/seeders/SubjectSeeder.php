@@ -344,64 +344,37 @@ class SubjectSeeder extends Seeder
             ],
             [
                 "lecturer_id" => 2,
-                "subject_id" => 12
-            ],
-            [
-                "lecturer_id" => 3,
-                "subject_id" => 13
-            ],
-            [
-                "lecturer_id" => 4,
-                "subject_id" => 14
-            ],
-            [
-                "lecturer_id" => 5,
-                "subject_id" => 15
-            ],
-            [
-                "lecturer_id" => 6,
-                "subject_id" => 1
-            ],
-            [
-                "lecturer_id" => 7,
                 "subject_id" => 10
             ],
             [
-                "lecturer_id" => 8,
+                "lecturer_id" => 3,
                 "subject_id" => 11
             ],
             [
-                "lecturer_id" => 1,
-                "subject_id" => 7
-            ],  
-            [
                 "lecturer_id" => 4,
-                "subject_id" => 8
-            ],
-            [
-                "lecturer_id" => 4,
-                "subject_id" => 9
-            ],
-            [
-                "lecturer_id" => 5,
                 "subject_id" => 12
             ],
             [
+                "lecturer_id" => 5,
+                "subject_id" => 13
+            ],
+            [
                 "lecturer_id" => 6,
-                "subject_id" => 16
+                "subject_id" => 14
             ],
             [
                 "lecturer_id" => 7,
-                "subject_id" => 17
+                "subject_id" => 15
             ],
             [
                 "lecturer_id" => 8,
-                "subject_id" => 1
+                "subject_id" => 16
             ],
             [
-                "lecturer_id" => 5,
-                "subject_id" => 2
+                "lecturer_id" => 1,
+                "subject_id" => 17
             ]
+          
           
         ]);
     }
