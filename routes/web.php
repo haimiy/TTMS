@@ -37,6 +37,7 @@ Route::get('/', function () {
     return view('auth.login');
 })->middleware('guest');
 Route::get('timetable', [TimeTableController::class, 'timetable']);
+Route::get('timetable/download', [TimeTableController::class, 'downloadTimetable']);
 
 Auth::routes();
 Auth::routes(['register' => false]);
@@ -147,6 +148,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/change-psw', [LecturerController::class, 'changePassword']);
         //End Manage Lecturer
         //Manage Timetable
+        Route::get('timetable', [TimeTableController::class, 'index']);
         Route::get('timetable', [TimeTableController::class, 'index']);
         Route::get('timetable/class', [TimeTableController::class, 'showClassTimetable']);
     });
