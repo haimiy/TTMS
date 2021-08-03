@@ -130,6 +130,7 @@ Class Helper{
                         else{
                             if ($current_slot<$num_slot){
                                 if (!self::restrictOneClassToBeInOneRoomInOneTimeSlots($day->id, $slot->id, $subject['id'])) {
+                                    //TODO:: restrict room
                                     DB::table('timetables')->insert([
                                         'day_id' => $day->id,
                                         'slots_id' => $slot->id,
@@ -142,14 +143,11 @@ Class Helper{
                                     $current_slot_count++;
                                     $num=$num-1;
                                 }
-
                             }
                             else{
                                 break;
                             }
                         }
-
-
                     }
                 }
             }
