@@ -162,7 +162,7 @@ class UserSeeder extends Seeder
         ]);
 
         DB::table('students')->insert([
-            "user_id" => 3,
+            "user_id" => 8,
             "class_id" => 1
         ]);
 
@@ -205,10 +205,10 @@ class UserSeeder extends Seeder
             [
                 "user_id" => 4,
                 "dept_id" => 3,
-                "lecturer_role_id" => 3
+                "lecturer_role_id" => 1
             ]
 
         ]);
-        
+
     }
 }

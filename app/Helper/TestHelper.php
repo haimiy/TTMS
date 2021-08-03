@@ -22,14 +22,14 @@ Class Helper{
                     return;
                 }
                 if (!self::restrictOneClassToBeInOneRoomInOneTimeSlots($day->id,$slot->id,$subject->id)) {
-                DB::table('timetables')->insert([
-                    'day_id'=>$day->id,
-                    'slots_id'=>$slot->id,
-                    'room_id'=>$room->id,
-                    'subject_id'=>$subject->id,
-                    'semister_id'=>1,
-                ]);
-                return;
+                    DB::table('timetables')->insert([
+                        'day_id'=>$day->id,
+                        'slots_id'=>$slot->id,
+                        'room_id'=>$room->id,
+                        'subject_id'=>$subject->id,
+                        'semister_id'=>1,
+                    ]);
+                    return;
                 }
             }
 //
@@ -80,7 +80,7 @@ Class Helper{
         $classes =DB::select('SELECT id from classes');
         $data = [];
         foreach ($classes as $class){
-            array_push($data,self::generateClassTimetable($class->id));
+            array_push($data,self::generateClassTimetable($class->id,$class->session));
         }
         return [
             'status'=>true,
@@ -89,25 +89,29 @@ Class Helper{
         ];
     }
 
-    public static function generateClassTimetable($class_id)
+    public static function generateClassTimetable($class_id,$session)
     {
         $class_subjects = self::getClassSubjects($class_id);
-        if ($class_subjects[0]->credit_no==null)
-            return 0;
         $period_number_per_week = self::getNumberOfPeriodsPerGivenClassPerWeek($class_subjects);
         $period_number_per_day = self::getNumberOfPeriodsPerDayForAGivenClass($period_number_per_week);
         $class_subjects_periods = self::generateClassSubjectPeriodSpecList($class_subjects);
         $rooms = Room::all();
-        $slots = Slot::all();
+        $s_time1 = 1;
+        $s_time2 = 2;
+        if ($session%2==0){
+            $s_time1 = 2;
+            $s_time2 = 3;
+        }
+        $slots = Slot::where('s_time',$s_time1)->orWhere('s_time',$s_time2);
         $slots_count = $slots->count()*$rooms->count();
 
         $days = Day::all();
         foreach ($class_subjects_periods as $subject){
-        foreach ($days as $day){
-            $current_slot_count = 0;
+            foreach ($days as $day){
+                $current_slot_count = 0;
 
 
-            foreach ($rooms as $room){
+                foreach ($rooms as $room){
                     $num_slot = $subject['slot_number'];
                     $current_slot = 0;
                     //subject level filters
@@ -276,34 +280,34 @@ Class Helper{
     {
         $class_subjects = [];
         //for first index/period of the week
-         foreach ($subjects as $subject){
-             $class_subject = [];
-             if($subject->credit_no>=9 && $subject->credit_no<18)
-             {
-                 array_push($class_subjects,[
-                     'id'=> $subject->id,
-                     'subject_name'=> $subject->subject_name,
-                     'credit_no' => $subject->credit_no,
-                     'no_period' => 2,
-                     'index'=>1,
-                     'slot_number'=>3,
-                 ]);
-             }
-             else
-             {
+        foreach ($subjects as $subject){
+            $class_subject = [];
+            if($subject->credit_no>=9 && $subject->credit_no<18)
+            {
+                array_push($class_subjects,[
+                    'id'=> $subject->id,
+                    'subject_name'=> $subject->subject_name,
+                    'credit_no' => $subject->credit_no,
+                    'no_period' => 2,
+                    'index'=>1,
+                    'slot_number'=>3,
+                ]);
+            }
+            else
+            {
 
-                 array_push($class_subjects,[
-                     'id'=> $subject->id,
-                     'subject_name'=> $subject->subject_name,
-                     'credit_no' => $subject->credit_no,
-                     'no_period' => 1,
-                     'index'=>1,
-                     'slot_number'=>3,
-                 ]);
-             }
+                array_push($class_subjects,[
+                    'id'=> $subject->id,
+                    'subject_name'=> $subject->subject_name,
+                    'credit_no' => $subject->credit_no,
+                    'no_period' => 1,
+                    'index'=>1,
+                    'slot_number'=>3,
+                ]);
+            }
 
-         }
-         //for Second index/period of the week
+        }
+        //for Second index/period of the week
         foreach ($subjects as $subject){
             $class_subject = [];
             if($subject->credit_no>=9 && $subject->credit_no<18)

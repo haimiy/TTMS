@@ -3,13 +3,20 @@
     @include('lecturers.master.layouts.side_bar')
 @endsection
 @section('content')
+    <style>
+        .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+
+            vertical-align: middle !important;
+        }
+
+    </style>
     <header class="page-header">
         <h2>Timetable</h2>
 
         <div class="right-wrapper pull-right">
             <ol class="breadcrumbs">
                 <li>
-                    <a href="index.html">
+                    <a href="">
                         <i class="fa fa-home"></i>
                     </a>
                 </li>
@@ -27,33 +34,48 @@
 
             <div class="panel-body">
 
-                <table class="table table-bordered table-striped mb-none" id="datatable-default">
+                <table class="table table-bordered table-striped mb-none" >
 
                     <thead>
                         <tr style="background-color :#34495e; color:white;">
-                            <th class="text-center" colspan="5">
-                                {{ $class_name }} 
+                            <th class="text-center" colspan="6">
+                                {{ $class_name }}
                             </th>
                         </tr>
-                        <tr style="background-color :#34495e; color:white;">   
+                        <tr style="background-color :#34495e; color:white;">
+                            <th>#</th>
+                            <th>Time</th>
                             <th>Day Name</th>
-                            <th>Start Time</th>
-                            <th>End Time</th>
                             <th>Subject Name</th>
-                            <th>Semister Name</th>
                         </tr>
-                    
+
                     </thead>
                     <tbody>
+                    <?php
+                    $prevDay="";
+                    $day="";
+
+                    $prevSub='';
+                    $sub='';
+                    ?>
                         @foreach ($classTimetable as $timetable)
                         <tr>
-                            <td>{{ $timetable->day_name }}</td>
-                            <td>{{ $timetable->start_time }}</td>
-                            <td>{{ $timetable->end_time }}</td>
-                            <td>{{ $timetable->subject_name }}</td>
-                            <td>{{ $timetable->semister_name }}</td>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $timetable->start_time." - ".$timetable->end_time }}</td>
+                            @if($timetable->day_name != $prevDay)
+                                <td rowspan="{{ $timetable->day_total }}" class="center" style="vertical-align: center!important; margin: 80px;">{{ $timetable->day_name }} </td>
+                                @php
+                                    $prevDay= $timetable->day_name;
+                                @endphp
+                            @endif
+                            @if($timetable->subject_name != $prevSub)
+                                <td rowspan="{{ $timetable->subject_total }}" style="vertical-align: center!important; margin: 80px;">{{ $timetable->subject_name }} </td>
+                                @php
+                                    $prevSub= $timetable->subject_name;
+                                @endphp
+                            @endif
                         </tr>
-                        @endforeach                        
+                        @endforeach
                     </tbody>
                 </table>
             </div>

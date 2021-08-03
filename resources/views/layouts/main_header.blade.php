@@ -1,7 +1,7 @@
 <header class="header">
     <div class="logo-container">
         <a href="../" class="logo">
-            <img src="{{ asset('assets/images/logo1.jpg') }}" height="35" alt="logo" />
+            <img src="{{ asset('assets/images/dit.png') }}" height="35" alt="logo" />
         </a>
         <div class="visible-xs toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html"
             data-fire-event="sidebar-left-opened">
@@ -27,7 +27,7 @@
         <li>
             <a href="#" class="dropdown-toggle notification-icon" data-toggle="dropdown">
                 <i class="fa fa-bell"></i>
-                <span class="badge">   
+                <span class="badge">
                     {{ $count_msg }}
                 </span>
             </a>
@@ -63,7 +63,7 @@
                     </ul>
 
                     <hr />
- 
+
                 </div>
             </div>
         </li>

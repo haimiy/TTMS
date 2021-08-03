@@ -18,11 +18,12 @@ class Classes extends Model
         'academic_level_id',
         'academic_year_id',
         'programme_id',
+        'session',
     ];
 
     public function department()
     {
         return $this->belongsTo(Department::class,'dept_id');
     }
-    
+
 }

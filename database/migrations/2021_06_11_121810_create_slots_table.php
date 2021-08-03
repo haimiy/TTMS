@@ -17,6 +17,7 @@ class CreateSlotsTable extends Migration
             $table->id();
             $table->time('start_time');
             $table->time('end_time');
+            $table->integer('s_time');
             $table->timestamps();
         });
     }

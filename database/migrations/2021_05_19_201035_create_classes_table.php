@@ -22,6 +22,7 @@ class CreateClassesTable extends Migration
             $table->unsignedBigInteger('academic_level_id');
             $table->unsignedBigInteger('programme_id');
             $table->unsignedBigInteger('dept_id');
+            $table->unsignedBigInteger('session');
             $table->timestamps();
         });
     }

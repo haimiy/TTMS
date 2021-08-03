@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Master;
 
+use App\Helper\Tt;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -52,18 +53,26 @@ class TimeTableController extends Controller
         $days = Day::all();
         $time = Slot::all();
 
-        $classTimetable = DB::select('SELECT d.day_name, d.id as day_id,se.semister_name,cl.class_name,s.start_time,s2.subject_name,s2.credit_no, s.id as slot_id,s.end_time FROM timetables t 
-        left join days d on t.day_id =d.id  
-        left join semister se on t.semister_id =se.id  
-        left join slots s on t.slots_id = s.id 
-        left JOIN rooms r on t.room_id = r.id 
-        left join subjects s2 on t.subject_id  = s2.id 
-        left join class_subjects cs on s2.id=cs.subject_id 
+        $classTimetable = DB::select('SELECT d.day_name, d.id as day_id,se.semister_name,cl.class_name,s.start_time,s2.subject_name,s2.credit_no, s.id as slot_id,s.end_time,s2.subject_code FROM timetables t
+        left join days d on t.day_id =d.id
+        left join semister se on t.semister_id =se.id
+        left join slots s on t.slots_id = s.id
+        left JOIN rooms r on t.room_id = r.id
+        left join subjects s2 on t.subject_id  = s2.id
+        left join class_subjects cs on s2.id=cs.subject_id
         left JOIN classes cl on cs.class_id=cl.id WHERE cl.id='.$request->class_id);
-        
-        
+
+        if (count($classTimetable)==0)
+            return view('lecturers.master.tt', [
+                'classTimetable'=>$classTimetable,
+                'weekDays'=>$days,
+                'timeslots'=>$time,
+                'class_name'=>"No Class Timetable"
+            ]);
+
+
         return view('lecturers.master.tt', [
-            'classTimetable'=>$classTimetable,
+            'classTimetable'=>Tt::test($classTimetable,$request->class_id),
             'weekDays'=>$days,
             'timeslots'=>$time,
             'class_name'=>$classTimetable[0]->class_name

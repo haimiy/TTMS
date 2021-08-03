@@ -10,6 +10,7 @@ class Slot extends Model
     use HasFactory;
     protected $fillable =[
         'start_time',
-        'end_time'
+        'end_time',
+        's_time'
     ];
 }

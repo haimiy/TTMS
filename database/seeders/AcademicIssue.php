@@ -20,13 +20,13 @@ class AcademicIssue extends Seeder
             ],
             [
                 "academic_level_name" => "Ordinary Diploma",
-                "academic_level_code" => "OD"  
+                "academic_level_code" => "OD"
             ],
             [
                 "academic_level_name" => "General Course",
-                "academic_level_code" => "GC" 
+                "academic_level_code" => "GC"
             ]
-            
+
         ]);
 
         DB::table('academic_years')->insert([
@@ -38,13 +38,13 @@ class AcademicIssue extends Seeder
             [
                 "year_name" => "2019/2020",
                 "start_date" => "2019-01-07",
-                "end_date" => "2022-07-05" 
+                "end_date" => "2022-07-05"
             ],
             [
                 "year_name" => "2020/2021",
                 "start_date" => "2020-01-09",
-                "end_date" => "2023-06-07" 
-            ]    
+                "end_date" => "2023-06-07"
+            ]
         ]);
         DB::table('nta_levels')->insert([
             [
@@ -56,7 +56,8 @@ class AcademicIssue extends Seeder
                 "nta_level_name" => "NTA level 8",
                 "no_of_years" => 3,
                 "academic_level_id" => 1
-            ]    
+            ]
         ]);
+
     }
 }

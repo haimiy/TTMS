@@ -37,7 +37,7 @@ class ClassController extends Controller
             'subjects'=>$subject,
             'academic_levels'=>$academic_level,
             'academic_years'=>$academic_year,
-         
+
         ]);
 
     }
@@ -45,12 +45,12 @@ class ClassController extends Controller
         $validator = Validator::make($request->all(),[
             'class_name'    => 'required',
             'dept_id'    => 'required',
-            'subject_id'    => 'required',  
+            'subject_id'    => 'required',
         ]);
         if(!$validator->passes()){
             return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
         }else{
-        $classes = Classes::where('class_code',$request->class_code)->get();    
+        $classes = Classes::where('class_code',$request->class_code)->get();
         foreach($classes as $class){
             $cs =ClassSubject::where("subject_id",$request->subject_id)->where("class_id",$class->id)->get();
             if($cs->count()>0)
@@ -64,8 +64,8 @@ class ClassController extends Controller
     }
     }
     public function deleteModules(Request $request){
-        $classes = Classes::where('class_code',$request->class_code)->get();  
-        
+        $classes = Classes::where('class_code',$request->class_code)->get();
+
     }
 
     public function getAjaxClassesInformation(){
@@ -111,6 +111,7 @@ class ClassController extends Controller
                 $class_size = $request->class_size/count($class_names);
                 $num = 0;
                 foreach($class_names as $class_name){
+                    $request['session']=$num+1;
                     if($num==0){
                         $request["class_size"] = ceil($class_size);
                         $request["class_name"] = $class_name;
@@ -122,7 +123,7 @@ class ClassController extends Controller
                         'academic_level_id' => $request->academic_level_id,
                         'academic_year_id' => $request->academic_year_id,
                         'programme_id'     => $request->programme_id,
-    
+
                     ]);
                     }else{
                         //TODO: if class name is exist handle
@@ -136,10 +137,10 @@ class ClassController extends Controller
                                 "class_id"=>$class->id
                             ]);
                         }
-                    }   
+                    }
                     $num++;
                 }
-               
+
                 if(!$classes){
                     return response()->json(['status'=>false, 'message'=>'Something went wrong']);
                 }else{
@@ -166,17 +167,18 @@ class ClassController extends Controller
             $class_size = $req->class_size/count($class_names);
             $num = 0;
             foreach($class_names as $class_name){
+                $req['session']=$num+1;
                 if($num==0){
                     $req["class_size"] = ceil($class_size);
                 }else{
                     $req["class_size"] = floor($class_size);
                 }
-                
+
                 $req["class_name"] = $class_name;
                 $classes = Classes::create($req->all());
                 $num++;
             }
-            
+
             if(!$classes){
                 return response()->json(['status'=>0, 'msg'=>'Something went wrong']);
             }else{
@@ -199,7 +201,7 @@ class ClassController extends Controller
             'subjects'=>$subjects,
         ]);
     }
-    //TODO-Nta level 
+    //TODO-Nta level
     public function selectLevel($id){
         $academic_level = AcademicLevel::where('subject_id',$id)->get();
         return response()->json([
@@ -215,5 +217,24 @@ class ClassController extends Controller
     public function export()
     {
         return Excel::download(new ClassesExport, 'classes.xlsx');
+    }
+
+    public function getAjaxClassesCodeSubjects($class_code){
+        $class_subject = DB::select('SELECT DISTINCT s.subject_name, s.id FROM classes c left join class_subjects cs on c.id=cs.class_id
+    LEFT  JOIN  subjects s on cs.subject_id =s.id where c.class_code =?',[$class_code]);
+        return response()->json([
+            'status'=>true,
+            'subjects'=>$class_subject
+        ]);
+    }
+    public function deleteAjaxClassesCodeSubject(Request $request)
+    {
+        $classes = DB::select("SELECT id,class_name FROM classes where class_code =?",[$request->class_code]);
+        foreach ($classes as $class){
+            $class_subject = ClassSubject::where("class_id",$class->id)->where("subject_id",$request->subject_id)->delete();
+//            $class_subject->delete();
+            return response()->json(['status'=>true, 'message'=>'Subject removed from class successful']);
+        }
+        return response()->json(['status'=>false, 'message'=>'Subject is not removed from class']);
     }
 }

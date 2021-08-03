@@ -49,10 +49,10 @@
                 </thead>
 
                 <tbody id="data_table">
-                    
+
                     @foreach ($classes as $class)
                             @php
-                              $subject_names = explode(",",$class->subject_names)  
+                              $subject_names = explode(",",$class->subject_names)
                             @endphp
                         <tr>
                             <td>{{ $loop->iteration }}</td>
@@ -152,7 +152,7 @@
                 <a href="#" class="fa fa-times modal-dismiss pull-right"></a>
                 <h2 class="panel-title">Delete Class Modules</h2>
             </header>
-            <form method="GET" action="/master/classes/classSubject" id="deleteModuleForm" class="form-horizontal mb-lg"
+            <form  action="/master/classes/classSubject" id="deleteModuleForm" class="form-horizontal mb-lg"
                 novalidate="novalidate">
                 <div class="panel-body panel-body-nopadding classForm">
                     @csrf
@@ -165,15 +165,12 @@
                             <span class="text-danger error-text class_name_error"></span>
                         </div>
                     </div>
-                
+
                     <div class="form-group">
                         <label class="col-sm-3 control-label">Module Name</label>
                         <div class="col-sm-9">
-                            <select id="subject_id" name="subject_id" class="form-control" onchange="getNtaLevels()">
+                            <select id="delete_subject_id" name="subject_id" class="form-control" onchange="">
                                 <option value="">--Select---</option>
-                                @foreach ($subjects as $subject)
-                                    <option value="{{ $subject->id }}">{{ $subject->subject_name }}</option>
-                                @endforeach
                             </select>
                             <span class="text-danger error-text subject_id_error"></span>
                         </div>
@@ -186,7 +183,7 @@
                 <footer class="panel-footer">
                     <div class="row">
                         <div class="col-md-12 text-right">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-danger">Remove</button>
                             <button id="close" class="btn btn-default modal-dismiss">Cancel</button>
                         </div>
                     </div>
@@ -260,7 +257,7 @@
                         <div class="col-sm-9">
                             <select id="programme_id" name="programme_id" class="form-control" onchange="generateClassName()">
                                 <option value="">--Select---</option>
-                               
+
                             </select>
                             <span class="text-danger error-text programme_id_error"></span>
                         </div>
@@ -358,7 +355,7 @@
 
                         <div class="col-sm-9">
                             <select id="programme_id" name="programme_id" class="form-control" onchange="editGenerateClassName()">
-                                <option value="">--Select---</option>   
+                                <option value="">--Select---</option>
                             </select>
                             <span class="text-danger error-text programme_id_error"></span>
                         </div>
@@ -453,7 +450,7 @@
                     }
                 });
             });
-        
+
             $('#editClassForm').on('submit', function(e) {
                 e.preventDefault();
                 let class_id = $("#edit-class-id").val();
@@ -504,6 +501,50 @@
                     }
                 });
             });
+            $('#deleteModuleForm').on('submit', function(e) {
+                console.log("test")
+                e.preventDefault();
+                $.ajax({
+                    url: $(this).attr('action'),
+                    method: 'post',
+                    data: new FormData(this),
+                    processData: false,
+                    dataType: 'json',
+                    contentType: false,
+                    beforeSend: function() {
+                        $(document).find('span.error-text').text('');
+                    },
+                    success: function(response) {
+                        if (!response.status) {
+                            let message = '';
+                            new PNotify({
+                                title: 'Error!',
+                                text: response.message,
+                                type: 'error',
+                                addclass: 'icon-nb'
+                            });
+                        } else {
+                            $("#close").click();
+                            // $('#UserForm')[0].reset();
+                            new PNotify({
+                                title: 'Removed!',
+                                text: response.message,
+                                type: 'success',
+                                addclass: 'icon-nb'
+                            });
+                        }
+                    },
+                    error: function(err) {
+                        console.log(err);
+                        new PNotify({
+                            title: 'Error!',
+                            text: "Something went wrong",
+                            type: 'error',
+                            addclass: 'icon-nb'
+                        });
+                    }
+                });
+            });
             $('#addModuleForm').on('submit', function(e) {
                 e.preventDefault();
                 $.ajax({
@@ -528,7 +569,7 @@
                             }else{
                                 message=response.message
                             }
-                            
+
                             console.log(message)
                             new PNotify({
                                 title: 'Error!',
@@ -700,7 +741,7 @@
                     }
                 });
             }
-            
+
         }
         function getModules(){
             let id = $("#dept_id").val().trim();
@@ -719,7 +760,7 @@
                     }
                 });
             }
-            
+
         }
         function getNtaLevels(){
             let id = $("#subject_id").val().trim();
@@ -738,7 +779,7 @@
                     }
                 });
             }
-            
+
         }
         function editGetProgrammes(){
             let id = $("#dept_id").val().trim();
@@ -757,7 +798,7 @@
                     }
                 });
             }
-            
+
         }
 
         function initAddClassSubject(className,classCode) {
@@ -768,6 +809,20 @@
         function initDeleteClassSubject(className,classCode) {
             $("#class_code-add").val(classCode);
             $("#class_name-add").val(className);
+            $.ajax({
+                url:'/master/class/'+classCode+'/subjects',
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (response) {
+                    if (response.status){
+                        let html = '<option value="">--Select---</option>';
+                        response.subjects.forEach(subject => {
+                            html += '<option value="'+subject.id+'">'+subject.subject_name+'</option>'
+                        });
+                        $("#delete_subject_id").html(html);
+                    }
+                }
+            })
         }
         function getClassesSubject(){
             let id = $("#class_id").val().trim();

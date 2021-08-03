@@ -82,7 +82,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('subject/select/{id}', [ClassController::class, 'selectDepartmentSubject']);
         Route::get('level/select/{id}', [ClassController::class, 'selectLevel']);
 
-        //End Clas
+        //get subject base on class code
+        Route::get('class/{class_code}/subjects', [ClassController::class, 'getAjaxClassesCodeSubjects']);
+        Route::post('/classes/classSubject', [ClassController::class, 'deleteAjaxClassesCodeSubject']);
+        //End Classes
 
         //Programme
         Route::get('programme/select/{id}', [ProgrammeController::class, 'selectProgramme']);
