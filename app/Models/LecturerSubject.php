@@ -13,5 +13,6 @@ class LecturerSubject extends Model
     protected $fillable = [
         'lecturer_id',
         'subject_id',
+        'session',
     ];
 }

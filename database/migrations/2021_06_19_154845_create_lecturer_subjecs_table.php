@@ -17,6 +17,7 @@ class CreateLecturersubjecsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('lecturer_id');
             $table->unsignedBigInteger('subject_id');
+            $table->integer('session')->default(0);
             $table->timestamps();
         });
     }

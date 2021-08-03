@@ -7,6 +7,7 @@ use App\Models\Classes;
 use Illuminate\Http\Request;
 use App\Models\Lecturer;
 use App\Models\LecturerRole;
+use App\Models\LecturerSubject;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Department;
@@ -72,6 +73,7 @@ class LecturerController extends Controller
 
     public function showLecturerProfile($id)
     {
+        $depts = Department::all();
         $lecturer = DB::select('SELECT l.id,l.user_id,u.*,d.* FROM lecturers l
         LEFT JOIN users u ON u.id=l.user_id
         LEFT JOIN lecturer_subjecs ls ON l.id = ls.lecturer_id
@@ -87,7 +89,12 @@ class LecturerController extends Controller
         left join lecturers l on ls.lecturer_id  =  l.id
         left JOIN users u on l.user_id =u.id
         WHERE u.id=' . $id);
-        return view('lecturers.master.lecturerProfile', ['lecturer' => $lecturer[0], 'subjects' => $subjects, 'classes' => $classes]);
+        return view('lecturers.master.lecturerProfile', [
+            'lecturer' => $lecturer[0], 
+            'subjects' => $subjects, 
+            'classes' => $classes,
+            'depts' => $depts
+        ]);
     }
 
     public function getAjaxLecturersInformation()
@@ -199,6 +206,17 @@ class LecturerController extends Controller
             } else {
                 return response()->json(['status' => 1, 'msg' => 'Password Updated successfull']);
             }
+        }
+    }
+    public function addLecturerSubject(Request $request){
+        $lecturer = Lecturer::where('user_id', $request->lecturer_id)->get();
+        
+        $request['lecturer_id'] = $lecturer[0]->id;
+        $lecturer_subject = LecturerSubject::create($request->all());
+        if (!$lecturer_subject) {
+            return response()->json(['status' => 0, 'message' => 'Something went wrong']);
+        } else {
+            return response()->json(['status' => 1, 'message' => 'Subject Added successfull']);
         }
     }
 }

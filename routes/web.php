@@ -95,7 +95,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('subject/import', [SubjectController::class, 'import']);
         Route::get('subject/export', [SubjectController::class, 'export']);
         Route::get('subject', [SubjectController::class, 'index']);
-        Route::post('subject/create', [SubjectController::class, 'addSubject'])->name('add_subject');
+        Route::post('subject/create', [SubjectController::class, 'addSubject']);
         Route::get('ajax/subject', [SubjectController::class, 'getAjaxsubjectsInformation']);
         Route::get('ajax/subject/{id}', [SubjectController::class, 'getAjaxSubjectInformation']);
         Route::delete('subject/delete/{id}', [SubjectController::class, 'deleteAjaxsubjectInformation']);
@@ -138,6 +138,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('profile/{id}', [LecturerController::class, 'showLecturerProfile']);
         Route::post('profile/update/{id}', [LecturerController::class, 'updateUserProfile']);
         Route::get('lecturer', [LecturerController::class, 'create']);
+        Route::post('lecturer/add_lecturer_subject', [LecturerController::class, 'addLecturerSubject']);
         Route::post('lecturer/create', [LecturerController::class, 'addLecturer']);
         Route::get('ajax/lecturer', [LecturerController::class, 'getAjaxLecturersInformation']);
         Route::get('ajax/lecturer/{id}', [LecturerController::class, 'getAjaxLecturerInformation']);

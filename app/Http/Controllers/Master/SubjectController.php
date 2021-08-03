@@ -16,7 +16,8 @@ use App\Exports\SubjectsExport;
 class SubjectController extends Controller
 {
     public function index(){
-        $subject = Subject::all();
+        $subject = DB::select('SELECT subjects.*, departments.dept_name FROM subjects 
+        left JOIN departments ON departments.id = subjects.dept_id');
         $depts = Department::all();
         $academic_level = AcademicLevel::all();
         return view('lecturers.master.subject', [

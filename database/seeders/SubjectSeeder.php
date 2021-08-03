@@ -308,71 +308,88 @@ class SubjectSeeder extends Seeder
         DB::table('lecturer_subjecs')->insert([
             [
                 "lecturer_id" => 1,
-                "subject_id" => 1
+                "subject_id" => 1,
+                "session"=>0
             ],
             [
                 "lecturer_id" => 2,
-                "subject_id" => 2
+                "subject_id" => 2,
+                "session"=>0
             ],
             [
                 "lecturer_id" => 3,
-                "subject_id" => 3
+                "subject_id" => 3,
+                "session"=>0
             ],
             [
                 "lecturer_id" => 4,
-                "subject_id" => 4
+                "subject_id" => 4,
+                "session"=>0
             ],
             [
                 "lecturer_id" => 5,
-                "subject_id" => 5
+                "subject_id" => 5,
+                "session"=>0
             ],
             [
                 "lecturer_id" => 6,
-                "subject_id" => 6
+                "subject_id" => 6,
+                "session"=>0
             ],
             [
                 "lecturer_id" => 7,
-                "subject_id" => 7
+                "subject_id" => 7,
+                "session"=>0
             ],
             [
                 "lecturer_id" => 8,
-                "subject_id" => 8
+                "subject_id" => 8,
+                "session"=>0
             ],
             [
                 "lecturer_id" => 1,
-                "subject_id" => 9
+                "subject_id" => 9,
+                "session"=>0
             ],
             [
                 "lecturer_id" => 2,
-                "subject_id" => 10
+                "subject_id" => 10,
+                "session"=>0
             ],
             [
                 "lecturer_id" => 3,
-                "subject_id" => 11
+                "subject_id" => 11,
+                "session"=>0
             ],
             [
                 "lecturer_id" => 4,
-                "subject_id" => 12
+                "subject_id" => 12,
+                "session"=>0
             ],
             [
                 "lecturer_id" => 5,
-                "subject_id" => 13
+                "subject_id" => 13,
+                "session"=>0
             ],
             [
                 "lecturer_id" => 6,
-                "subject_id" => 14
+                "subject_id" => 14,
+                "session"=>0
             ],
             [
                 "lecturer_id" => 7,
-                "subject_id" => 15
+                "subject_id" => 15,
+                "session"=>0
             ],
             [
                 "lecturer_id" => 8,
-                "subject_id" => 16
+                "subject_id" => 16,
+                "session"=>0
             ],
             [
                 "lecturer_id" => 1,
-                "subject_id" => 17
+                "subject_id" => 17,
+                "session"=>0
             ]
           
           

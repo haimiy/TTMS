@@ -18,6 +18,8 @@ class SubjectsImport implements ToModel
             'subject_name' => $row[1],
             'subject_code' => $row[2],
             'credit_no' => $row[3],
+            'dept_id' => $row[4],
+            'academic_level_id' => $row[5],
         ]);
     }
 }

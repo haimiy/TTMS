@@ -20,7 +20,7 @@
                             <span>Dashboard</span>
                         </a>
                     </li>
-                    <li class="nav-parent">
+                    <!-- <li class="nav-parent">
                         <a>
                             <i class="fa fa-file" aria-hidden="true"></i>
                             <span>Manage Administrative</span>
@@ -49,7 +49,7 @@
                                 </a>
                             </li>
                         </ul>
-                    </li>
+                    </li> -->
                     <li>
                         <a href="/master/class">
                             <i class="fa fa-university" aria-hidden="true"></i>

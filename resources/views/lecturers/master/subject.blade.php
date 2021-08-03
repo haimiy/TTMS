@@ -42,6 +42,7 @@
                     <th>Subject Name</th>
                     <th>Subject Code</th>
                     <th>Credit No</th>
+                    <th>Department Name</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -54,6 +55,7 @@
                     <td>{{ $subject->subject_name }}</td>
                     <td>{{ $subject->subject_code }}</td>
                     <td>{{ $subject->credit_no }}</td>
+                    <td>{{ $subject->dept_name }}</td>
                     <td class="actions">
                         {{-- <a href=""><i class="fa fa-eye"></i></a> --}}
                         <a href="#edit-modal" onclick="initEditModel({{ $subject->id}})"  class="modal-basic"><i class="fa fa-pencil text-primary"></i></a>
