@@ -81,7 +81,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="/master/slot">                                       
+                        <a href="/master/slot">
                             <i class="fa fa-clock-o" aria-hidden="true"></i>
                             <span>Manage Timeslots</span>
                         </a>
@@ -111,18 +111,12 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="/master/notify">                                       
+                        <a href="/master/notify">
                             <i class="fa fa-bell" aria-hidden="true"></i>
                             <span>Manage Notification</span>
                         </a>
-                    </li>  
-                    <li>
-                        <a href="/master/report">                                       
-                            <i class="fa fa-file-text" aria-hidden="true"></i>
-                            <span>Report</span>
-                        </a>
-                    </li> 
-                    
+                    </li>
+
                 </ul>
             </nav>
         </div>
