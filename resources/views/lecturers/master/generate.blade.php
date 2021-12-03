@@ -22,20 +22,64 @@
 
         <!-- start: page -->
         <div class="col text-center">
-            <a class="btn btn-primary" href="/timetable" style=" background-color: #34495e !important;" onclick="setTableLoading()">Generate Timetable</a>
+            <a class="btn btn-primary" href="/timetable" style=" background-color: #34495e !important;" onclick="setTableLoading()"> <i class="fa fa-table"></i> Generate Timetable</a>
+
+            @if(count($classes)>0)
+                <a class="btn btn-primary" href="/timetable/download" style=" background-color: #34495e !important; margin-left: 30px;" onclick="setTableLoading()"><i class="fa fa-download"></i> Download Timetable</a>
+            @endif
             <div id="setTableLoading" style="display: none;"></div>
 
-                    <table class="table table-bordered table-striped mb-none">
+            @foreach($classes as $class)
+                <table class="table table-bordered mb-none" >
+                    <thead>
+                    <tr style="background-color :#34495e; color:white;">
+                        <th rowspan="2" style="width: 150px;">
 
-                        <thead>
-                            
-                        </thead>
-                        <br>
-                        <br>
-                        <tbody id="table-body">
-                            
-                        </tbody>
-                    </table>
+                        </th>
+                        <th class="text-center" colspan="5">
+                            <center>{{ $class["class_name"] }}</center>
+                        </th>
+                    </tr>
+                    <tr style="background-color :#34495e; color:white;">
+                        @foreach($weekDays as $weekDay)
+                            <th><center>{{ $weekDay["day_name"] }}</center></th>
+                        @endforeach
+                    </tr>
+
+                    </thead>
+                    <tbody>
+                    @foreach($timeslots as $timeslot)
+                        <tr>
+                            <td>
+                                {{ $timeslot->start_time." - ".$timeslot->end_time }}
+                            </td>
+                            @foreach($weekDays as $weekDay)
+                                <?php $isNotEmpty = 0?>
+
+                                @foreach ($class["classTimetable"] as $timetable)
+                                    @if($timetable->day_id==$weekDay->id && $timetable->slot_id == $timeslot->id)
+                                        @if($timetable->subject_start)
+
+                                            <td style="vertical-align: middle;" class="center" rowspan="{{ $timetable->subject_total }}">
+                                                <center>
+                                                    {{ $timetable->class_name }}<br>{{ $timetable->subject_name }} <br> {{ $timetable->lecturer_name }} <br> {{ $timetable->room_name }}
+                                                </center>
+                                            </td>
+                                        @endif
+                                        <?php $isNotEmpty = 1?>
+                                    @endif
+                                @endforeach
+                                @if($isNotEmpty == 0)
+                                    <center><td style="vertical-align: middle;" class="center">---</td></center>
+                                @endif
+
+                            @endforeach
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+                <div class="page-break"></div>
+            @endforeach
         </div>
          <!-- end: page -->
 

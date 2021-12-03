@@ -71,7 +71,7 @@
                             @endif
                         @endforeach
                         @if($isNotEmpty == 0)
-                            <td style="vertical-align: middle;" class="center">---</td>
+                                <td style="vertical-align: middle; horiz-align: center;" class="center">---</td>
                         @endif
 
                     @endforeach
